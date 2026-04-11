@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExcelOS — Data Intelligence Platform</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Syne',sans-serif;background:#000;color:#fff;overflow-x:hidden}
+
+/* ── LOGIN ── */
+#loginScreen{
+  min-height:100vh;background:#000;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;position:relative;overflow:hidden;
+}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 3s infinite alternate;}
+@keyframes twinkle{0%{opacity:.15;transform:scale(1)}100%{opacity:.7;transform:scale(1.4)}}
+
+.login-inner{display:flex;flex-direction:column;align-items:center;z-index:2;text-align:center}
+.brand-tag{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:18px}
+.login-title{font-size:clamp(48px,8vw,80px);font-weight:800;line-height:1.05;margin-bottom:10px;letter-spacing:-2px}
+.login-title span{color:rgba(255,255,255,.22)}
+.login-sub{font-size:clamp(14px,2vw,17px);color:rgba(255,255,255,.4);font-weight:400;margin-bottom:52px;letter-spacing:.3px}
+
+.door-scene{width:130px;height:175px;perspective:450px;margin-bottom:44px;position:relative}
+.door-frame{width:130px;height:175px;border:3px solid rgba(255,255,255,.15);border-radius:13px 13px 4px 4px;position:absolute;background:transparent;z-index:1}
+.door-frame::after{content:'';position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:22px;height:9px;background:#fff;border-radius:0 0 7px 7px;opacity:.18}
+.door-panel{
+  width:123px;height:168px;background:linear-gradient(160deg,#1c1c1c,#0d0d0d);
+  border-radius:11px 11px 3px 3px;position:absolute;top:4px;left:4px;
+  transform-origin:left center;transform-style:preserve-3d;
+  transition:transform 1.15s cubic-bezier(.4,0,.2,1);
+  border:1px solid rgba(255,255,255,.07);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+}
+.door-panel.open{transform:rotateY(-80deg)}
+.door-xl{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:500;color:rgba(255,255,255,.28);letter-spacing:2px}
+.dp-lines{display:flex;flex-direction:column;gap:6px;width:64px}
+.dp-line{height:3px;border-radius:2px;background:rgba(255,255,255,.1)}
+.dp-line:nth-child(2){width:70%}
+.door-knob{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.32);position:absolute;right:15px;top:50%;transform:translateY(-50%)}
+.particle{position:absolute;border-radius:50%;background:#fff;opacity:0;pointer-events:none}
+.particle.burst{animation:pBurst .9s ease-out forwards}
+@keyframes pBurst{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(calc(-50% + var(--px)),calc(-50% + var(--py))) scale(0)}}
+
+.login-btn{
+  padding:17px 56px;font-size:18px;font-weight:700;font-family:'Syne',sans-serif;
+  letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+  background:#fff;color:#000;border:none;border-radius:50px;
+  transition:all .2s;position:relative;
+}
+.login-btn:hover{transform:scale(1.05);box-shadow:0 0 36px rgba(255,255,255,.22)}
+.login-btn:active{transform:scale(.97)}
+
+#wipe{
+  position:fixed;inset:0;background:#000;z-index:9999;
+  clip-path:circle(0% at 50% 50%);
+  transition:clip-path .85s cubic-bezier(.7,0,.3,1);
+  pointer-events:none;
+}
+#wipe.expand{clip-path:circle(150% at 50% 50%)}
+
+/* ── MAIN APP ── */
+#mainApp{display:none;min-height:100vh;background:#0a0e1a}
+
+.topnav{
+  background:#0a0e1a;border-bottom:1px solid #1e2d45;
+  padding:0 1.5rem;display:flex;align-items:center;gap:1rem;height:56px;
+  position:sticky;top:0;z-index:100;
+}
+.logo{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:800;letter-spacing:.5px;text-decoration:none;color:#fff}
+.logo-dot{width:9px;height:9px;border-radius:50%;background:#00c8ff;flex-shrink:0}
+.logo span{color:#00c8ff}
+.nav-pills{display:flex;gap:4px;margin-left:auto}
+.npill{
+  padding:7px 20px;font-size:11px;font-weight:700;letter-spacing:.8px;
+  border:none;background:transparent;color:#7a90b0;cursor:pointer;
+  border-radius:7px;font-family:'Syne',sans-serif;text-transform:uppercase;transition:all .15s;
+}
+.npill.active{background:rgba(0,200,255,.12);color:#00c8ff;border:1px solid rgba(0,200,255,.25)}
+.npill:hover:not(.active){color:#e8f0fe;background:rgba(255,255,255,.04)}
+
+.content{padding:1.75rem;max-width:1100px;margin:0 auto}
+
+.toast{
+  position:fixed;bottom:1.5rem;right:1.5rem;
+  background:rgba(0,200,255,.14);border:1px solid rgba(0,200,255,.32);
+  color:#00c8ff;padding:10px 20px;border-radius:9px;
+  font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;
+  pointer-events:none;z-index:999;font-family:'Syne',sans-serif;
+}
+.toast.show{opacity:1}
+
+/* Upload */
+.upload-zone{
+  border:1.5px dashed #2a3f5f;border-radius:16px;padding:2.5rem 1rem;
+  text-align:center;cursor:pointer;background:#0f1525;transition:all .2s;
+  position:relative;overflow:hidden;margin-bottom:1.25rem;
+}
+.upload-zone:hover{border-color:#00c8ff;background:rgba(0,200,255,.04)}
+.uz-corner{position:absolute;width:13px;height:13px;border-color:#00c8ff;border-style:solid;opacity:.5}
+.uz-corner.tl{top:8px;left:8px;border-width:1.5px 0 0 1.5px}
+.uz-corner.tr{top:8px;right:8px;border-width:1.5px 1.5px 0 0}
+.uz-corner.bl{bottom:8px;left:8px;border-width:0 0 1.5px 1.5px}
+.uz-corner.br{bottom:8px;right:8px;border-width:0 1.5px 1.5px 0}
+.uz-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:rgba(0,200,255,.1);border:1px solid rgba(0,200,255,.22);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 14px;font-size:22px;color:#00c8ff;font-weight:800;
+}
+.upload-zone h3{font-size:16px;font-weight:700;color:#e8f0fe;margin-bottom:5px}
+.upload-zone p{font-size:12px;color:#7a90b0}
+
+/* inputs & buttons */
+.name-row{display:flex;gap:9px;margin-bottom:1.5rem;flex-wrap:wrap}
+.di{
+  flex:1;min-width:200px;padding:11px 15px;border-radius:9px;
+  border:1px solid #2a3f5f;background:#0f1525;color:#e8f0fe;
+  font-size:14px;font-family:'Syne',sans-serif;outline:none;transition:border-color .2s;
+}
+.di:focus{border-color:#00c8ff}
+.di::placeholder{color:#3d5273}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;padding:10px 20px;
+  border-radius:9px;border:1px solid #1e2d45;background:#141c2e;
+  color:#7a90b0;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:'Syne',sans-serif;letter-spacing:.5px;transition:all .15s;text-transform:uppercase;
+  white-space:nowrap;
+}
+.btn:hover{color:#e8f0fe;background:#1a2235;border-color:#2a3f5f}
+.btn.accent{background:rgba(0,200,255,.12);border-color:rgba(0,200,255,.35);color:#00c8ff}
+.btn.accent:hover{background:rgba(0,200,255,.2)}
+.btn.danger{background:rgba(255,77,106,.1);border-color:rgba(255,77,106,.3);color:#ff4d6a}
+.btn.danger:hover{background:rgba(255,77,106,.18)}
+.btn.green{background:rgba(0,255,157,.1);border-color:rgba(0,255,157,.3);color:#00ff9d}
+
+/* section label */
+.sec-label{font-size:10px;font-weight:700;letter-spacing:1.8px;color:#3d5273;text-transform:uppercase;margin-bottom:12px}
+
+/* file cards */
+.file-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:14px}
+.fc{
+  background:#141c2e;border:1px solid #1e2d45;border-radius:14px;
+  padding:1.2rem;transition:all .2s;position:relative;overflow:hidden;
+}
+.fc::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2.5px;
+  background:linear-gradient(90deg,#7b5ea7,#00c8ff);opacity:0;transition:opacity .2s;
+}
+.fc:hover::before,.fc.active-card::before{opacity:1}
+.fc:hover{border-color:#2a3f5f;background:#1a2235}
+.fc.active-card{border-color:rgba(0,200,255,.3)}
+.fc-icon{
+  width:38px;height:38px;border-radius:9px;
+  background:rgba(0,200,255,.1);border:1px solid rgba(0,200,255,.18);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:#00c8ff;font-weight:800;margin-bottom:10px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:1px;
+}
+.fc-badge{
+  display:inline-block;font-size:9px;letter-spacing:1.2px;text-transform:uppercase;
+  color:#00ff9d;border:1px solid rgba(0,255,157,.3);border-radius:5px;
+  padding:2px 7px;background:rgba(0,255,157,.08);margin-bottom:8px;
+}
+.fc-name{font-size:14px;font-weight:700;color:#e8f0fe;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fc-date{font-size:11px;color:#3d5273;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
+.fc-pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.pill{font-size:10px;padding:3px 9px;border-radius:5px;background:rgba(123,94,167,.15);border:1px solid rgba(123,94,167,.25);color:#b89de0}
+.fc-actions{display:flex;gap:6px}
+.fc-actions .btn{flex:1;justify-content:center;padding:7px 8px;font-size:10px}
+
+/* confirm */
+.confirm-wrap{margin-bottom:1.5rem;background:#0f1525;border:1px solid rgba(255,77,106,.3);border-radius:14px;padding:1.75rem;text-align:center}
+.confirm-wrap h3{font-size:16px;font-weight:700;margin-bottom:7px;color:#ff4d6a}
+.confirm-wrap p{font-size:13px;color:#7a90b0;margin-bottom:1.25rem}
+.confirm-wrap .crow{display:flex;gap:9px;justify-content:center}
+
+/* empty */
+.empty-msg{text-align:center;padding:2.5rem;color:#3d5273;font-size:13px;background:#0f1525;border:1px solid #1e2d45;border-radius:12px}
+
+/* analyzer */
+.az-header{display:flex;align-items:center;gap:14px;margin-bottom:1.25rem;flex-wrap:wrap}
+.az-title{font-size:22px;font-weight:800}
+.az-meta{font-size:11px;color:#3d5273;font-family:'JetBrains Mono',monospace;margin-top:2px}
+
+/* tabs */
+.tabs{display:flex;gap:2px;margin-bottom:1.5rem;background:#0f1525;border:1px solid #1e2d45;border-radius:11px;padding:4px}
+.tab{padding:8px 20px;font-size:11px;font-weight:700;letter-spacing:.8px;border:none;background:transparent;color:#7a90b0;cursor:pointer;border-radius:8px;font-family:'Syne',sans-serif;text-transform:uppercase;transition:all .15s}
+.tab.active{background:rgba(0,200,255,.12);color:#00c8ff;border:1px solid rgba(0,200,255,.22)}
+.stabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1rem}
+.stab{padding:5px 13px;font-size:11px;border-radius:6px;border:1px solid #1e2d45;cursor:pointer;background:#0f1525;color:#7a90b0;font-family:'Syne',sans-serif;font-weight:600;transition:all .15s}
+.stab.active{background:rgba(0,200,255,.12);color:#00c8ff;border-color:rgba(0,200,255,.3)}
+
+/* toolbar */
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
+.toolbar .di{max-width:220px;min-width:140px;flex:initial}
+
+/* table */
+.table-wrap{overflow:auto;border:1px solid #1e2d45;border-radius:11px;max-height:380px}
+table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
+th{position:sticky;top:0;background:#0c1220;color:#7a90b0;padding:10px 14px;text-align:left;font-weight:600;border-bottom:1px solid #1e2d45;white-space:nowrap;font-family:'Syne',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.7px}
+td{padding:8px 14px;border-bottom:1px solid rgba(30,45,69,.5);color:#e8f0fe;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(0,200,255,.03)}
+.rn{background:#0c1220;color:#3d5273;font-size:10px;text-align:center;min-width:32px;border-right:1px solid #1e2d45}
+td.nc{text-align:right;color:#7dd3fc}
+
+/* panels */
+.panel{display:none}.panel.active{display:block}
+
+/* formulas */
+.fi-list{display:flex;flex-direction:column;gap:9px}
+.fi{background:#0f1525;border:1px solid #1e2d45;border-radius:9px;padding:11px 15px}
+.fi .cr{font-size:10px;color:#3d5273;font-family:'JetBrains Mono',monospace;margin-bottom:3px;text-transform:uppercase;letter-spacing:.7px}
+.fi .ft{font-family:'JetBrains Mono',monospace;font-size:13px;color:#a78bfa}
+.fi .fr{font-size:11px;color:#7a90b0;margin-top:4px}
+
+/* stats */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;margin-bottom:1.25rem}
+.sc{background:#0f1525;border:1px solid #1e2d45;border-radius:11px;padding:1.1rem}
+.sc .sl{font-size:10px;color:#3d5273;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px;font-family:'Syne',sans-serif;font-weight:700}
+.sc .sv{font-size:26px;font-weight:700;color:#00c8ff;font-family:'JetBrains Mono',monospace}
+
+/* chart */
+.chart-controls{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
+.chart-controls select{padding:9px 13px;border-radius:9px;border:1px solid #2a3f5f;background:#0f1525;color:#e8f0fe;font-size:12px;font-family:'Syne',sans-serif;outline:none;cursor:pointer}
+.chart-wrap{border:1px solid #1e2d45;border-radius:11px;padding:1.1rem;background:#0f1525;height:340px;position:relative}
+
+#adminView,#analyzerView{display:none}
+#adminView.show,#analyzerView.show{display:block}
+
+/* scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:#0a0e1a}
+::-webkit-scrollbar-thumb{background:#2a3f5f;border-radius:3px}
+</style>
+</head>
+<body>
+
+<div id="wipe"></div>
+
+<!-- ═══════════════ LOGIN ═══════════════ -->
+<div id="loginScreen">
+  <div id="starsContainer"></div>
+
+  <div class="login-inner">
+    <div class="brand-tag">Data Intelligence Platform</div>
+    <div class="login-title">Excel<span>OS</span></div>
+    <div class="login-sub">Your files. Your data. Your control.</div>
+
+    <div class="door-scene" id="doorScene">
+      <div class="door-frame"></div>
+      <div class="door-panel" id="doorPanel">
+        <div class="door-xl">XL</div>
+        <div class="dp-lines">
+          <div class="dp-line"></div>
+          <div class="dp-line"></div>
+          <div class="dp-line"></div>
+        </div>
+        <div class="door-knob"></div>
+      </div>
+    </div>
+
+    <button class="login-btn" onclick="doLogin()">Enter</button>
+  </div>
+</div>
+
+<!-- ═══════════════ MAIN APP ═══════════════ -->
+<div id="mainApp">
+  <nav class="topnav">
+    <div class="logo"><div class="logo-dot"></div><span>Excel</span>OS</div>
+    <div style="font-size:11px;color:#3d5273;font-family:'JetBrains Mono',monospace;margin-left:6px">v2.0</div>
+    <div class="nav-pills">
+      <button class="npill active" id="btnAdmin" onclick="showAdmin()">Admin</button>
+      <button class="npill" id="btnAnalyzer" onclick="showAnalyzer()">Analyzer</button>
+    </div>
+  </nav>
+
+  <div class="content">
+    <div class="toast" id="toast"></div>
+
+    <!-- ADMIN -->
+    <div id="adminView" class="show">
+      <div class="upload-zone" id="dropZone" onclick="document.getElementById('fi').click()">
+        <div class="uz-corner tl"></div><div class="uz-corner tr"></div>
+        <div class="uz-corner bl"></div><div class="uz-corner br"></div>
+        <div class="uz-icon">+</div>
+        <h3>Upload Excel File</h3>
+        <p>Click or drag your .xlsx / .xls / .csv file here</p>
+        <input type="file" id="fi" accept=".xlsx,.xls,.csv" style="display:none">
+      </div>
+
+      <div class="name-row">
+        <input class="di" type="text" id="customName" placeholder="File name kudungo — eg: Sales 2024, Budget Q1 ...">
+        <button class="btn accent" onclick="confirmUpload()">&#10003;&nbsp;Save File</button>
+      </div>
+
+      <div id="confirmDelete" style="display:none">
+        <div class="confirm-wrap">
+          <h3>&#9888; Delete Confirm</h3>
+          <p id="deleteMsg"></p>
+          <div class="crow">
+            <button class="btn danger" onclick="doDelete()">Yes, Delete</button>
+            <button class="btn" onclick="cancelDelete()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-label" id="filesLabel" style="display:none">Stored Files</div>
+      <div id="fileGrid" class="file-grid"></div>
+    </div>
+
+    <!-- ANALYZER -->
+    <div id="analyzerView">
+      <div id="noFile" class="empty-msg">Admin panel-la file select pannu to analyze</div>
+      <div id="analyzerContent" style="display:none">
+        <div class="az-header">
+          <div style="flex:1">
+            <div class="az-title" id="analyzerTitle">—</div>
+            <div class="az-meta" id="analyzerMeta"></div>
+          </div>
+          <button class="btn" onclick="showAdmin()">&#8592; Admin</button>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('data')">Data Table</button>
+          <button class="tab" onclick="switchTab('formulas')">Formulas</button>
+          <button class="tab" onclick="switchTab('graph')">Graph</button>
+          <button class="tab" onclick="switchTab('summary')">Summary</button>
+        </div>
+
+        <div id="panel-data" class="panel active">
+          <div class="stabs" id="sheetTabs"></div>
+          <div class="toolbar">
+            <input class="di" type="text" id="searchBox" placeholder="Search data..." oninput="filterTable()">
+            <button class="btn" onclick="addRow()">+ Row</button>
+            <button class="btn" onclick="toggleFml()">Toggle Formulas</button>
+            <button class="btn green" onclick="exportCSV()">&#8595; Export CSV</button>
+          </div>
+          <div class="table-wrap" id="tableWrap"></div>
+        </div>
+
+        <div id="panel-formulas" class="panel">
+          <div class="fi-list" id="formulaList"></div>
+        </div>
+
+        <div id="panel-graph" class="panel">
+          <div class="chart-controls">
+            <select id="chartType" onchange="renderChart()">
+              <option value="bar">Bar Chart</option>
+              <option value="line">Line Chart</option>
+              <option value="pie">Pie Chart</option>
+              <option value="doughnut">Doughnut</option>
+              <option value="radar">Radar</option>
+              <option value="polarArea">Polar Area</option>
+            </select>
+            <select id="xCol" onchange="renderChart()"></select>
+            <select id="yCol" onchange="renderChart()"></select>
+            <button class="btn accent" onclick="renderChart()">Refresh</button>
+          </div>
+          <div class="chart-wrap"><canvas id="myChart"></canvas></div>
+        </div>
+
+        <div id="panel-summary" class="panel">
+          <div class="stats-grid" id="statsGrid"></div>
+          <div id="colStats"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── STARS ── */
+const sc=document.getElementById('starsContainer');
+for(let i=0;i<70;i++){
+  const s=document.createElement('div');s.className='star';
+  const sz=Math.random()*2.2+.8;
+  Object.assign(s.style,{width:sz+'px',height:sz+'px',left:Math.random()*100+'%',top:Math.random()*100+'%',animationDelay:Math.random()*3+'s',animationDuration:(2+Math.random()*3)+'s',position:'absolute'});
+  sc.appendChild(s);
+}
+
+/* ── DRAG & DROP ── */
+const dz=document.getElementById('dropZone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.style.borderColor='#00c8ff';});
+dz.addEventListener('dragleave',()=>{dz.style.borderColor='';});
+dz.addEventListener('drop',e=>{
+  e.preventDefault();dz.style.borderColor='';
+  const f=e.dataTransfer.files[0];if(f)readFile(f);
+});
+document.getElementById('fi').addEventListener('change',e=>{if(e.target.files[0])readFile(e.target.files[0]);e.target.value='';});
+
+/* ── LOGIN ANIMATION ── */
+function doLogin(){
+  const door=document.getElementById('doorPanel');
+  door.classList.add('open');
+  const scene=document.getElementById('doorScene');
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');p.className='particle';
+    const ang=Math.random()*360,dist=45+Math.random()*70,sz=3+Math.random()*5;
+    Object.assign(p.style,{
+      width:sz+'px',height:sz+'px',left:'50%',top:'50%',
+      '--px':(Math.cos(ang*Math.PI/180)*dist)+'px',
+      '--py':(Math.sin(ang*Math.PI/180)*dist)+'px',
+      animationDelay:Math.random()*.18+'s',position:'absolute'
+    });
+    scene.appendChild(p);
+    setTimeout(()=>p.classList.add('burst'),60);
+    setTimeout(()=>p.remove(),1200);
+  }
+  setTimeout(()=>{
+    const w=document.getElementById('wipe');
+    w.classList.add('expand');
+    setTimeout(()=>{
+      document.getElementById('loginScreen').style.display='none';
+      document.getElementById('mainApp').style.display='block';
+      w.style.display='none';
+      loadStore();
+    },870);
+  },950);
+}
+
+/* ── STORAGE (localStorage fallback) ── */
+let fileStore={},pendingWB=null,activeKey=null,currentSheet=null,rawData=[],headers=[],chartInst=null,showFml=false,deleteTarget=null;
+
+function loadStore(){
+  try{const d=localStorage.getItem('excelos-files');if(d)fileStore=JSON.parse(d);}catch(e){fileStore={};}
+  renderFileGrid();
+}
+function saveStore(){
+  try{
+    const slim={};
+    Object.keys(fileStore).forEach(k=>{
+      slim[k]={name:fileStore[k].name,uploadedAt:fileStore[k].uploadedAt,sheetCount:fileStore[k].sheetCount,rowCount:fileStore[k].rowCount,sheets:fileStore[k].sheets};
+    });
+    localStorage.setItem('excelos-files',JSON.stringify(slim));
+  }catch(e){}
+}
+
+/* ── FILE READ ── */
+function readFile(file){
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    pendingWB=XLSX.read(new Uint8Array(ev.target.result),{type:'array',cellFormula:true});
+    if(!document.getElementById('customName').value)
+      document.getElementById('customName').value=file.name.replace(/\.[^.]+$/,'');
+    showToast('File ready — name kuduthu Save pannu');
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function confirmUpload(){
+  if(!pendingWB){showToast('Muthal file select pannu');return;}
+  const name=document.getElementById('customName').value.trim();
+  if(!name){showToast('Name kodukanum!');return;}
+  const key='xf_'+Date.now();
+  const sheets={};
+  pendingWB.SheetNames.forEach(sn=>{
+    const ws=pendingWB.Sheets[sn];
+    const json=XLSX.utils.sheet_to_json(ws,{header:1,raw:false,defval:''});
+    const formulas=[];
+    Object.keys(ws).filter(k=>k[0]!=='!').forEach(addr=>{
+      const c=ws[addr];if(c&&c.f)formulas.push({addr,formula:c.f,value:c.v!==undefined?c.v:''});
+    });
+    sheets[sn]={data:json,formulas};
+  });
+  const rows=sheets[pendingWB.SheetNames[0]].data.length-1;
+  fileStore[key]={name,uploadedAt:new Date().toLocaleString(),sheetCount:pendingWB.SheetNames.length,rowCount:Math.max(0,rows),sheets};
+  saveStore();pendingWB=null;document.getElementById('customName').value='';
+  renderFileGrid();showToast('"'+name+'" saved successfully!');
+}
+
+function renderFileGrid(){
+  const grid=document.getElementById('fileGrid');
+  const keys=Object.keys(fileStore);
+  document.getElementById('filesLabel').style.display=keys.length?'block':'none';
+  if(!keys.length){grid.innerHTML='<div class="empty-msg">No files yet — upload pannu</div>';return;}
+  grid.innerHTML=keys.map(k=>{
+    const f=fileStore[k],isA=k===activeKey;
+    return`<div class="fc${isA?' active-card':''}">
+      <div class="fc-icon">XL</div>
+      ${isA?'<div class="fc-badge">&#11044; Active</div>':''}
+      <div class="fc-name" title="${f.name}">${f.name}</div>
+      <div class="fc-date">${f.uploadedAt}</div>
+      <div class="fc-pills">
+        <span class="pill">${f.sheetCount} sheet${f.sheetCount>1?'s':''}</span>
+        <span class="pill">${f.rowCount} rows</span>
+      </div>
+      <div class="fc-actions">
+        <button class="btn accent" onclick="openFile('${k}')">Open</button>
+        <button class="btn" onclick="renameFile('${k}')">Rename</button>
+        <button class="btn danger" onclick="askDelete('${k}','${f.name.replace(/'/g,"\\'")}')">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openFile(key){
+  activeKey=key;const f=fileStore[key];
+  document.getElementById('analyzerTitle').textContent=f.name;
+  document.getElementById('analyzerMeta').textContent=f.uploadedAt+' · '+f.sheetCount+' sheet(s) · '+f.rowCount+' rows';
+  const sNames=Object.keys(f.sheets);
+  document.getElementById('sheetTabs').innerHTML=sNames.map((n,i)=>`<button class="stab${i===0?' active':''}" onclick="loadSheetData('${n}',this)">${n}</button>`).join('');
+  loadSheetData(sNames[0]);
+  document.getElementById('noFile').style.display='none';
+  document.getElementById('analyzerContent').style.display='block';
+  showAnalyzer();renderFileGrid();
+}
+
+function renameFile(key){
+  const n=prompt('New name:',fileStore[key].name);
+  if(n&&n.trim()){
+    fileStore[key].name=n.trim();saveStore();renderFileGrid();
+    if(activeKey===key)document.getElementById('analyzerTitle').textContent=n.trim();
+    showToast('Renamed!');
+  }
+}
+function askDelete(key,name){
+  deleteTarget=key;
+  document.getElementById('deleteMsg').textContent='"'+name+'" — delete pannanuma?';
+  document.getElementById('confirmDelete').style.display='block';
+}
+function cancelDelete(){deleteTarget=null;document.getElementById('confirmDelete').style.display='none';}
+function doDelete(){
+  if(!deleteTarget)return;
+  const name=fileStore[deleteTarget].name;
+  if(activeKey===deleteTarget){
+    activeKey=null;
+    document.getElementById('noFile').style.display='';
+    document.getElementById('analyzerContent').style.display='none';
+  }
+  delete fileStore[deleteTarget];deleteTarget=null;
+  document.getElementById('confirmDelete').style.display='none';
+  saveStore();renderFileGrid();showToast('"'+name+'" deleted');
+}
+
+/* ── ANALYZER ── */
+function loadSheetData(name,btn){
+  currentSheet=name;
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');else{const f=document.querySelector('.stab');if(f)f.classList.add('active');}
+  const sd=fileStore[activeKey].sheets[name];
+  if(!sd.data.length){document.getElementById('tableWrap').innerHTML='<div class="empty-msg">No data in this sheet</div>';return;}
+  headers=sd.data[0];rawData=sd.data.slice(1);showFml=false;
+  renderTable(rawData);renderFormulasPanel(sd.formulas);populateChartCols();renderStats();
+}
+
+function renderTable(data){
+  let html='<table><thead><tr><th class="rn">#</th>';
+  headers.forEach(h=>{html+=`<th>${h||'—'}</th>`;});
+  html+='</tr></thead><tbody>';
+  data.forEach((row,ri)=>{
+    html+=`<tr><td class="rn">${ri+1}</td>`;
+    headers.forEach((_,ci)=>{
+      const val=row[ci]!==undefined?String(row[ci]):'';
+      const isNum=!isNaN(parseFloat(val))&&val!=='';
+      html+=`<td class="${isNum?'nc':''}" contenteditable="true" data-r="${ri}" data-c="${ci}" onblur="cellEdit(this)">${val}</td>`;
+    });
+    html+='</tr>';
+  });
+  html+='</tbody></table>';
+  document.getElementById('tableWrap').innerHTML=html;
+}
+function cellEdit(td){rawData[+td.dataset.r][+td.dataset.c]=td.textContent;}
+function addRow(){rawData.push(headers.map(()=>''));renderTable(rawData);}
+function toggleFml(){showFml=!showFml;renderTable(rawData);showToast(showFml?'Formula view ON':'Formula view OFF');}
+function filterTable(){
+  const q=document.getElementById('searchBox').value.toLowerCase();
+  if(!q){renderTable(rawData);return;}
+  renderTable(rawData.filter(r=>r.some(c=>String(c).toLowerCase().includes(q))));
+}
+function exportCSV(){
+  const csv=[headers,...rawData].map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download=(fileStore[activeKey]?.name||'data')+'.csv';a.click();
+}
+function renderFormulasPanel(formulas){
+  const c=document.getElementById('formulaList');
+  if(!formulas||!formulas.length){c.innerHTML='<div class="empty-msg">No formulas found in this sheet</div>';return;}
+  c.innerHTML=formulas.map(f=>`<div class="fi"><div class="cr">Cell ${f.addr}</div><div class="ft">= ${f.formula}</div><div class="fr">Result: ${f.value}</div></div>`).join('');
+}
+function populateChartCols(){
+  const xS=document.getElementById('xCol'),yS=document.getElementById('yCol');
+  xS.innerHTML=headers.map((h,i)=>`<option value="${i}">${h}</option>`).join('');
+  const nc=headers.map((h,i)=>({h,i})).filter(({i})=>rawData.some(r=>!isNaN(parseFloat(r[i]))));
+  yS.innerHTML=nc.map(({h,i})=>`<option value="${i}">${h}</option>`).join('');
+  if(nc.length)yS.value=nc[0].i;
+  setTimeout(renderChart,100);
+}
+function renderChart(){
+  const type=document.getElementById('chartType').value;
+  const xI=parseInt(document.getElementById('xCol').value),yI=parseInt(document.getElementById('yCol').value);
+  if(isNaN(xI)||isNaN(yI))return;
+  const labels=rawData.map(r=>r[xI]||'').slice(0,60);
+  const values=rawData.map(r=>parseFloat(r[yI])||0).slice(0,60);
+  const isPoly=['pie','doughnut','polarArea','radar'].includes(type);
+  const colors=values.map((_,i)=>`hsl(${(i*53+180)%360},68%,58%)`);
+  const ctx=document.getElementById('myChart');
+  if(chartInst)chartInst.destroy();
+  Chart.defaults.color='#7a90b0';
+  Chart.defaults.borderColor='rgba(30,45,69,.8)';
+  chartInst=new Chart(ctx,{
+    type,
+    data:{labels,datasets:[{label:headers[yI]||'Value',data:values,backgroundColor:isPoly?colors:'rgba(0,200,255,.15)',borderColor:isPoly?colors:'rgba(0,200,255,.85)',borderWidth:1.5,tension:.4,pointBackgroundColor:'#00c8ff',pointRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:12,family:'Syne'}}}},scales:isPoly?{}:{x:{ticks:{font:{size:11}},grid:{color:'rgba(30,45,69,.6)'}},y:{ticks:{font:{size:11}},grid:{color:'rgba(30,45,69,.6)'}}}}
+  });
+}
+function renderStats(){
+  const nc=headers.map((h,i)=>{const v=rawData.map(r=>parseFloat(r[i])).filter(x=>!isNaN(x));return v.length?{name:h,vals:v}:null;}).filter(Boolean);
+  document.getElementById('statsGrid').innerHTML=[
+    {l:'Total Rows',v:rawData.length},{l:'Columns',v:headers.length},
+    {l:'Numeric',v:nc.length},{l:'Files',v:Object.keys(fileStore).length}
+  ].map(s=>`<div class="sc"><div class="sl">${s.l}</div><div class="sv">${s.v}</div></div>`).join('');
+  if(!nc.length){document.getElementById('colStats').innerHTML='';return;}
+  let html='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px;margin-top:12px">';
+  nc.forEach(({name,vals})=>{
+    const sum=vals.reduce((a,b)=>a+b,0),avg=sum/vals.length,mn=Math.min(...vals),mx=Math.max(...vals);
+    html+=`<div class="sc">
+      <div class="sl" style="color:#00c8ff;margin-bottom:9px;font-size:11px">${name}</div>
+      <table style="width:100%;font-size:11px;font-family:'JetBrains Mono',monospace">
+        <tr><td style="color:#3d5273;padding:3px 0">SUM</td><td style="text-align:right;color:#e8f0fe">${sum.toFixed(2)}</td></tr>
+        <tr><td style="color:#3d5273;padding:3px 0">AVG</td><td style="text-align:right;color:#e8f0fe">${avg.toFixed(2)}</td></tr>
+        <tr><td style="color:#3d5273;padding:3px 0">MIN</td><td style="text-align:right;color:#00ff9d">${mn.toFixed(2)}</td></tr>
+        <tr><td style="color:#3d5273;padding:3px 0">MAX</td><td style="text-align:right;color:#ffb340">${mx.toFixed(2)}</td></tr>
+        <tr><td style="color:#3d5273;padding:3px 0">COUNT</td><td style="text-align:right;color:#e8f0fe">${vals.length}</td></tr>
+      </table>
+    </div>`;
+  });
+  html+='</div>';document.getElementById('colStats').innerHTML=html;
+}
+
+function switchTab(name){
+  ['data','formulas','graph','summary'].forEach((n,i)=>{
+    document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
+    document.getElementById('panel-'+n).classList.toggle('active',n===name);
+  });
+  if(name==='graph')setTimeout(renderChart,60);
+}
+function showAdmin(){
+  document.getElementById('adminView').classList.add('show');
+  document.getElementById('analyzerView').classList.remove('show');
+  document.getElementById('btnAdmin').classList.add('active');
+  document.getElementById('btnAnalyzer').classList.remove('active');
+}
+function showAnalyzer(){
+  document.getElementById('analyzerView').classList.add('show');
+  document.getElementById('adminView').classList.remove('show');
+  document.getElementById('btnAnalyzer').classList.add('active');
+  document.getElementById('btnAdmin').classList.remove('active');
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2600);
+}
+</script>
+</body>
+</html>
