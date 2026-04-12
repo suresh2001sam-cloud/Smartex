@@ -94,10 +94,15 @@ html,body{height:100%;font-family:'Syne',sans-serif;background:#000;color:#fff;o
 .logo{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:800;letter-spacing:.5px;text-decoration:none;color:#fff}
 .logo-dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#00c8ff);flex-shrink:0;box-shadow:0 0 10px rgba(168,85,247,.6)}
 .logo span{background:linear-gradient(135deg,#a855f7,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-pills{display:flex;gap:4px;margin-left:auto}
+.nav-pills{display:flex;gap:4px;margin-left:auto;align-items:center}
 .npill{padding:7px 18px;font-size:11px;font-weight:700;letter-spacing:.8px;border:none;background:transparent;color:#7a90b0;cursor:pointer;border-radius:7px;font-family:'Syne',sans-serif;text-transform:uppercase;transition:all .15s;}
 .npill.active{background:rgba(168,85,247,.14);color:#a855f7;border:1px solid rgba(168,85,247,.3)}
 .npill:hover:not(.active){color:#e8f0fe;background:rgba(255,255,255,.04)}
+
+/* ── HOME BUTTON ── */
+.home-btn{padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:.8px;border:1px solid rgba(236,72,153,.28);background:rgba(236,72,153,.08);color:#ec4899;cursor:pointer;border-radius:7px;font-family:'Syne',sans-serif;text-transform:uppercase;transition:all .15s;display:flex;align-items:center;gap:5px;}
+.home-btn:hover{background:rgba(236,72,153,.18);border-color:rgba(236,72,153,.5);transform:scale(1.04)}
+.home-btn:active{transform:scale(.97)}
 
 .content{padding:1.75rem;max-width:1100px;margin:0 auto}
 
@@ -164,6 +169,36 @@ html,body{height:100%;font-family:'Syne',sans-serif;background:#000;color:#fff;o
 .confirm-wrap h3{font-size:16px;font-weight:700;margin-bottom:7px;color:#ec4899}
 .confirm-wrap p{font-size:13px;color:#7a90b0;margin-bottom:1.25rem}
 .confirm-wrap .crow{display:flex;gap:9px;justify-content:center}
+
+/* ── ADMIN PASSWORD MODAL ── */
+#adminPwModal{position:fixed;inset:0;z-index:5000;background:rgba(5,5,16,.88);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center}
+#adminPwModal.show{display:flex}
+.apm-box{background:linear-gradient(145deg,#0e0a1e,#0c1020);border:1px solid rgba(236,72,153,.35);border-radius:20px;padding:2.5rem 2rem;text-align:center;width:100%;max-width:360px;box-shadow:0 0 60px rgba(236,72,153,.15)}
+.apm-icon{font-size:40px;margin-bottom:14px}
+.apm-title{font-size:18px;font-weight:800;color:#ec4899;margin-bottom:6px}
+.apm-sub{font-size:12px;color:#7a90b0;margin-bottom:20px;line-height:1.5}
+.apm-input{width:100%;padding:12px 16px;border-radius:11px;border:1.5px solid rgba(236,72,153,.3);background:rgba(236,72,153,.07);color:#fff;font-size:15px;font-family:'Syne',sans-serif;outline:none;text-align:center;letter-spacing:3px;margin-bottom:8px;transition:border-color .2s;}
+.apm-input:focus{border-color:#ec4899;box-shadow:0 0 20px rgba(236,72,153,.2)}
+.apm-input.wrong{border-color:#f97316 !important;animation:shake .35s}
+.apm-err{font-size:11px;color:#f97316;height:15px;margin-bottom:12px;font-weight:600}
+.apm-btns{display:flex;gap:9px;justify-content:center}
+.apm-ok{padding:11px 28px;border-radius:9px;border:none;background:linear-gradient(135deg,#ec4899,#f97316);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;letter-spacing:.8px;transition:all .2s}
+.apm-ok:hover{transform:scale(1.05);box-shadow:0 0 24px rgba(236,72,153,.4)}
+.apm-cancel{padding:11px 20px;border-radius:9px;border:1px solid #1a1030;background:#110d20;color:#7a90b0;font-size:13px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s}
+.apm-cancel:hover{color:#e8f0fe;background:#1a1235}
+
+/* ── HOME CONFIRM MODAL ── */
+#homeModal{position:fixed;inset:0;z-index:5000;background:rgba(5,5,16,.88);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center}
+#homeModal.show{display:flex}
+.hm-box{background:linear-gradient(145deg,#0e0a1e,#0c1020);border:1px solid rgba(168,85,247,.35);border-radius:20px;padding:2.5rem 2rem;text-align:center;width:100%;max-width:360px;box-shadow:0 0 60px rgba(168,85,247,.15)}
+.hm-icon{font-size:44px;margin-bottom:14px}
+.hm-title{font-size:18px;font-weight:800;color:#a855f7;margin-bottom:8px}
+.hm-sub{font-size:13px;color:#7a90b0;margin-bottom:22px;line-height:1.6}
+.hm-btns{display:flex;gap:9px;justify-content:center}
+.hm-yes{padding:11px 28px;border-radius:9px;border:none;background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;letter-spacing:.8px;transition:all .2s}
+.hm-yes:hover{transform:scale(1.05);box-shadow:0 0 24px rgba(168,85,247,.4)}
+.hm-no{padding:11px 20px;border-radius:9px;border:1px solid #1a1030;background:#110d20;color:#7a90b0;font-size:13px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s}
+.hm-no:hover{color:#e8f0fe;background:#1a1235}
 
 /* empty */
 .empty-msg{text-align:center;padding:2.5rem;color:#3d5273;font-size:13px;background:#0c0915;border:1px solid #1a1030;border-radius:12px}
@@ -238,6 +273,34 @@ td.nc{text-align:right;color:#7dd3fc}
 
 <div id="wipe"></div>
 <div id="featureReveal"></div>
+
+<!-- ═══════ ADMIN PASSWORD MODAL ═══════ -->
+<div id="adminPwModal">
+  <div class="apm-box">
+    <div class="apm-icon">🔐</div>
+    <div class="apm-title">Admin Password Required</div>
+    <div class="apm-sub">File delete panra admin password enter pannu</div>
+    <input class="apm-input" type="password" id="adminPwInput" placeholder="Admin password" onkeydown="if(event.key==='Enter')confirmAdminPw()">
+    <div class="apm-err" id="adminPwErr"></div>
+    <div class="apm-btns">
+      <button class="apm-ok" onclick="confirmAdminPw()">✓ Confirm</button>
+      <button class="apm-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ HOME CONFIRM MODAL ═══════ -->
+<div id="homeModal">
+  <div class="hm-box">
+    <div class="hm-icon">🏠</div>
+    <div class="hm-title">Home Page Ku Poga?</div>
+    <div class="hm-sub">Login page-ku thirumba poga விரும்புகிறீர்களா?<br><span style="color:rgba(255,255,255,.25);font-size:11px">உங்கள் files store-la irukum</span></div>
+    <div class="hm-btns">
+      <button class="hm-yes" onclick="goHome()">🚪 Yes, Go Home</button>
+      <button class="hm-no" onclick="closeHomeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════ LOGIN ═══════════════ -->
 <div id="loginScreen">
@@ -357,6 +420,8 @@ td.nc{text-align:right;color:#7dd3fc}
     <div class="nav-pills">
       <button class="npill active" id="btnAdmin"    onclick="showAdmin()">🗂 Admin</button>
       <button class="npill"        id="btnAnalyzer" onclick="showAnalyzer()">📊 Analyzer</button>
+      <!-- ── HOME BUTTON ── -->
+      <button class="home-btn" onclick="askGoHome()">🏠 Home</button>
     </div>
   </nav>
 
@@ -437,7 +502,6 @@ td.nc{text-align:right;color:#7dd3fc}
         </div>
 
         <div id="panel-graph" class="panel">
-          <!-- Visual chart type gallery -->
           <div class="chart-type-gallery" id="chartGallery"></div>
           <div class="chart-controls">
             <select id="xCol" onchange="renderChart()"></select>
@@ -457,6 +521,10 @@ td.nc{text-align:right;color:#7dd3fc}
 </div>
 
 <script>
+/* ══ PASSWORDS ══ */
+const LOGIN_PW   = 'suresh';   // Main login password
+const ADMIN_PW   = 'sam';  // Admin delete password — change as needed
+
 /* ══ STARS ══ */
 const sc=document.getElementById('starsContainer');
 for(let i=0;i<80;i++){
@@ -494,15 +562,14 @@ function buildChartGallery(){
 }
 function selectChartType(type){selectedChartType=type;buildChartGallery();renderChart();}
 
-/* ══ PASSWORD LOGIN ══ */
-const CORRECT='2001sam';
+/* ══ MAIN LOGIN ══ */
 let loginBusy=false;
 
 function doLogin(){
   if(loginBusy)return;
   const pw=document.getElementById('pwInput').value;
   const errEl=document.getElementById('pwErr');
-  if(pw!==CORRECT){
+  if(pw!==LOGIN_PW){
     const inp=document.getElementById('pwInput');
     inp.classList.add('wrong');
     errEl.textContent='❌ Password wrong — try again!';
@@ -512,7 +579,6 @@ function doLogin(){
   }
   loginBusy=true;
 
-  // 1 — Open door + particles
   document.getElementById('doorPanel').classList.add('open');
   const scene=document.getElementById('doorScene');
   const pCols=['#a855f7','#00c8ff','#ec4899','#f59e0b','#10b981','#c084fc'];
@@ -531,7 +597,6 @@ function doLogin(){
     setTimeout(()=>p.remove(),1300);
   }
 
-  // 2 — Feature reveal overlay
   setTimeout(()=>{
     const frev=document.getElementById('featureReveal');
     const features=[
@@ -557,7 +622,6 @@ function doLogin(){
       </div>`;
     frev.classList.add('show');
 
-    // 3 — Wipe to main app
     setTimeout(()=>{
       frev.classList.remove('show');
       const w=document.getElementById('wipe');
@@ -571,6 +635,84 @@ function doLogin(){
       },870);
     },1800);
   },950);
+}
+
+/* ══ HOME NAVIGATION ══ */
+function askGoHome(){
+  document.getElementById('homeModal').classList.add('show');
+}
+function closeHomeModal(){
+  document.getElementById('homeModal').classList.remove('show');
+}
+function goHome(){
+  closeHomeModal();
+  // Wipe animation back to login
+  const w=document.getElementById('wipe');
+  w.style.display='block';
+  w.style.clipPath='circle(0% at 50% 50%)';
+  w.style.transition='none';
+  // Force reflow
+  w.getBoundingClientRect();
+  w.style.transition='clip-path .85s cubic-bezier(.7,0,.3,1)';
+  w.classList.add('expand');
+  setTimeout(()=>{
+    document.getElementById('mainApp').style.display='none';
+    document.getElementById('loginScreen').style.display='flex';
+    // Reset login form
+    document.getElementById('pwInput').value='';
+    document.getElementById('pwErr').textContent='';
+    document.getElementById('doorPanel').classList.remove('open');
+    loginBusy=false;
+    // Fade out wipe
+    w.classList.remove('expand');
+    w.style.transition='clip-path .5s ease-in';
+    setTimeout(()=>{w.style.display='none';w.style.transition='';},520);
+  },870);
+}
+
+/* ══ ADMIN PASSWORD MODAL (Delete protection) ══ */
+let pendingDeleteKey=null;
+
+function askDelete(key,name){
+  pendingDeleteKey=key;
+  // Show admin password modal instead of old confirm
+  document.getElementById('adminPwInput').value='';
+  document.getElementById('adminPwErr').textContent='';
+  document.getElementById('adminPwInput').classList.remove('wrong');
+  // Show a note about which file
+  document.querySelector('.apm-sub').textContent='"'+name+'" delete pannanum, admin password enter pannu';
+  document.getElementById('adminPwModal').classList.add('show');
+  setTimeout(()=>document.getElementById('adminPwInput').focus(),150);
+}
+function closeAdminModal(){
+  document.getElementById('adminPwModal').classList.remove('show');
+  pendingDeleteKey=null;
+}
+function confirmAdminPw(){
+  const pw=document.getElementById('adminPwInput').value;
+  const inp=document.getElementById('adminPwInput');
+  const err=document.getElementById('adminPwErr');
+  if(pw!==ADMIN_PW){
+    inp.classList.add('wrong');
+    err.textContent='❌ Admin password wrong!';
+    inp.value='';
+    setTimeout(()=>{inp.classList.remove('wrong');err.textContent='';},1200);
+    return;
+  }
+  // Password correct — proceed with delete
+  closeAdminModal();
+  if(!pendingDeleteKey)return;
+  const name=fileStore[pendingDeleteKey].name;
+  if(activeKey===pendingDeleteKey){
+    activeKey=null;
+    document.getElementById('noFile').style.display='';
+    document.getElementById('analyzerContent').style.display='none';
+  }
+  delete fileStore[pendingDeleteKey];
+  pendingDeleteKey=null;
+  saveStore();
+  renderFileGrid();
+  showToast('"'+name+'" deleted ✓');
 }
 
 /* ══ STORAGE ══ */
@@ -660,20 +802,9 @@ function renameFile(key){
   const n=prompt('New name:',fileStore[key].name);
   if(n&&n.trim()){fileStore[key].name=n.trim();saveStore();renderFileGrid();if(activeKey===key)document.getElementById('analyzerTitle').textContent=n.trim();showToast('Renamed!');}
 }
-function askDelete(key,name){
-  deleteTarget=key;
-  document.getElementById('deleteMsg').textContent='"'+name+'" — delete pannanuma?';
-  document.getElementById('confirmDelete').style.display='block';
-}
+/* Old delete functions removed — now handled by admin password modal */
 function cancelDelete(){deleteTarget=null;document.getElementById('confirmDelete').style.display='none';}
-function doDelete(){
-  if(!deleteTarget)return;
-  const name=fileStore[deleteTarget].name;
-  if(activeKey===deleteTarget){activeKey=null;document.getElementById('noFile').style.display='';document.getElementById('analyzerContent').style.display='none';}
-  delete fileStore[deleteTarget];deleteTarget=null;
-  document.getElementById('confirmDelete').style.display='none';
-  saveStore();renderFileGrid();showToast('"'+name+'" deleted');
-}
+function doDelete(){/* legacy — not used */}
 
 /* ══ ANALYZER ══ */
 function loadSheetData(name,btn){
@@ -710,19 +841,15 @@ function filterTable(){
   renderTable(rawData.filter(r=>r.some(c=>String(c).toLowerCase().includes(q))));
 }
 
-/* ── FIXED CSV EXPORT — Unicode BOM + proper quoting ── */
+/* ── FIXED CSV EXPORT ── */
 function exportCSV(){
   function escapeCell(val){
     const s=String(val==null?'':val);
-    // Quote cell if it contains comma, quote, newline or leading/trailing space
-    if(/[,"\n\r]/.test(s)||s!==s.trim()||s===''){
-      return '"'+s.replace(/"/g,'""')+'"';
-    }
+    if(/[,"\n\r]/.test(s)||s!==s.trim()||s===''){return '"'+s.replace(/"/g,'""')+'"';}
     return s;
   }
   const allRows=[headers,...rawData];
   const csv=allRows.map(row=>row.map(escapeCell).join(',')).join('\r\n');
-  // BOM (\uFEFF) ensures Tamil & other Unicode chars render correctly in Excel/LibreOffice
   const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
@@ -752,7 +879,6 @@ function renderChart(){
   const labels=rawData.map(r=>r[xI]||'').slice(0,60);
   const values=rawData.map(r=>parseFloat(r[yI])||0).slice(0,60);
   const isPoly=['pie','doughnut','polarArea','radar'].includes(type);
-  // Rich multi-color palette
   const PALETTE=['#a855f7','#00c8ff','#ec4899','#f59e0b','#10b981','#3b82f6','#f97316','#8b5cf6','#06b6d4','#84cc16','#e11d48','#0ea5e9'];
   const colors=values.map((_,i)=>PALETTE[i%PALETTE.length]);
   const ctx=document.getElementById('myChart');
@@ -833,6 +959,10 @@ function showToast(msg){
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2600);
 }
+
+/* Close modals on backdrop click */
+document.getElementById('homeModal').addEventListener('click',function(e){if(e.target===this)closeHomeModal();});
+document.getElementById('adminPwModal').addEventListener('click',function(e){if(e.target===this)closeAdminModal();});
 </script>
 </body>
 </html>
