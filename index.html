@@ -10,29 +10,68 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:'Syne',sans-serif;background:#000;color:#fff;overflow-x:hidden}
-
-/* ── BLOBS ── */
-.blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:.13;pointer-events:none;animation:blobMove 9s ease-in-out infinite alternate;}
-@keyframes blobMove{0%{transform:translate(0,0) scale(1)}100%{transform:translate(28px,18px) scale(1.08)}}
-
-/* ── LOGIN ── */
-#loginScreen{min-height:100vh;background:#050510;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.blob{position:absolute;border-radius:50%;filter:blur(110px);opacity:.12;pointer-events:none;animation:blobMove 9s ease-in-out infinite alternate;}
+@keyframes blobMove{0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,20px) scale(1.08)}}
 .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 3s infinite alternate;}
-@keyframes twinkle{0%{opacity:.15;transform:scale(1)}100%{opacity:.7;transform:scale(1.4)}}
+@keyframes twinkle{0%{opacity:.12;transform:scale(1)}100%{opacity:.7;transform:scale(1.4)}}
+#wipe{position:fixed;inset:0;background:#050510;z-index:9999;clip-path:circle(0% at 50% 50%);transition:clip-path .85s cubic-bezier(.7,0,.3,1);pointer-events:none;}
+#wipe.expand{clip-path:circle(150% at 50% 50%)}
+#fadeCover{position:fixed;inset:0;background:#050510;z-index:9998;opacity:0;pointer-events:none;transition:opacity .4s}
+#fadeCover.show{opacity:1;pointer-events:all}
 
+/* ════ HOME PAGE ════ */
+#homePage{min-height:100vh;background:#050510;position:relative;overflow-x:hidden;display:flex;flex-direction:column;}
+.home-nav{display:flex;align-items:center;padding:0 2rem;height:64px;border-bottom:1px solid rgba(255,255,255,.05);position:sticky;top:0;z-index:50;background:rgba(5,5,16,.88);backdrop-filter:blur(14px);}
+.home-logo{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:800}
+.hldo{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#00c8ff);box-shadow:0 0 12px rgba(168,85,247,.7)}
+.home-logo .hl1{background:linear-gradient(135deg,#a855f7,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.home-logo .hl2{color:#e8f0fe}
+.home-nav-r{margin-left:auto;display:flex;gap:10px;align-items:center}
+.hn-v{font-size:10px;color:#3d5273;font-family:'JetBrains Mono',monospace;padding:4px 9px;border:1px solid #1a1030;border-radius:5px}
+.hn-btn{padding:9px 24px;font-size:12px;font-weight:700;letter-spacing:.8px;border:1.5px solid rgba(168,85,247,.35);background:rgba(168,85,247,.08);color:#c084fc;border-radius:50px;cursor:pointer;font-family:'Syne',sans-serif;text-transform:uppercase;transition:all .2s}
+.hn-btn:hover{background:rgba(168,85,247,.2);border-color:#a855f7;color:#fff;transform:scale(1.04)}
+.home-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 1.5rem 3rem;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:2px;color:rgba(168,85,247,.8);border:1px solid rgba(168,85,247,.25);background:rgba(168,85,247,.07);padding:5px 16px;border-radius:50px;margin-bottom:28px;text-transform:uppercase;font-weight:700}
+.hbd{width:6px;height:6px;border-radius:50%;background:#a855f7;animation:hbp 1.8s infinite}
+@keyframes hbp{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+.hero-title{font-size:clamp(52px,9vw,96px);font-weight:800;line-height:1.03;letter-spacing:-3px;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,#a855f7 40%,#00c8ff 70%,#ec4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(15px,2.2vw,18px);color:rgba(255,255,255,.38);max-width:540px;line-height:1.65;margin-bottom:38px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:48px}
+.hbp1{padding:16px 40px;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;background:linear-gradient(135deg,#a855f7,#00c8ff);color:#fff;border:none;border-radius:50px;transition:all .25s;font-family:'Syne',sans-serif;box-shadow:0 0 30px rgba(168,85,247,.3)}
+.hbp1:hover{transform:scale(1.06) translateY(-2px);box-shadow:0 8px 40px rgba(168,85,247,.5)}
+.hbp2{padding:16px 36px;font-size:14px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;background:transparent;color:#7a90b0;border:1.5px solid rgba(255,255,255,.12);border-radius:50px;transition:all .2s;font-family:'Syne',sans-serif}
+.hbp2:hover{color:#e8f0fe;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04)}
+.hero-stats{display:flex;gap:0;border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02);flex-wrap:wrap;max-width:680px;width:100%}
+.hstat{flex:1;min-width:130px;padding:18px 16px;text-align:center;border-right:1px solid rgba(255,255,255,.06)}
+.hstat:last-child{border-right:none}
+.hstat-v{font-size:26px;font-weight:800;background:linear-gradient(135deg,#a855f7,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'JetBrains Mono',monospace;margin-bottom:4px}
+.hstat-l{font-size:10px;color:#3d5273;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.home-features{padding:3rem 1.5rem 4rem;max-width:1100px;margin:0 auto;width:100%;position:relative;z-index:2}
+.feat-label{text-align:center;font-size:10px;letter-spacing:3px;color:#3d5273;text-transform:uppercase;font-weight:700;margin-bottom:12px}
+.feat-title{text-align:center;font-size:clamp(26px,4vw,36px);font-weight:800;margin-bottom:38px;background:linear-gradient(135deg,#e8f0fe,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.feat-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:24px 22px;transition:all .25s;position:relative;overflow:hidden}
+.feat-card:hover{transform:translateY(-4px);border-color:var(--fcc,rgba(168,85,247,.4));background:rgba(255,255,255,.04)}
+.feat-iw{width:46px;height:46px;border-radius:13px;background:var(--fcb,rgba(168,85,247,.12));border:1px solid var(--fcbr,rgba(168,85,247,.2));display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.feat-n{font-size:15px;font-weight:700;color:#e8f0fe;margin-bottom:6px}
+.feat-d{font-size:12px;color:#3d5273;line-height:1.6}
+.feat-tag{display:inline-block;font-size:9px;letter-spacing:1px;padding:3px 9px;border-radius:5px;background:var(--fcb,rgba(168,85,247,.12));border:1px solid var(--fcbr,rgba(168,85,247,.2));color:var(--fct,#a855f7);margin-top:10px;font-weight:700;text-transform:uppercase}
+.home-footer{padding:1.5rem 2rem;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.home-footer span{font-size:11px;color:#3d5273}
+
+/* ════ LOGIN PAGE ════ */
+#loginScreen{min-height:100vh;background:#050510;display:none;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.login-back{position:absolute;top:20px;left:20px;z-index:10;display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#3d5273;letter-spacing:.5px;cursor:pointer;padding:8px 16px;border:1px solid #1a1030;border-radius:50px;background:rgba(255,255,255,.03);transition:all .2s;text-transform:uppercase}
+.login-back:hover{color:#a855f7;border-color:rgba(168,85,247,.35);background:rgba(168,85,247,.06)}
 .login-inner{display:flex;flex-direction:column;align-items:center;z-index:2;text-align:center;width:100%;max-width:680px;padding:0 1rem}
 .brand-tag{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:16px}
 .login-title{font-size:clamp(48px,8vw,80px);font-weight:800;line-height:1.05;margin-bottom:10px;letter-spacing:-2px;background:linear-gradient(135deg,#a855f7 0%,#00c8ff 50%,#ec4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .login-sub{font-size:clamp(14px,2vw,16px);color:rgba(255,255,255,.35);font-weight:400;margin-bottom:28px;letter-spacing:.3px}
-
-/* ── MINI CHART PREVIEWS (LOGIN) ── */
 .chart-previews{display:flex;gap:10px;justify-content:center;margin-bottom:28px;flex-wrap:wrap;}
 .chart-preview-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:default;transition:all .2s;}
 .chart-preview-card:hover{border-color:rgba(168,85,247,.45);background:rgba(168,85,247,.08);transform:translateY(-3px)}
 .cpc-label{font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.3);text-transform:uppercase;font-weight:700;}
-
-/* ── DOOR ── */
-.door-scene{width:130px;height:175px;perspective:450px;margin-bottom:22px;position:relative;cursor:pointer}
+.door-scene{width:130px;height:175px;perspective:450px;margin-bottom:16px;position:relative;cursor:pointer}
 .door-frame{width:130px;height:175px;border:2px solid rgba(168,85,247,.35);border-radius:13px 13px 4px 4px;position:absolute;background:transparent;z-index:1;box-shadow:0 0 22px rgba(168,85,247,.15);transition:all .3s}
 .door-frame::after{content:'';position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:22px;height:9px;background:linear-gradient(135deg,#a855f7,#00c8ff);border-radius:0 0 7px 7px;opacity:.55}
 .door-panel{width:123px;height:168px;background:linear-gradient(160deg,#1a1035,#0d0d1a);border-radius:11px 11px 3px 3px;position:absolute;top:4px;left:4px;transform-origin:left center;transform-style:preserve-3d;transition:transform 1.15s cubic-bezier(.4,0,.2,1);border:1px solid rgba(168,85,247,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
@@ -44,148 +83,93 @@ html,body{height:100%;font-family:'Syne',sans-serif;background:#000;color:#fff;o
 .door-knob{width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#00c8ff);position:absolute;right:15px;top:50%;transform:translateY(-50%);box-shadow:0 0 8px rgba(168,85,247,.6)}
 .door-scene:hover .door-frame{border-color:rgba(168,85,247,.65);box-shadow:0 0 35px rgba(168,85,247,.28)}
 .door-scene:hover .door-knob{box-shadow:0 0 16px rgba(168,85,247,.9)}
-
-/* ── FEATURE HINTS ── */
-.feature-hints{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:22px;}
+.door-hint{font-size:12px;color:rgba(168,85,247,.6);letter-spacing:1px;font-weight:700;animation:pulse 2s infinite;margin-bottom:20px;}
+@keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
+.feature-hints{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;}
 .fhint{font-size:10px;padding:4px 11px;border-radius:20px;font-weight:700;letter-spacing:.4px;border:1px solid;}
 .fhint.f1{color:#00c8ff;border-color:rgba(0,200,255,.3);background:rgba(0,200,255,.07)}
 .fhint.f2{color:#a855f7;border-color:rgba(168,85,247,.3);background:rgba(168,85,247,.07)}
 .fhint.f3{color:#ec4899;border-color:rgba(236,72,153,.3);background:rgba(236,72,153,.07)}
 .fhint.f4{color:#f59e0b;border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.07)}
 .fhint.f5{color:#10b981;border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.07)}
-
-/* ── PASSWORD ── */
-.pw-row{display:flex;gap:8px;align-items:center;margin-bottom:0;width:100%;max-width:360px;}
-.pw-input{flex:1;padding:13px 16px;border-radius:12px;border:1.5px solid rgba(168,85,247,.3);background:rgba(168,85,247,.07);color:#fff;font-size:15px;font-family:'Syne',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s;letter-spacing:2px;}
-.pw-input:focus{border-color:#a855f7;box-shadow:0 0 22px rgba(168,85,247,.22)}
-.pw-input::placeholder{letter-spacing:.5px;color:rgba(255,255,255,.22)}
-.pw-input.wrong{border-color:#ec4899 !important;box-shadow:0 0 22px rgba(236,72,153,.3) !important;animation:shake .35s}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.pw-err{font-size:11px;color:#ec4899;margin-top:8px;height:16px;font-weight:600;letter-spacing:.5px}
-
-.login-btn{padding:14px 36px;font-size:15px;font-weight:700;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;background:linear-gradient(135deg,#a855f7,#00c8ff);color:#fff;border:none;border-radius:50px;transition:all .2s;white-space:nowrap;}
-.login-btn:hover{transform:scale(1.06);box-shadow:0 0 38px rgba(168,85,247,.45)}
-.login-btn:active{transform:scale(.97)}
-
-/* ── FEATURE REVEAL OVERLAY ── */
 #featureReveal{position:fixed;inset:0;z-index:8888;background:linear-gradient(135deg,#050510,#0a051a);display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
 #featureReveal.show{display:flex}
-.fr-title{font-size:clamp(22px,4vw,30px);font-weight:800;background:linear-gradient(135deg,#a855f7,#00c8ff,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px;text-align:center}
-.fr-sub{font-size:13px;color:rgba(255,255,255,.35);text-align:center;margin-bottom:8px}
+.fr-title{font-size:clamp(22px,4vw,30px);font-weight:800;background:linear-gradient(135deg,#a855f7,#00c8ff,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center}
+.fr-sub{font-size:13px;color:rgba(255,255,255,.35);text-align:center}
 .fr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:540px;width:100%;padding:0 1.25rem}
 .fr-card{background:rgba(255,255,255,.04);border-radius:14px;padding:18px 14px;text-align:center;border:1px solid rgba(255,255,255,.07);animation:frIn .5s ease-out forwards;opacity:0;transform:translateY(22px);}
 @keyframes frIn{to{opacity:1;transform:translateY(0)}}
 .fr-icon{font-size:26px;margin-bottom:8px}
-.fr-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:3px}
-.fr-desc{font-size:10px;color:rgba(255,255,255,.38);letter-spacing:.3px}
-
-/* ── PARTICLES ── */
+.fr-name{font-size:12px;font-weight:700;margin-bottom:3px}
+.fr-desc{font-size:10px;color:rgba(255,255,255,.38)}
 .particle{position:absolute;border-radius:50%;opacity:0;pointer-events:none}
 .particle.burst{animation:pBurst .95s ease-out forwards}
 @keyframes pBurst{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(calc(-50% + var(--px)),calc(-50% + var(--py))) scale(0)}}
 
-#wipe{position:fixed;inset:0;background:linear-gradient(135deg,#050510,#0a051a);z-index:9999;clip-path:circle(0% at 50% 50%);transition:clip-path .85s cubic-bezier(.7,0,.3,1);pointer-events:none;}
-#wipe.expand{clip-path:circle(150% at 50% 50%)}
-
-/* ── MAIN APP ── */
+/* ════ MAIN APP ════ */
 #mainApp{display:none;min-height:100vh;background:#07090f}
-
 .topnav{background:linear-gradient(90deg,#0a0518,#050f1a);border-bottom:1px solid rgba(168,85,247,.18);padding:0 1.5rem;display:flex;align-items:center;gap:1rem;height:56px;position:sticky;top:0;z-index:100;}
-.logo{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:800;letter-spacing:.5px;text-decoration:none;color:#fff}
+.logo{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:800;letter-spacing:.5px;color:#fff;cursor:pointer}
 .logo-dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#00c8ff);flex-shrink:0;box-shadow:0 0 10px rgba(168,85,247,.6)}
 .logo span{background:linear-gradient(135deg,#a855f7,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-pills{display:flex;gap:4px;margin-left:auto}
+.nav-pills{display:flex;gap:4px;margin-left:auto;align-items:center}
 .npill{padding:7px 18px;font-size:11px;font-weight:700;letter-spacing:.8px;border:none;background:transparent;color:#7a90b0;cursor:pointer;border-radius:7px;font-family:'Syne',sans-serif;text-transform:uppercase;transition:all .15s;}
 .npill.active{background:rgba(168,85,247,.14);color:#a855f7;border:1px solid rgba(168,85,247,.3)}
 .npill:hover:not(.active){color:#e8f0fe;background:rgba(255,255,255,.04)}
-
+.nav-sep{width:1px;height:22px;background:rgba(255,255,255,.08);margin:0 2px}
+.admin-lock-badge{font-size:10px;background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.3);color:#ec4899;border-radius:5px;padding:2px 6px;margin-left:4px;transition:all .3s}
 .content{padding:1.75rem;max-width:1100px;margin:0 auto}
-
 .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:rgba(168,85,247,.14);border:1px solid rgba(168,85,247,.35);color:#c084fc;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;font-family:'Syne',sans-serif;}
 .toast.show{opacity:1}
-
-/* PAGE HEADER */
 .page-header{margin-bottom:1.5rem;padding:1rem 1.25rem;background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(0,200,255,.04));border:1px solid rgba(168,85,247,.14);border-radius:14px;display:flex;align-items:center;gap:12px;}
 .page-header-icon{font-size:22px}
 .page-header-text h2{font-size:16px;font-weight:800;background:linear-gradient(135deg,#a855f7,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:2px}
 .page-header-text p{font-size:11px;color:#7a90b0}
-
-/* Upload */
 .upload-zone{border:1.5px dashed rgba(168,85,247,.28);border-radius:16px;padding:2.5rem 1rem;text-align:center;cursor:pointer;background:#0c0915;transition:all .2s;position:relative;overflow:hidden;margin-bottom:1.25rem;}
 .upload-zone:hover{border-color:#a855f7;background:rgba(168,85,247,.04)}
 .uz-corner{position:absolute;width:13px;height:13px;border-color:#a855f7;border-style:solid;opacity:.5}
-.uz-corner.tl{top:8px;left:8px;border-width:1.5px 0 0 1.5px}
-.uz-corner.tr{top:8px;right:8px;border-width:1.5px 1.5px 0 0}
-.uz-corner.bl{bottom:8px;left:8px;border-width:0 0 1.5px 1.5px}
-.uz-corner.br{bottom:8px;right:8px;border-width:0 1.5px 1.5px 0}
+.uz-corner.tl{top:8px;left:8px;border-width:1.5px 0 0 1.5px}.uz-corner.tr{top:8px;right:8px;border-width:1.5px 1.5px 0 0}
+.uz-corner.bl{bottom:8px;left:8px;border-width:0 0 1.5px 1.5px}.uz-corner.br{bottom:8px;right:8px;border-width:0 1.5px 1.5px 0}
 .uz-icon{width:52px;height:52px;border-radius:14px;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;color:#a855f7;font-weight:800;}
-.upload-zone h3{font-size:16px;font-weight:700;color:#e8f0fe;margin-bottom:5px}
-.upload-zone p{font-size:12px;color:#7a90b0}
-
-/* inputs & buttons */
+.upload-zone h3{font-size:16px;font-weight:700;color:#e8f0fe;margin-bottom:5px}.upload-zone p{font-size:12px;color:#7a90b0}
 .name-row{display:flex;gap:9px;margin-bottom:1.5rem;flex-wrap:wrap}
 .di{flex:1;min-width:200px;padding:11px 15px;border-radius:9px;border:1px solid rgba(168,85,247,.2);background:#0c0915;color:#e8f0fe;font-size:14px;font-family:'Syne',sans-serif;outline:none;transition:border-color .2s;}
-.di:focus{border-color:#a855f7}
-.di::placeholder{color:#3d5273}
-
+.di:focus{border-color:#a855f7}.di::placeholder{color:#3d5273}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:9px;border:1px solid #1a1030;background:#110d20;color:#7a90b0;font-size:12px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;letter-spacing:.5px;transition:all .15s;text-transform:uppercase;white-space:nowrap;}
 .btn:hover{color:#e8f0fe;background:#1a1235;border-color:rgba(168,85,247,.3)}
-.btn.accent{background:rgba(0,200,255,.09);border-color:rgba(0,200,255,.28);color:#00c8ff}
-.btn.accent:hover{background:rgba(0,200,255,.18)}
-.btn.accent2{background:rgba(168,85,247,.1);border-color:rgba(168,85,247,.3);color:#a855f7}
-.btn.accent2:hover{background:rgba(168,85,247,.2)}
-.btn.danger{background:rgba(236,72,153,.09);border-color:rgba(236,72,153,.28);color:#ec4899}
-.btn.danger:hover{background:rgba(236,72,153,.18)}
-.btn.green{background:rgba(16,185,129,.09);border-color:rgba(16,185,129,.28);color:#10b981}
-.btn.green:hover{background:rgba(16,185,129,.18)}
-.btn.orange{background:rgba(245,158,11,.09);border-color:rgba(245,158,11,.28);color:#f59e0b}
-
-/* section label */
+.btn.accent{background:rgba(0,200,255,.09);border-color:rgba(0,200,255,.28);color:#00c8ff}.btn.accent:hover{background:rgba(0,200,255,.18)}
+.btn.accent2{background:rgba(168,85,247,.1);border-color:rgba(168,85,247,.3);color:#a855f7}.btn.accent2:hover{background:rgba(168,85,247,.2)}
+.btn.danger{background:rgba(236,72,153,.09);border-color:rgba(236,72,153,.28);color:#ec4899}.btn.danger:hover{background:rgba(236,72,153,.18)}
+.btn.green{background:rgba(16,185,129,.09);border-color:rgba(16,185,129,.28);color:#10b981}.btn.green:hover{background:rgba(16,185,129,.18)}
 .sec-label{font-size:10px;font-weight:700;letter-spacing:1.8px;color:#3d5273;text-transform:uppercase;margin-bottom:12px}
-
-/* file cards */
 .file-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:14px}
 .fc{background:#0c0915;border:1px solid #1a1030;border-radius:14px;padding:1.2rem;transition:all .2s;position:relative;overflow:hidden;}
 .fc::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,#a855f7,#00c8ff,#ec4899);opacity:0;transition:opacity .2s;}
 .fc:hover::before,.fc.active-card::before{opacity:1}
-.fc:hover{border-color:rgba(168,85,247,.3);background:#130e20}
-.fc.active-card{border-color:rgba(168,85,247,.4)}
+.fc:hover{border-color:rgba(168,85,247,.3);background:#130e20}.fc.active-card{border-color:rgba(168,85,247,.4)}
 .fc-icon{width:38px;height:38px;border-radius:9px;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.2);display:flex;align-items:center;justify-content:center;font-size:13px;color:#a855f7;font-weight:800;margin-bottom:10px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;}
 .fc-badge{display:inline-block;font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:#10b981;border:1px solid rgba(16,185,129,.3);border-radius:5px;padding:2px 7px;background:rgba(16,185,129,.08);margin-bottom:8px;}
 .fc-name{font-size:14px;font-weight:700;color:#e8f0fe;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fc-date{font-size:11px;color:#3d5273;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
 .fc-pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
 .pill{font-size:10px;padding:3px 9px;border-radius:5px;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.2);color:#c084fc}
-.fc-actions{display:flex;gap:6px}
-.fc-actions .btn{flex:1;justify-content:center;padding:7px 8px;font-size:10px}
-
-/* confirm */
+.fc-actions{display:flex;gap:6px}.fc-actions .btn{flex:1;justify-content:center;padding:7px 8px;font-size:10px}
 .confirm-wrap{margin-bottom:1.5rem;background:#0c0915;border:1px solid rgba(236,72,153,.3);border-radius:14px;padding:1.75rem;text-align:center}
 .confirm-wrap h3{font-size:16px;font-weight:700;margin-bottom:7px;color:#ec4899}
 .confirm-wrap p{font-size:13px;color:#7a90b0;margin-bottom:1.25rem}
 .confirm-wrap .crow{display:flex;gap:9px;justify-content:center}
-
-/* empty */
 .empty-msg{text-align:center;padding:2.5rem;color:#3d5273;font-size:13px;background:#0c0915;border:1px solid #1a1030;border-radius:12px}
-
-/* analyzer */
 .az-header{display:flex;align-items:center;gap:14px;margin-bottom:1.25rem;flex-wrap:wrap}
 .az-title{font-size:22px;font-weight:800;background:linear-gradient(135deg,#a855f7,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .az-meta{font-size:11px;color:#3d5273;font-family:'JetBrains Mono',monospace;margin-top:2px}
-
-/* tabs */
 .tabs{display:flex;gap:2px;margin-bottom:1.5rem;background:#0c0915;border:1px solid #1a1030;border-radius:11px;padding:4px}
 .tab{padding:8px 18px;font-size:11px;font-weight:700;letter-spacing:.8px;border:none;background:transparent;color:#7a90b0;cursor:pointer;border-radius:8px;font-family:'Syne',sans-serif;text-transform:uppercase;transition:all .15s}
 .tab.active{background:rgba(168,85,247,.12);color:#a855f7;border:1px solid rgba(168,85,247,.22)}
 .stabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1rem}
 .stab{padding:5px 13px;font-size:11px;border-radius:6px;border:1px solid #1a1030;cursor:pointer;background:#0c0915;color:#7a90b0;font-family:'Syne',sans-serif;font-weight:600;transition:all .15s}
 .stab.active{background:rgba(0,200,255,.1);color:#00c8ff;border-color:rgba(0,200,255,.28)}
-
-/* toolbar */
 .toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
 .toolbar .di{max-width:220px;min-width:140px;flex:initial}
-
-/* table */
 .table-wrap{overflow:auto;border:1px solid #1a1030;border-radius:11px;max-height:380px}
 table{width:100%;border-collapse:collapse;font-size:12px;font-family:'JetBrains Mono',monospace}
 th{position:sticky;top:0;background:#0d0920;color:#a855f7;padding:10px 14px;text-align:left;font-weight:600;border-bottom:1px solid #1a1030;white-space:nowrap;font-family:'Syne',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.7px}
@@ -194,41 +178,65 @@ tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(168,85,247,.03)}
 .rn{background:#0a0717;color:#3d5273;font-size:10px;text-align:center;min-width:32px;border-right:1px solid #1a1030}
 td.nc{text-align:right;color:#7dd3fc}
-
-/* panels */
 .panel{display:none}.panel.active{display:block}
-
-/* formulas */
 .fi-list{display:flex;flex-direction:column;gap:9px}
 .fi{background:#0c0915;border:1px solid #1a1030;border-radius:9px;padding:11px 15px;border-left:3px solid #a855f7}
 .fi .cr{font-size:10px;color:#a855f7;font-family:'JetBrains Mono',monospace;margin-bottom:3px;text-transform:uppercase;letter-spacing:.7px}
 .fi .ft{font-family:'JetBrains Mono',monospace;font-size:13px;color:#c084fc}
 .fi .fr{font-size:11px;color:#7a90b0;margin-top:4px}
-
-/* stats */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;margin-bottom:1.25rem}
 .sc{background:#0c0915;border:1px solid #1a1030;border-radius:11px;padding:1.1rem;position:relative;overflow:hidden}
 .sc::after{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:var(--sc-grad,linear-gradient(90deg,#a855f7,#c084fc))}
 .sc .sl{font-size:10px;color:#3d5273;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px;font-family:'Syne',sans-serif;font-weight:700}
 .sc .sv{font-size:26px;font-weight:700;color:var(--sc-col,#a855f7);font-family:'JetBrains Mono',monospace}
-
-/* chart gallery */
 .chart-type-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:9px;margin-bottom:1rem}
 .ctg-card{background:#0f0c1a;border:1px solid #1a1030;border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s}
 .ctg-card:hover{border-color:rgba(168,85,247,.4);background:rgba(168,85,247,.06);transform:translateY(-2px)}
 .ctg-card.selected{border-color:#a855f7;background:rgba(168,85,247,.12)}
 .ctg-label{font-size:10px;color:#7a90b0;margin-top:7px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
 .ctg-card.selected .ctg-label{color:#c084fc}
-
-/* chart */
 .chart-controls{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
 .chart-controls select{padding:9px 13px;border-radius:9px;border:1px solid rgba(168,85,247,.22);background:#0c0915;color:#e8f0fe;font-size:12px;font-family:'Syne',sans-serif;outline:none;cursor:pointer}
+.chart-controls label{font-size:10px;color:#3d5273;font-weight:700;letter-spacing:1px;text-transform:uppercase}
 .chart-wrap{border:1px solid #1a1030;border-radius:11px;padding:1.1rem;background:#0c0915;height:340px;position:relative}
-
 #adminView,#analyzerView{display:none}
 #adminView.show,#analyzerView.show{display:block}
+.pivot-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem;padding:14px 16px;background:#0c0915;border:1px solid rgba(168,85,247,.18);border-radius:11px}
+.pivot-controls label{font-size:10px;font-weight:700;letter-spacing:1.2px;color:#3d5273;text-transform:uppercase;white-space:nowrap}
+.pivot-controls select{padding:9px 13px;border-radius:9px;border:1px solid rgba(168,85,247,.22);background:#07090f;color:#e8f0fe;font-size:12px;font-family:'Syne',sans-serif;outline:none;cursor:pointer;min-width:140px}
+.pivot-table-wrap{overflow:auto;border:1px solid #1a1030;border-radius:11px;max-height:340px;margin-top:14px}
+.pivot-table-wrap table{font-size:12px}.pivot-table-wrap th{background:#0d0920;color:#a855f7}
+.pivot-table-wrap td.pval{text-align:right;color:#7dd3fc;font-family:'JetBrains Mono',monospace}
+.pivot-table-wrap td.pkey{color:#c084fc;font-weight:600}
+.pivot-section-title{font-size:10px;font-weight:700;letter-spacing:1.6px;color:#3d5273;text-transform:uppercase;margin-bottom:12px;margin-top:20px}
 
-/* scrollbar */
+/* Admin Drawer */
+#adminDrawer{position:fixed;top:0;right:-440px;width:400px;max-width:95vw;height:100vh;background:linear-gradient(160deg,#0a0518,#050f1a);border-left:1px solid rgba(168,85,247,.25);z-index:5000;transition:right .45s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:2rem;box-shadow:-8px 0 40px rgba(168,85,247,.14);}
+#adminDrawer.open{right:0}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:4999;display:none;}
+.drawer-overlay.show{display:block}
+.drawer-title{font-size:22px;font-weight:800;background:linear-gradient(135deg,#ec4899,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center}
+.drawer-sub{font-size:12px;color:rgba(255,255,255,.35);text-align:center;margin-top:-10px}
+.drawer-icon{font-size:42px;margin-bottom:4px}
+.drawer-pw-input{width:100%;padding:13px 16px;border-radius:12px;border:1.5px solid rgba(168,85,247,.3);background:rgba(168,85,247,.07);color:#fff;font-size:15px;font-family:'Syne',sans-serif;outline:none;transition:border-color .2s;letter-spacing:2px;}
+.drawer-pw-input:focus{border-color:#a855f7;box-shadow:0 0 22px rgba(168,85,247,.22)}
+.drawer-pw-input.wrong{border-color:#ec4899!important;animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.drawer-err{font-size:11px;color:#ec4899;height:16px;font-weight:600;text-align:center}
+.drawer-btn{width:100%;padding:13px;font-size:14px;font-weight:700;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;background:linear-gradient(135deg,#ec4899,#a855f7);color:#fff;border:none;border-radius:50px;transition:all .2s;}
+.drawer-btn:hover{transform:scale(1.03);box-shadow:0 0 28px rgba(168,85,247,.4)}
+.drawer-close{position:absolute;top:18px;right:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#7a90b0;border-radius:8px;padding:6px 12px;font-size:11px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;}
+.drawer-close:hover{color:#fff;background:rgba(255,255,255,.1)}
+
+/* Home confirm modal */
+#homeConfirm{position:fixed;inset:0;z-index:6000;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;}
+#homeConfirm.show{display:flex}
+.hc-box{background:linear-gradient(160deg,#0a0518,#050f1a);border:1px solid rgba(168,85,247,.3);border-radius:18px;padding:2rem;max-width:380px;width:90%;text-align:center}
+.hc-icon{font-size:38px;margin-bottom:10px}
+.hc-title{font-size:18px;font-weight:800;color:#e8f0fe;margin-bottom:8px}
+.hc-sub{font-size:13px;color:#3d5273;margin-bottom:20px;line-height:1.6}
+.hc-btns{display:flex;gap:10px;justify-content:center}
+
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:#07090f}
 ::-webkit-scrollbar-thumb{background:#1a1030;border-radius:3px}
@@ -237,190 +245,230 @@ td.nc{text-align:right;color:#7dd3fc}
 <body>
 
 <div id="wipe"></div>
+<div id="fadeCover"></div>
 <div id="featureReveal"></div>
 
-<!-- ═══════════════ LOGIN ═══════════════ -->
+<!-- Admin Drawer -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeAdminDrawer()"></div>
+<div id="adminDrawer">
+  <button class="drawer-close" onclick="closeAdminDrawer()">✕ Close</button>
+  <div class="drawer-icon">🔐</div>
+  <div class="drawer-title">Admin Access</div>
+  <div class="drawer-sub">Admin panel-ku password vennum</div>
+  <input class="drawer-pw-input" type="password" id="adminPwInput" placeholder="Admin password..."
+    onkeydown="if(event.key==='Enter')checkAdminPass()">
+  <div class="drawer-err" id="adminPwErr"></div>
+  <button class="drawer-btn" onclick="checkAdminPass()">🗝 Unlock Admin →</button>
+</div>
+
+<!-- Home confirm -->
+<div id="homeConfirm">
+  <div class="hc-box">
+    <div class="hc-icon">🏠</div>
+    <div class="hc-title">Home page-ku povaya?</div>
+    <div class="hc-sub">Current session close aagum.<br>Files localStorage-la safe-aa saved irukum.</div>
+    <div class="hc-btns">
+      <button class="btn accent2" onclick="goHomeConfirmed()">✓ Yes, Go Home</button>
+      <button class="btn" onclick="document.getElementById('homeConfirm').classList.remove('show')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ HOME PAGE ════ -->
+<div id="homePage">
+  <div class="blob" style="width:500px;height:500px;background:#a855f7;top:-180px;left:-180px"></div>
+  <div class="blob" style="width:400px;height:400px;background:#00c8ff;bottom:-100px;right:-100px;animation-delay:3s"></div>
+  <div class="blob" style="width:300px;height:300px;background:#ec4899;top:50%;left:60%;animation-delay:5s"></div>
+  <div class="blob" style="width:240px;height:240px;background:#f59e0b;bottom:20%;left:5%;animation-delay:2s"></div>
+
+  <nav class="home-nav">
+    <div class="home-logo">
+      <div class="hldo"></div>
+      <span class="hl1">Excel</span><span class="hl2">OS</span>
+    </div>
+    <div class="home-nav-r">
+      <div class="hn-v">v3.0</div>
+      <button class="hn-btn" onclick="goToLogin()">Launch App →</button>
+    </div>
+  </nav>
+
+  <div class="home-hero">
+    <div class="hero-badge"><div class="hbd"></div>Unlimited Dashboards · Zero Cost · 100% Private</div>
+    <div class="hero-title">ExcelOS</div>
+    <div class="hero-sub">Excel & CSV files-a upload panni — instant charts, pivot tables, statistics. Browser-layee. No server. No limit. No login required.</div>
+    <div class="hero-btns">
+      <button class="hbp1" onclick="goToLogin()">🚀 Get Started — Free</button>
+      <button class="hbp2" onclick="document.getElementById('featSec').scrollIntoView({behavior:'smooth'})">Explore Features ↓</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-v">∞</div><div class="hstat-l">Dashboards</div></div>
+      <div class="hstat"><div class="hstat-v">6</div><div class="hstat-l">Chart Types</div></div>
+      <div class="hstat"><div class="hstat-v">100%</div><div class="hstat-l">Local & Private</div></div>
+      <div class="hstat"><div class="hstat-v">0₹</div><div class="hstat-l">Cost Forever</div></div>
+    </div>
+  </div>
+
+  <div class="home-features" id="featSec">
+    <div class="feat-label">Everything You Need</div>
+    <div class="feat-title">Powerful Features, Zero Limits</div>
+    <div class="feat-grid">
+      <div class="feat-card" style="--fcc:rgba(168,85,247,.4);--fcb:rgba(168,85,247,.12);--fcbr:rgba(168,85,247,.2);--fct:#a855f7">
+        <div class="feat-iw">📊</div><div class="feat-n">6 Chart Types</div>
+        <div class="feat-d">Bar, Line, Pie, Doughnut, Radar, Polar Area — beautiful auto-generated charts from your Excel data.</div>
+        <span class="feat-tag">Visual Charts</span>
+      </div>
+      <div class="feat-card" style="--fcc:rgba(0,200,255,.4);--fcb:rgba(0,200,255,.12);--fcbr:rgba(0,200,255,.2);--fct:#00c8ff">
+        <div class="feat-iw">📈</div><div class="feat-n">Pivot Table Summary</div>
+        <div class="feat-d">Group By any column. SUM, AVG, COUNT, MIN, MAX with inline bar charts — like Excel Pivot Tables.</div>
+        <span class="feat-tag">Pivot Table</span>
+      </div>
+      <div class="feat-card" style="--fcc:rgba(236,72,153,.4);--fcb:rgba(236,72,153,.12);--fcbr:rgba(236,72,153,.2);--fct:#ec4899">
+        <div class="feat-iw">🗂</div><div class="feat-n">∞ Unlimited Dashboards</div>
+        <div class="feat-d">No file limit — store as many Excel & CSV dashboards as you want. All saved locally in your browser, forever.</div>
+        <span class="feat-tag">∞ No Limit</span>
+      </div>
+      <div class="feat-card" style="--fcc:rgba(245,158,11,.4);--fcb:rgba(245,158,11,.12);--fcbr:rgba(245,158,11,.2);--fct:#f59e0b">
+        <div class="feat-iw">∑</div><div class="feat-n">Formula Viewer</div>
+        <div class="feat-d">Read Excel formulas from every cell. See the formula expression, result value and cell address.</div>
+        <span class="feat-tag">Excel Formulas</span>
+      </div>
+      <div class="feat-card" style="--fcc:rgba(16,185,129,.4);--fcb:rgba(16,185,129,.12);--fcbr:rgba(16,185,129,.2);--fct:#10b981">
+        <div class="feat-iw">✏️</div><div class="feat-n">Edit & Export</div>
+        <div class="feat-d">Edit cells live, add rows, search/filter data, and export clean Unicode-safe CSV with one click.</div>
+        <span class="feat-tag">Live Edit</span>
+      </div>
+      <div class="feat-card" style="--fcc:rgba(192,132,252,.4);--fcb:rgba(192,132,252,.12);--fcbr:rgba(192,132,252,.2);--fct:#c084fc">
+        <div class="feat-iw">🔐</div><div class="feat-n">Secure Admin Panel</div>
+        <div class="feat-d">Password-protected admin for file management. Regular users access data without any password.</div>
+        <span class="feat-tag">Secure Admin</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-footer">
+    <span>© 2025 ExcelOS · Built with ❤️</span>
+    <span>All data stored locally · 100% Private · No server needed</span>
+  </div>
+</div>
+
+<!-- ════ LOGIN PAGE ════ -->
 <div id="loginScreen">
   <div id="starsContainer"></div>
-
-  <!-- Colorful background blobs -->
-  <div class="blob" style="width:450px;height:450px;background:#a855f7;top:-130px;left:-130px;animation-delay:0s"></div>
+  <div class="login-back" onclick="backToHome()">← Back to Home</div>
+  <div class="blob" style="width:450px;height:450px;background:#a855f7;top:-130px;left:-130px"></div>
   <div class="blob" style="width:350px;height:350px;background:#00c8ff;bottom:-80px;right:-80px;animation-delay:2.5s"></div>
-  <div class="blob" style="width:280px;height:280px;background:#ec4899;top:55%;left:62%;animation-delay:5s"></div>
-  <div class="blob" style="width:220px;height:220px;background:#f59e0b;bottom:22%;left:8%;animation-delay:1.5s"></div>
-  <div class="blob" style="width:180px;height:180px;background:#10b981;top:12%;right:15%;animation-delay:3s"></div>
 
   <div class="login-inner">
     <div class="brand-tag">Data Intelligence Platform</div>
     <div class="login-title">ExcelOS</div>
-    <div class="login-sub">Your files. Your data. Your control.</div>
+    <div class="login-sub">Click the door — no password needed</div>
 
-    <!-- ── MINI CHART TYPE PREVIEWS ── -->
     <div class="chart-previews">
       <div class="chart-preview-card">
-        <svg width="54" height="40" viewBox="0 0 54 40">
-          <rect x="2" y="20" width="8" height="18" rx="2" fill="#a855f7" opacity=".85"/>
-          <rect x="13" y="10" width="8" height="28" rx="2" fill="#00c8ff" opacity=".85"/>
-          <rect x="24" y="15" width="8" height="23" rx="2" fill="#ec4899" opacity=".85"/>
-          <rect x="35" y="5"  width="8" height="33" rx="2" fill="#f59e0b" opacity=".85"/>
-          <rect x="46" y="13" width="6" height="25" rx="2" fill="#10b981" opacity=".85"/>
-        </svg>
+        <svg width="54" height="40" viewBox="0 0 54 40"><rect x="2" y="20" width="8" height="18" rx="2" fill="#a855f7" opacity=".85"/><rect x="13" y="10" width="8" height="28" rx="2" fill="#00c8ff" opacity=".85"/><rect x="24" y="15" width="8" height="23" rx="2" fill="#ec4899" opacity=".85"/><rect x="35" y="5" width="8" height="33" rx="2" fill="#f59e0b" opacity=".85"/></svg>
         <div class="cpc-label">Bar</div>
       </div>
       <div class="chart-preview-card">
-        <svg width="54" height="40" viewBox="0 0 54 40">
-          <polyline points="2,32 14,18 26,24 38,8 50,15" fill="none" stroke="#00c8ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="2"  cy="32" r="3.5" fill="#00c8ff"/>
-          <circle cx="14" cy="18" r="3.5" fill="#00c8ff"/>
-          <circle cx="26" cy="24" r="3.5" fill="#00c8ff"/>
-          <circle cx="38" cy="8"  r="3.5" fill="#00c8ff"/>
-          <circle cx="50" cy="15" r="3.5" fill="#00c8ff"/>
-        </svg>
+        <svg width="54" height="40" viewBox="0 0 54 40"><polyline points="2,32 14,18 26,24 38,8 50,15" fill="none" stroke="#00c8ff" stroke-width="2.5" stroke-linecap="round"/><circle cx="2" cy="32" r="3" fill="#00c8ff"/><circle cx="14" cy="18" r="3" fill="#00c8ff"/><circle cx="26" cy="24" r="3" fill="#00c8ff"/><circle cx="38" cy="8" r="3" fill="#00c8ff"/><circle cx="50" cy="15" r="3" fill="#00c8ff"/></svg>
         <div class="cpc-label">Line</div>
       </div>
       <div class="chart-preview-card">
-        <svg width="42" height="40" viewBox="0 0 42 40">
-          <path d="M21,20 L21,4 A16,16 0 0,1 35,28 Z" fill="#a855f7" opacity=".85"/>
-          <path d="M21,20 L35,28 A16,16 0 0,1 7,28 Z"  fill="#00c8ff" opacity=".85"/>
-          <path d="M21,20 L7,28  A16,16 0 0,1 21,4 Z"  fill="#ec4899" opacity=".85"/>
-        </svg>
+        <svg width="42" height="40" viewBox="0 0 42 40"><path d="M21,20 L21,4 A16,16 0 0,1 35,28 Z" fill="#a855f7" opacity=".85"/><path d="M21,20 L35,28 A16,16 0 0,1 7,28 Z" fill="#00c8ff" opacity=".85"/><path d="M21,20 L7,28 A16,16 0 0,1 21,4 Z" fill="#ec4899" opacity=".85"/></svg>
         <div class="cpc-label">Pie</div>
       </div>
       <div class="chart-preview-card">
-        <svg width="42" height="40" viewBox="0 0 42 40">
-          <circle cx="21" cy="20" r="15" fill="none" stroke="#1a1030" stroke-width="9"/>
-          <circle cx="21" cy="20" r="15" fill="none" stroke="#a855f7" stroke-width="6" stroke-dasharray="22 72" stroke-dashoffset="0"  transform="rotate(-90 21 20)"/>
-          <circle cx="21" cy="20" r="15" fill="none" stroke="#00c8ff" stroke-width="6" stroke-dasharray="20 74" stroke-dashoffset="-22" transform="rotate(-90 21 20)"/>
-          <circle cx="21" cy="20" r="15" fill="none" stroke="#ec4899" stroke-width="6" stroke-dasharray="16 78" stroke-dashoffset="-42" transform="rotate(-90 21 20)"/>
-          <circle cx="21" cy="20" r="9" fill="#07090f"/>
-        </svg>
-        <div class="cpc-label">Doughnut</div>
-      </div>
-      <div class="chart-preview-card">
-        <svg width="46" height="40" viewBox="0 0 46 40">
-          <polygon points="23,4 40,15 34,34 12,34 6,15" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-          <polygon points="23,10 34,18 30,30 16,30 12,18" fill="rgba(16,185,129,.25)" stroke="#10b981" stroke-width="2"/>
-          <line x1="23" y1="4"  x2="23" y2="34" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
-          <line x1="6"  y1="15" x2="40" y2="15" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
-        </svg>
+        <svg width="42" height="40" viewBox="0 0 42 40"><polygon points="21,4 36,14 30,33 12,33 6,14" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/><polygon points="21,10 30,17 26,29 16,29 12,17" fill="rgba(16,185,129,.25)" stroke="#10b981" stroke-width="2"/></svg>
         <div class="cpc-label">Radar</div>
-      </div>
-      <div class="chart-preview-card">
-        <svg width="42" height="40" viewBox="0 0 42 40">
-          <circle cx="21" cy="20" r="15" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-          <path d="M21,20 L21,5  A15,15 0 0,1 34,27 Z" fill="#f59e0b" opacity=".8"/>
-          <path d="M21,20 L34,27 A15,15 0 0,1 8,27 Z"  fill="#a855f7" opacity=".8"/>
-          <path d="M21,20 L8,27  A15,15 0 0,1 21,5 Z"  fill="#00c8ff" opacity=".8"/>
-          <circle cx="21" cy="20" r="4" fill="#07090f"/>
-        </svg>
-        <div class="cpc-label">Polar</div>
       </div>
     </div>
 
-    <!-- ── DOOR (clickable) ── -->
     <div class="door-scene" id="doorScene" onclick="doLogin()">
       <div class="door-frame"></div>
       <div class="door-panel" id="doorPanel">
         <div class="door-xl">XL</div>
-        <div class="dp-lines">
-          <div class="dp-line"></div>
-          <div class="dp-line"></div>
-          <div class="dp-line"></div>
-        </div>
+        <div class="dp-lines"><div class="dp-line"></div><div class="dp-line"></div><div class="dp-line"></div></div>
         <div class="door-knob"></div>
       </div>
     </div>
+    <div class="door-hint">🚪 Click the door to enter</div>
 
-    <!-- Feature hints -->
     <div class="feature-hints">
-      <span class="fhint f1">📊 6 Chart Types</span>
-      <span class="fhint f2">📋 Data Table</span>
+      <span class="fhint f1">📊 6 Charts</span>
+      <span class="fhint f2">📈 Pivot Table</span>
       <span class="fhint f3">∑ Formulas</span>
       <span class="fhint f4">💾 CSV Export</span>
-      <span class="fhint f5">📈 Statistics</span>
+      <span class="fhint f5">∞ No Limit</span>
     </div>
-
-    <!-- Password row -->
-    <div class="pw-row">
-      <input class="pw-input" type="password" id="pwInput" placeholder="🔐 Password enter pannu" onkeydown="if(event.key==='Enter')doLogin()">
-      <button class="login-btn" onclick="doLogin()">Enter →</button>
-    </div>
-    <div class="pw-err" id="pwErr"></div>
   </div>
 </div>
 
-<!-- ═══════════════ MAIN APP ═══════════════ -->
+<!-- ════ MAIN APP ════ -->
 <div id="mainApp">
   <nav class="topnav">
-    <div class="logo"><div class="logo-dot"></div><span>Excel</span>OS</div>
-    <div style="font-size:11px;color:#3d5273;font-family:'JetBrains Mono',monospace;margin-left:6px">v2.1</div>
+    <div class="logo" onclick="askGoHome()" title="🏠 Home page-ku po">
+      <div class="logo-dot"></div><span>Excel</span><span style="color:#e8f0fe">OS</span>
+    </div>
+    <div style="font-size:10px;color:#3d5273;font-family:'JetBrains Mono',monospace;margin-left:4px;padding:3px 7px;border:1px solid #1a1030;border-radius:4px">v3.0</div>
     <div class="nav-pills">
-      <button class="npill active" id="btnAdmin"    onclick="showAdmin()">🗂 Admin</button>
-      <button class="npill"        id="btnAnalyzer" onclick="showAnalyzer()">📊 Analyzer</button>
+      <button class="npill" style="font-size:10px;color:#3d5273" onclick="askGoHome()">🏠 Home</button>
+      <div class="nav-sep"></div>
+      <button class="npill active" id="btnAdmin" onclick="showAdmin()">🗂 Admin <span class="admin-lock-badge" id="adminLockBadge">🔐</span></button>
+      <button class="npill" id="btnAnalyzer" onclick="showAnalyzer()">📊 Analyzer</button>
     </div>
   </nav>
 
   <div class="content">
     <div class="toast" id="toast"></div>
 
-    <!-- ── ADMIN ── -->
     <div id="adminView" class="show">
       <div class="page-header">
         <div class="page-header-icon">🗂</div>
         <div class="page-header-text">
-          <h2>Admin — File Manager</h2>
-          <p>Upload, manage and organize your Excel &amp; CSV files</p>
+          <h2>Admin — Dashboard Manager</h2>
+          <p>Upload & manage Excel/CSV dashboards · <strong style="color:#10b981">∞ Unlimited — No limit</strong></p>
         </div>
       </div>
-
       <div class="upload-zone" id="dropZone" onclick="document.getElementById('fi').click()">
         <div class="uz-corner tl"></div><div class="uz-corner tr"></div>
         <div class="uz-corner bl"></div><div class="uz-corner br"></div>
         <div class="uz-icon">+</div>
-        <h3>Upload Excel File</h3>
-        <p>Click or drag your .xlsx / .xls / .csv file here</p>
+        <h3>Upload Excel / CSV File</h3>
+        <p>Click or drag .xlsx / .xls / .csv here · Unlimited uploads · Auto-opens as dashboard</p>
         <input type="file" id="fi" accept=".xlsx,.xls,.csv" style="display:none">
       </div>
-
       <div class="name-row">
-        <input class="di" type="text" id="customName" placeholder="File name kudungo — eg: Sales 2024, Budget Q1 ...">
-        <button class="btn accent2" onclick="confirmUpload()">✓ Save File</button>
+        <input class="di" type="text" id="customName" placeholder="Dashboard name — eg: Sales 2024, Budget Q1 ...">
+        <button class="btn accent2" onclick="confirmUpload()">✓ Save & Open Dashboard</button>
       </div>
-
       <div id="confirmDelete" style="display:none">
         <div class="confirm-wrap">
-          <h3>⚠ Delete Confirm</h3>
-          <p id="deleteMsg"></p>
+          <h3>⚠ Delete Confirm</h3><p id="deleteMsg"></p>
           <div class="crow">
             <button class="btn danger" onclick="doDelete()">Yes, Delete</button>
             <button class="btn" onclick="cancelDelete()">Cancel</button>
           </div>
         </div>
       </div>
-
-      <div class="sec-label" id="filesLabel" style="display:none">Stored Files</div>
+      <div class="sec-label" id="filesLabel" style="display:none">Saved Dashboards</div>
       <div id="fileGrid" class="file-grid"></div>
     </div>
 
-    <!-- ── ANALYZER ── -->
     <div id="analyzerView">
       <div id="noFile" class="empty-msg">Admin panel-la file select pannu to analyze</div>
       <div id="analyzerContent" style="display:none">
         <div class="az-header">
           <div style="flex:1">
             <div class="az-title" id="analyzerTitle">—</div>
-            <div class="az-meta"  id="analyzerMeta"></div>
+            <div class="az-meta" id="analyzerMeta"></div>
           </div>
-          <button class="btn" onclick="showAdmin()">← Admin</button>
+          <button class="btn" onclick="showAdmin()">🗂 Admin</button>
         </div>
-
         <div class="tabs">
           <button class="tab active" onclick="switchTab('data')">📋 Data</button>
-          <button class="tab"        onclick="switchTab('formulas')">∑ Formulas</button>
-          <button class="tab"        onclick="switchTab('graph')">📊 Graph</button>
-          <button class="tab"        onclick="switchTab('summary')">📈 Summary</button>
+          <button class="tab" onclick="switchTab('formulas')">∑ Formulas</button>
+          <button class="tab" onclick="switchTab('graph')">📊 Graph</button>
+          <button class="tab" onclick="switchTab('summary')">📈 Summary</button>
         </div>
-
         <div id="panel-data" class="panel active">
           <div class="stabs" id="sheetTabs"></div>
           <div class="toolbar">
@@ -431,24 +479,31 @@ td.nc{text-align:right;color:#7dd3fc}
           </div>
           <div class="table-wrap" id="tableWrap"></div>
         </div>
-
-        <div id="panel-formulas" class="panel">
-          <div class="fi-list" id="formulaList"></div>
-        </div>
-
+        <div id="panel-formulas" class="panel"><div class="fi-list" id="formulaList"></div></div>
         <div id="panel-graph" class="panel">
-          <!-- Visual chart type gallery -->
           <div class="chart-type-gallery" id="chartGallery"></div>
           <div class="chart-controls">
-            <select id="xCol" onchange="renderChart()"></select>
-            <select id="yCol" onchange="renderChart()"></select>
+            <label>X Axis:</label><select id="xCol" onchange="renderChart()"></select>
+            <label>Y Axis:</label><select id="yCol" onchange="renderChart()"></select>
             <button class="btn accent" onclick="renderChart()">↻ Refresh</button>
           </div>
           <div class="chart-wrap"><canvas id="myChart"></canvas></div>
         </div>
-
         <div id="panel-summary" class="panel">
           <div class="stats-grid" id="statsGrid"></div>
+          <div class="pivot-controls">
+            <label>📊 Group By:</label>
+            <select id="pivotGroupCol" onchange="renderPivot()"><option value="">— Select Column —</option></select>
+            <label>Value:</label>
+            <select id="pivotAggCol" onchange="renderPivot()"><option value="">— Select Value Column —</option></select>
+            <label>Function:</label>
+            <select id="pivotFunc" onchange="renderPivot()">
+              <option value="sum">SUM</option><option value="count">COUNT</option>
+              <option value="avg">AVERAGE</option><option value="min">MIN</option><option value="max">MAX</option>
+            </select>
+          </div>
+          <div id="pivotResult"></div>
+          <div class="pivot-section-title">Column Statistics</div>
           <div id="colStats"></div>
         </div>
       </div>
@@ -457,192 +512,194 @@ td.nc{text-align:right;color:#7dd3fc}
 </div>
 
 <script>
-/* ══ STARS ══ */
+/* Stars */
 const sc=document.getElementById('starsContainer');
-for(let i=0;i<80;i++){
-  const s=document.createElement('div');s.className='star';
-  const sz=Math.random()*2.2+.6;
-  Object.assign(s.style,{width:sz+'px',height:sz+'px',left:Math.random()*100+'%',top:Math.random()*100+'%',animationDelay:Math.random()*3+'s',animationDuration:(2+Math.random()*3)+'s',position:'absolute'});
-  sc.appendChild(s);
-}
+for(let i=0;i<80;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2.2+.6;Object.assign(s.style,{width:sz+'px',height:sz+'px',left:Math.random()*100+'%',top:Math.random()*100+'%',animationDelay:Math.random()*3+'s',animationDuration:(2+Math.random()*3)+'s',position:'absolute'});sc.appendChild(s);}
 
-/* ══ DRAG & DROP ══ */
-const dz=document.getElementById('dropZone');
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.style.borderColor='#a855f7';});
-dz.addEventListener('dragleave',()=>{dz.style.borderColor='';});
-dz.addEventListener('drop',e=>{e.preventDefault();dz.style.borderColor='';const f=e.dataTransfer.files[0];if(f)readFile(f);});
-document.getElementById('fi').addEventListener('change',e=>{if(e.target.files[0])readFile(e.target.files[0]);e.target.value='';});
-
-/* ══ CHART GALLERY ══ */
+/* Chart types */
 const CHART_TYPES=[
-  {type:'bar',      label:'Bar',      col:'#a855f7', svg:`<svg width="38" height="30" viewBox="0 0 38 30"><rect x="1" y="12" width="6" height="16" rx="1" fill="#a855f7"/><rect x="9" y="6"  width="6" height="22" rx="1" fill="#c084fc"/><rect x="17" y="9"  width="6" height="19" rx="1" fill="#a855f7"/><rect x="25" y="2"  width="6" height="26" rx="1" fill="#c084fc"/><rect x="33" y="8"  width="4" height="20" rx="1" fill="#a855f7"/></svg>`},
-  {type:'line',     label:'Line',     col:'#00c8ff', svg:`<svg width="38" height="30" viewBox="0 0 38 30"><polyline points="2,24 10,14 18,18 26,6 36,10" fill="none" stroke="#00c8ff" stroke-width="2.2" stroke-linecap="round"/><circle cx="2"  cy="24" r="2.5" fill="#00c8ff"/><circle cx="10" cy="14" r="2.5" fill="#00c8ff"/><circle cx="18" cy="18" r="2.5" fill="#00c8ff"/><circle cx="26" cy="6"  r="2.5" fill="#00c8ff"/><circle cx="36" cy="10" r="2.5" fill="#00c8ff"/></svg>`},
-  {type:'pie',      label:'Pie',      col:'#ec4899', svg:`<svg width="32" height="30" viewBox="0 0 32 30"><path d="M16,15 L16,1  A14,14 0 0,1 28,22 Z" fill="#ec4899"/><path d="M16,15 L28,22 A14,14 0 0,1 4,22 Z"  fill="#a855f7"/><path d="M16,15 L4,22  A14,14 0 0,1 16,1 Z"  fill="#00c8ff"/></svg>`},
-  {type:'doughnut', label:'Doughnut', col:'#f59e0b', svg:`<svg width="32" height="30" viewBox="0 0 32 30"><circle cx="16" cy="15" r="13" fill="none" stroke="#1a1030" stroke-width="8"/><circle cx="16" cy="15" r="13" fill="none" stroke="#f59e0b" stroke-width="5" stroke-dasharray="20 62" stroke-dashoffset="0"   transform="rotate(-90 16 15)"/><circle cx="16" cy="15" r="13" fill="none" stroke="#a855f7" stroke-width="5" stroke-dasharray="18 64" stroke-dashoffset="-20" transform="rotate(-90 16 15)"/><circle cx="16" cy="15" r="13" fill="none" stroke="#00c8ff" stroke-width="5" stroke-dasharray="24 58" stroke-dashoffset="-38" transform="rotate(-90 16 15)"/><circle cx="16" cy="15" r="6" fill="#07090f"/></svg>`},
-  {type:'radar',    label:'Radar',    col:'#10b981', svg:`<svg width="36" height="30" viewBox="0 0 36 30"><polygon points="18,3 31,11 26,26 10,26 5,11" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/><polygon points="18,8 26,14 22,23 14,23 10,14"  fill="rgba(16,185,129,.25)" stroke="#10b981" stroke-width="1.8"/></svg>`},
-  {type:'polarArea',label:'Polar',    col:'#c084fc', svg:`<svg width="32" height="30" viewBox="0 0 32 30"><circle cx="16" cy="15" r="13" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1"/><path d="M16,15 L16,2  A13,13 0 0,1 28,21 Z" fill="#a855f7" opacity=".8"/><path d="M16,15 L28,21 A13,13 0 0,1 4,21 Z"  fill="#00c8ff" opacity=".8"/><path d="M16,15 L4,21  A13,13 0 0,1 16,2 Z"  fill="#ec4899" opacity=".8"/><circle cx="16" cy="15" r="3.5" fill="#07090f"/></svg>`},
+  {type:'bar',label:'Bar',col:'#a855f7',svg:`<svg width="38" height="30" viewBox="0 0 38 30"><rect x="1" y="12" width="6" height="16" rx="1" fill="#a855f7"/><rect x="9" y="6" width="6" height="22" rx="1" fill="#c084fc"/><rect x="17" y="9" width="6" height="19" rx="1" fill="#a855f7"/><rect x="25" y="2" width="6" height="26" rx="1" fill="#c084fc"/></svg>`},
+  {type:'line',label:'Line',col:'#00c8ff',svg:`<svg width="38" height="30" viewBox="0 0 38 30"><polyline points="2,24 10,14 18,18 26,6 36,10" fill="none" stroke="#00c8ff" stroke-width="2.2" stroke-linecap="round"/><circle cx="2" cy="24" r="2.5" fill="#00c8ff"/><circle cx="10" cy="14" r="2.5" fill="#00c8ff"/><circle cx="26" cy="6" r="2.5" fill="#00c8ff"/><circle cx="36" cy="10" r="2.5" fill="#00c8ff"/></svg>`},
+  {type:'pie',label:'Pie',col:'#ec4899',svg:`<svg width="32" height="30" viewBox="0 0 32 30"><path d="M16,15 L16,1 A14,14 0 0,1 28,22 Z" fill="#ec4899"/><path d="M16,15 L28,22 A14,14 0 0,1 4,22 Z" fill="#a855f7"/><path d="M16,15 L4,22 A14,14 0 0,1 16,1 Z" fill="#00c8ff"/></svg>`},
+  {type:'doughnut',label:'Doughnut',col:'#f59e0b',svg:`<svg width="32" height="30" viewBox="0 0 32 30"><circle cx="16" cy="15" r="13" fill="none" stroke="#1a1030" stroke-width="8"/><circle cx="16" cy="15" r="13" fill="none" stroke="#f59e0b" stroke-width="5" stroke-dasharray="20 62" stroke-dashoffset="0" transform="rotate(-90 16 15)"/><circle cx="16" cy="15" r="6" fill="#07090f"/></svg>`},
+  {type:'radar',label:'Radar',col:'#10b981',svg:`<svg width="36" height="30" viewBox="0 0 36 30"><polygon points="18,3 31,11 26,26 10,26 5,11" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/><polygon points="18,8 26,14 22,23 14,23 10,14" fill="rgba(16,185,129,.25)" stroke="#10b981" stroke-width="1.8"/></svg>`},
+  {type:'polarArea',label:'Polar',col:'#c084fc',svg:`<svg width="32" height="30" viewBox="0 0 32 30"><path d="M16,15 L16,2 A13,13 0 0,1 28,21 Z" fill="#a855f7" opacity=".8"/><path d="M16,15 L28,21 A13,13 0 0,1 4,21 Z" fill="#00c8ff" opacity=".8"/><path d="M16,15 L4,21 A13,13 0 0,1 16,2 Z" fill="#ec4899" opacity=".8"/><circle cx="16" cy="15" r="3.5" fill="#07090f"/></svg>`},
 ];
 let selectedChartType='bar';
-
 function buildChartGallery(){
-  const g=document.getElementById('chartGallery');
-  g.innerHTML=CHART_TYPES.map(ct=>`
+  document.getElementById('chartGallery').innerHTML=CHART_TYPES.map(ct=>`
     <div class="ctg-card${ct.type===selectedChartType?' selected':''}" onclick="selectChartType('${ct.type}')">
       <div style="display:flex;align-items:center;justify-content:center;height:36px">${ct.svg}</div>
       <div class="ctg-label" style="${ct.type===selectedChartType?'color:'+ct.col:''}">${ct.label}</div>
     </div>`).join('');
 }
-function selectChartType(type){selectedChartType=type;buildChartGallery();renderChart();}
+function selectChartType(t){selectedChartType=t;buildChartGallery();renderChart();}
 
-/* ══ PASSWORD LOGIN ══ */
-const CORRECT='Suresh';
+/* ════ PAGE NAVIGATION ════ */
+function showPage(id){
+  document.getElementById('homePage').style.display = id==='homePage'?'flex':'none';
+  document.getElementById('loginScreen').style.display = id==='loginScreen'?'flex':'none';
+  document.getElementById('mainApp').style.display = id==='mainApp'?'block':'none';
+}
+function fade(fn){
+  const f=document.getElementById('fadeCover');
+  f.classList.add('show');
+  setTimeout(()=>{fn();setTimeout(()=>f.classList.remove('show'),50);},380);
+}
+function goToLogin(){fade(()=>showPage('loginScreen'));}
+function backToHome(){
+  fade(()=>{
+    document.getElementById('doorPanel').classList.remove('open');
+    loginBusy=false;
+    showPage('homePage');
+  });
+}
+function askGoHome(){document.getElementById('homeConfirm').classList.add('show');}
+function goHomeConfirmed(){
+  document.getElementById('homeConfirm').classList.remove('show');
+  fade(()=>{
+    adminAuth=false;activeKey=null;
+    const b=document.getElementById('adminLockBadge');
+    b.textContent='🔐';b.style.cssText='';
+    showPage('homePage');
+  });
+}
+
+/* ════ LOGIN — No password ════ */
 let loginBusy=false;
-
 function doLogin(){
-  if(loginBusy)return;
-  const pw=document.getElementById('pwInput').value;
-  const errEl=document.getElementById('pwErr');
-  if(pw!==CORRECT){
-    const inp=document.getElementById('pwInput');
-    inp.classList.add('wrong');
-    errEl.textContent='❌ Password wrong — try again!';
-    inp.value='';
-    setTimeout(()=>{inp.classList.remove('wrong');errEl.textContent='';},1200);
-    return;
-  }
-  loginBusy=true;
-
-  // 1 — Open door + particles
+  if(loginBusy)return;loginBusy=true;
   document.getElementById('doorPanel').classList.add('open');
   const scene=document.getElementById('doorScene');
   const pCols=['#a855f7','#00c8ff','#ec4899','#f59e0b','#10b981','#c084fc'];
   for(let i=0;i<28;i++){
     const p=document.createElement('div');p.className='particle';
     const ang=Math.random()*360,dist=55+Math.random()*90,sz=3+Math.random()*6;
-    Object.assign(p.style,{
-      width:sz+'px',height:sz+'px',left:'50%',top:'50%',
-      background:pCols[i%pCols.length],
-      '--px':(Math.cos(ang*Math.PI/180)*dist)+'px',
-      '--py':(Math.sin(ang*Math.PI/180)*dist)+'px',
-      animationDelay:Math.random()*.2+'s',position:'absolute'
-    });
-    scene.appendChild(p);
-    setTimeout(()=>p.classList.add('burst'),60);
-    setTimeout(()=>p.remove(),1300);
+    Object.assign(p.style,{width:sz+'px',height:sz+'px',left:'50%',top:'50%',background:pCols[i%pCols.length],'--px':(Math.cos(ang*Math.PI/180)*dist)+'px','--py':(Math.sin(ang*Math.PI/180)*dist)+'px',animationDelay:Math.random()*.2+'s',position:'absolute'});
+    scene.appendChild(p);setTimeout(()=>p.classList.add('burst'),60);setTimeout(()=>p.remove(),1300);
   }
-
-  // 2 — Feature reveal overlay
   setTimeout(()=>{
     const frev=document.getElementById('featureReveal');
-    const features=[
-      {icon:'📋',name:'Data Table',desc:'Edit & search rows',col:'#a855f7',delay:'0.05s'},
-      {icon:'📊',name:'6 Chart Types',desc:'Bar, Line, Pie & more',col:'#00c8ff',delay:'0.12s'},
-      {icon:'∑', name:'Formula Viewer',desc:'Excel formula reader',col:'#ec4899',delay:'0.19s'},
-      {icon:'📈',name:'Statistics',desc:'Sum, Avg, Min, Max',col:'#f59e0b',delay:'0.26s'},
-      {icon:'💾',name:'CSV Export',desc:'Unicode safe export',col:'#10b981',delay:'0.33s'},
-      {icon:'🗂',name:'File Store',desc:'Multiple files saved',col:'#c084fc',delay:'0.40s'},
+    const feats=[
+      {icon:'📋',name:'Data Table',desc:'Edit & search rows',col:'#a855f7',d:'0.05s'},
+      {icon:'📊',name:'6 Chart Types',desc:'Bar, Line, Pie & more',col:'#00c8ff',d:'0.12s'},
+      {icon:'∑',name:'Formula Viewer',desc:'Excel formula reader',col:'#ec4899',d:'0.19s'},
+      {icon:'📈',name:'Pivot Summary',desc:'Group by any column',col:'#f59e0b',d:'0.26s'},
+      {icon:'∞',name:'No Limit',desc:'Unlimited dashboards',col:'#10b981',d:'0.33s'},
+      {icon:'🗂',name:'File Store',desc:'Multiple files saved',col:'#c084fc',d:'0.40s'},
     ];
-    frev.innerHTML=`
-      <div style="text-align:center;padding:0 1rem">
-        <div class="fr-title">🚀 ExcelOS-ku Varaverpu!</div>
-        <div class="fr-sub">Ithu ulla irukura features paru:</div>
-      </div>
-      <div class="fr-grid">
-        ${features.map(f=>`
-          <div class="fr-card" style="animation-delay:${f.delay};border-color:${f.col}22">
-            <div class="fr-icon">${f.icon}</div>
-            <div class="fr-name" style="color:${f.col}">${f.name}</div>
-            <div class="fr-desc">${f.desc}</div>
-          </div>`).join('')}
-      </div>`;
+    frev.innerHTML=`<div style="text-align:center;padding:0 1rem"><div class="fr-title">🚀 ExcelOS-ku Varaverpu!</div><div class="fr-sub">Ithu ulla irukura features paru:</div></div>
+    <div class="fr-grid">${feats.map(f=>`<div class="fr-card" style="animation-delay:${f.d};border-color:${f.col}22"><div class="fr-icon">${f.icon}</div><div class="fr-name" style="color:${f.col}">${f.name}</div><div class="fr-desc">${f.desc}</div></div>`).join('')}</div>`;
     frev.classList.add('show');
-
-    // 3 — Wipe to main app
     setTimeout(()=>{
       frev.classList.remove('show');
-      const w=document.getElementById('wipe');
-      w.classList.add('expand');
+      const w=document.getElementById('wipe');w.classList.add('expand');
       setTimeout(()=>{
-        document.getElementById('loginScreen').style.display='none';
-        document.getElementById('mainApp').style.display='block';
-        w.style.display='none';
-        frev.style.display='none';
-        loadStore();
+        showPage('mainApp');w.style.display='none';frev.style.display='none';loginBusy=false;loadStore();
       },870);
     },1800);
   },950);
 }
 
-/* ══ STORAGE ══ */
-let fileStore={},pendingWB=null,activeKey=null,currentSheet=null,rawData=[],headers=[],chartInst=null,showFml=false,deleteTarget=null;
+/* ════ ADMIN DRAWER ════ */
+const ADMIN_PASS='2001sam';let adminAuth=false;
+function showAdminDrawer(){
+  document.getElementById('adminDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('show');
+  setTimeout(()=>document.getElementById('adminPwInput').focus(),450);
+}
+function closeAdminDrawer(){
+  document.getElementById('adminDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('show');
+  document.getElementById('adminPwInput').value='';
+  document.getElementById('adminPwErr').textContent='';
+}
+function checkAdminPass(){
+  const pw=document.getElementById('adminPwInput').value;
+  if(pw!==ADMIN_PASS){
+    const inp=document.getElementById('adminPwInput');
+    inp.classList.add('wrong');document.getElementById('adminPwErr').textContent='❌ Wrong password!';inp.value='';
+    setTimeout(()=>{inp.classList.remove('wrong');document.getElementById('adminPwErr').textContent='';},1200);return;
+  }
+  adminAuth=true;closeAdminDrawer();
+  const b=document.getElementById('adminLockBadge');
+  b.textContent='🔓';b.style.background='rgba(16,185,129,.15)';b.style.borderColor='rgba(16,185,129,.3)';b.style.color='#10b981';
+  _showAdminView();showToast('✅ Admin access granted!');
+}
+function _showAdminView(){
+  document.getElementById('adminView').classList.add('show');document.getElementById('analyzerView').classList.remove('show');
+  document.getElementById('btnAdmin').classList.add('active');document.getElementById('btnAnalyzer').classList.remove('active');
+}
 
+/* ════ STORAGE ════ */
+let fileStore={},pendingWB=null,activeKey=null,currentSheet=null,rawData=[],headers=[],chartInst=null,showFml=false,deleteTarget=null;
 function loadStore(){
   try{const d=localStorage.getItem('excelos-files');if(d)fileStore=JSON.parse(d);}catch(e){fileStore={};}
   renderFileGrid();
+  const keys=Object.keys(fileStore);
+  if(keys.length)openFile(keys[keys.length-1]);
 }
 function saveStore(){
   try{
-    const slim={};
-    Object.keys(fileStore).forEach(k=>{
-      slim[k]={name:fileStore[k].name,uploadedAt:fileStore[k].uploadedAt,sheetCount:fileStore[k].sheetCount,rowCount:fileStore[k].rowCount,sheets:fileStore[k].sheets};
-    });
+    const slim={};Object.keys(fileStore).forEach(k=>{slim[k]={name:fileStore[k].name,uploadedAt:fileStore[k].uploadedAt,sheetCount:fileStore[k].sheetCount,rowCount:fileStore[k].rowCount,sheets:fileStore[k].sheets};});
     localStorage.setItem('excelos-files',JSON.stringify(slim));
-  }catch(e){}
+  }catch(e){showToast('⚠ Storage full — delete old files!');}
 }
 
-/* ══ FILE READ ══ */
+/* ════ NAV ════ */
+function showAdmin(){if(!adminAuth){showAdminDrawer();return;}_showAdminView();}
+function showAnalyzer(){
+  document.getElementById('analyzerView').classList.add('show');document.getElementById('adminView').classList.remove('show');
+  document.getElementById('btnAnalyzer').classList.add('active');document.getElementById('btnAdmin').classList.remove('active');
+}
+
+/* ════ FILE OPS ════ */
+const dz=document.getElementById('dropZone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.style.borderColor='#a855f7';});
+dz.addEventListener('dragleave',()=>{dz.style.borderColor='';});
+dz.addEventListener('drop',e=>{e.preventDefault();dz.style.borderColor='';const f=e.dataTransfer.files[0];if(f)readFile(f);});
+document.getElementById('fi').addEventListener('change',e=>{if(e.target.files[0])readFile(e.target.files[0]);e.target.value='';});
+
 function readFile(file){
   const reader=new FileReader();
   reader.onload=ev=>{
     pendingWB=XLSX.read(new Uint8Array(ev.target.result),{type:'array',cellFormula:true});
-    if(!document.getElementById('customName').value)
-      document.getElementById('customName').value=file.name.replace(/\.[^.]+$/,'');
+    if(!document.getElementById('customName').value)document.getElementById('customName').value=file.name.replace(/\.[^.]+$/,'');
     showToast('File ready — name kuduthu Save pannu');
-  };
-  reader.readAsArrayBuffer(file);
+  };reader.readAsArrayBuffer(file);
 }
 function confirmUpload(){
   if(!pendingWB){showToast('Muthal file select pannu');return;}
   const name=document.getElementById('customName').value.trim();
-  if(!name){showToast('Name kodukanum!');return;}
-  const key='xf_'+Date.now();
-  const sheets={};
+  if(!name){showToast('Dashboard name kodukanum!');return;}
+  const key='xf_'+Date.now();const sheets={};
   pendingWB.SheetNames.forEach(sn=>{
-    const ws=pendingWB.Sheets[sn];
-    const json=XLSX.utils.sheet_to_json(ws,{header:1,raw:false,defval:''});
-    const formulas=[];
-    Object.keys(ws).filter(k=>k[0]!=='!').forEach(addr=>{
-      const c=ws[addr];if(c&&c.f)formulas.push({addr,formula:c.f,value:c.v!==undefined?c.v:''});
-    });
+    const ws=pendingWB.Sheets[sn];const json=XLSX.utils.sheet_to_json(ws,{header:1,raw:false,defval:''});const formulas=[];
+    Object.keys(ws).filter(k=>k[0]!=='!').forEach(addr=>{const c=ws[addr];if(c&&c.f)formulas.push({addr,formula:c.f,value:c.v!==undefined?c.v:''});});
     sheets[sn]={data:json,formulas};
   });
   const rows=sheets[pendingWB.SheetNames[0]].data.length-1;
   fileStore[key]={name,uploadedAt:new Date().toLocaleString(),sheetCount:pendingWB.SheetNames.length,rowCount:Math.max(0,rows),sheets};
   saveStore();pendingWB=null;document.getElementById('customName').value='';
-  renderFileGrid();showToast('"'+name+'" saved!');
+  renderFileGrid();showToast('✅ "'+name+'" saved! Opening...');
+  setTimeout(()=>openFile(key),300);
 }
 function renderFileGrid(){
-  const grid=document.getElementById('fileGrid');
-  const keys=Object.keys(fileStore);
+  const grid=document.getElementById('fileGrid');const keys=Object.keys(fileStore);
   document.getElementById('filesLabel').style.display=keys.length?'block':'none';
-  if(!keys.length){grid.innerHTML='<div class="empty-msg">No files yet — upload pannu</div>';return;}
+  if(!keys.length){grid.innerHTML='<div class="empty-msg">No dashboards yet — upload pannu<br><small style="color:#1a1030;margin-top:6px;display:block">∞ Unlimited dashboards — no limit</small></div>';return;}
   grid.innerHTML=keys.map(k=>{
     const f=fileStore[k],isA=k===activeKey;
     return`<div class="fc${isA?' active-card':''}">
-      <div class="fc-icon">XL</div>
-      ${isA?'<div class="fc-badge">● Active</div>':''}
+      <div class="fc-icon">XL</div>${isA?'<div class="fc-badge">● Active</div>':''}
       <div class="fc-name" title="${f.name}">${f.name}</div>
       <div class="fc-date">${f.uploadedAt}</div>
-      <div class="fc-pills">
-        <span class="pill">${f.sheetCount} sheet${f.sheetCount>1?'s':''}</span>
-        <span class="pill">${f.rowCount} rows</span>
-      </div>
+      <div class="fc-pills"><span class="pill">${f.sheetCount} sheet${f.sheetCount>1?'s':''}</span><span class="pill">${f.rowCount} rows</span></div>
       <div class="fc-actions">
         <button class="btn accent2" onclick="openFile('${k}')">Open</button>
         <button class="btn" onclick="renameFile('${k}')">Rename</button>
         <button class="btn danger" onclick="askDelete('${k}','${f.name.replace(/'/g,"\\'")}')">Delete</button>
-      </div>
-    </div>`;
+      </div></div>`;
   }).join('');
 }
 function openFile(key){
@@ -652,187 +709,165 @@ function openFile(key){
   const sNames=Object.keys(f.sheets);
   document.getElementById('sheetTabs').innerHTML=sNames.map((n,i)=>`<button class="stab${i===0?' active':''}" onclick="loadSheetData('${n}',this)">${n}</button>`).join('');
   loadSheetData(sNames[0]);
-  document.getElementById('noFile').style.display='none';
-  document.getElementById('analyzerContent').style.display='block';
+  document.getElementById('noFile').style.display='none';document.getElementById('analyzerContent').style.display='block';
   showAnalyzer();renderFileGrid();
 }
 function renameFile(key){
   const n=prompt('New name:',fileStore[key].name);
   if(n&&n.trim()){fileStore[key].name=n.trim();saveStore();renderFileGrid();if(activeKey===key)document.getElementById('analyzerTitle').textContent=n.trim();showToast('Renamed!');}
 }
-function askDelete(key,name){
-  deleteTarget=key;
-  document.getElementById('deleteMsg').textContent='"'+name+'" — delete pannanuma?';
-  document.getElementById('confirmDelete').style.display='block';
-}
+function askDelete(key,name){deleteTarget=key;document.getElementById('deleteMsg').textContent='"'+name+'" — delete pannanuma?';document.getElementById('confirmDelete').style.display='block';}
 function cancelDelete(){deleteTarget=null;document.getElementById('confirmDelete').style.display='none';}
 function doDelete(){
-  if(!deleteTarget)return;
-  const name=fileStore[deleteTarget].name;
+  if(!deleteTarget)return;const name=fileStore[deleteTarget].name;
   if(activeKey===deleteTarget){activeKey=null;document.getElementById('noFile').style.display='';document.getElementById('analyzerContent').style.display='none';}
-  delete fileStore[deleteTarget];deleteTarget=null;
-  document.getElementById('confirmDelete').style.display='none';
+  delete fileStore[deleteTarget];deleteTarget=null;document.getElementById('confirmDelete').style.display='none';
   saveStore();renderFileGrid();showToast('"'+name+'" deleted');
 }
 
-/* ══ ANALYZER ══ */
+/* ════ ANALYZER ════ */
 function loadSheetData(name,btn){
-  currentSheet=name;
-  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
+  currentSheet=name;document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');else{const f=document.querySelector('.stab');if(f)f.classList.add('active');}
   const sd=fileStore[activeKey].sheets[name];
-  if(!sd.data.length){document.getElementById('tableWrap').innerHTML='<div class="empty-msg">No data in this sheet</div>';return;}
+  if(!sd.data.length){document.getElementById('tableWrap').innerHTML='<div class="empty-msg">No data</div>';return;}
   headers=sd.data[0];rawData=sd.data.slice(1);showFml=false;
   renderTable(rawData);renderFormulasPanel(sd.formulas);populateChartCols();renderStats();
 }
 function renderTable(data){
   let html='<table><thead><tr><th class="rn">#</th>';
-  headers.forEach(h=>{html+=`<th>${h||'—'}</th>`;});
-  html+='</tr></thead><tbody>';
+  headers.forEach(h=>{html+=`<th>${h||'—'}</th>`;});html+='</tr></thead><tbody>';
   data.forEach((row,ri)=>{
     html+=`<tr><td class="rn">${ri+1}</td>`;
-    headers.forEach((_,ci)=>{
-      const val=row[ci]!==undefined?String(row[ci]):'';
-      const isNum=!isNaN(parseFloat(val))&&val!=='';
-      html+=`<td class="${isNum?'nc':''}" contenteditable="true" data-r="${ri}" data-c="${ci}" onblur="cellEdit(this)">${val}</td>`;
-    });
+    headers.forEach((_,ci)=>{const val=row[ci]!==undefined?String(row[ci]):'';const isNum=!isNaN(parseFloat(val))&&val!=='';html+=`<td class="${isNum?'nc':''}" contenteditable="true" data-r="${ri}" data-c="${ci}" onblur="cellEdit(this)">${val}</td>`;});
     html+='</tr>';
   });
-  html+='</tbody></table>';
-  document.getElementById('tableWrap').innerHTML=html;
+  html+='</tbody></table>';document.getElementById('tableWrap').innerHTML=html;
 }
 function cellEdit(td){rawData[+td.dataset.r][+td.dataset.c]=td.textContent;}
 function addRow(){rawData.push(headers.map(()=>''));renderTable(rawData);}
 function toggleFml(){showFml=!showFml;renderTable(rawData);showToast(showFml?'Formula view ON':'Formula view OFF');}
 function filterTable(){
   const q=document.getElementById('searchBox').value.toLowerCase();
-  if(!q){renderTable(rawData);return;}
-  renderTable(rawData.filter(r=>r.some(c=>String(c).toLowerCase().includes(q))));
+  if(!q){renderTable(rawData);return;}renderTable(rawData.filter(r=>r.some(c=>String(c).toLowerCase().includes(q))));
 }
-
-/* ── FIXED CSV EXPORT — Unicode BOM + proper quoting ── */
 function exportCSV(){
-  function escapeCell(val){
-    const s=String(val==null?'':val);
-    // Quote cell if it contains comma, quote, newline or leading/trailing space
-    if(/[,"\n\r]/.test(s)||s!==s.trim()||s===''){
-      return '"'+s.replace(/"/g,'""')+'"';
-    }
-    return s;
-  }
-  const allRows=[headers,...rawData];
-  const csv=allRows.map(row=>row.map(escapeCell).join(',')).join('\r\n');
-  // BOM (\uFEFF) ensures Tamil & other Unicode chars render correctly in Excel/LibreOffice
+  function esc(val){const s=String(val==null?'':val);if(/[,"\n\r]/.test(s)||s!==s.trim())return'"'+s.replace(/"/g,'""')+'"';return s;}
+  const csv=[headers,...rawData].map(r=>r.map(esc).join(',')).join('\r\n');
   const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download=(fileStore[activeKey]?.name||'data')+'.csv';a.click();
-  URL.revokeObjectURL(url);
-  showToast('CSV exported! (Unicode safe ✓)');
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(fileStore[activeKey]?.name||'data')+'.csv';a.click();
+  showToast('CSV exported! ✓');
 }
-
 function renderFormulasPanel(formulas){
   const c=document.getElementById('formulaList');
-  if(!formulas||!formulas.length){c.innerHTML='<div class="empty-msg">No formulas found in this sheet</div>';return;}
+  if(!formulas||!formulas.length){c.innerHTML='<div class="empty-msg">No formulas found</div>';return;}
   c.innerHTML=formulas.map(f=>`<div class="fi"><div class="cr">Cell ${f.addr}</div><div class="ft">= ${f.formula}</div><div class="fr">Result: ${f.value}</div></div>`).join('');
 }
 function populateChartCols(){
   buildChartGallery();
   const xS=document.getElementById('xCol'),yS=document.getElementById('yCol');
-  xS.innerHTML=headers.map((h,i)=>`<option value="${i}">${h}</option>`).join('');
+  xS.innerHTML=headers.map((h,i)=>`<option value="${i}">${h||'Col '+(i+1)}</option>`).join('');
   const nc=headers.map((h,i)=>({h,i})).filter(({i})=>rawData.some(r=>!isNaN(parseFloat(r[i]))));
-  yS.innerHTML=nc.map(({h,i})=>`<option value="${i}">${h}</option>`).join('');
-  if(nc.length)yS.value=nc[0].i;
-  setTimeout(renderChart,100);
+  yS.innerHTML=(nc.length?nc:headers.map((h,i)=>({h,i}))).map(({h,i})=>`<option value="${i}">${h||'Col '+(i+1)}</option>`).join('');
+  if(nc.length)yS.value=nc[0].i;setTimeout(renderChart,100);
 }
 function renderChart(){
   const type=selectedChartType;
   const xI=parseInt(document.getElementById('xCol').value),yI=parseInt(document.getElementById('yCol').value);
   if(isNaN(xI)||isNaN(yI))return;
-  const labels=rawData.map(r=>r[xI]||'').slice(0,60);
-  const values=rawData.map(r=>parseFloat(r[yI])||0).slice(0,60);
+  const labels=rawData.map(r=>r[xI]||'').slice(0,60);const values=rawData.map(r=>parseFloat(r[yI])||0).slice(0,60);
   const isPoly=['pie','doughnut','polarArea','radar'].includes(type);
-  // Rich multi-color palette
-  const PALETTE=['#a855f7','#00c8ff','#ec4899','#f59e0b','#10b981','#3b82f6','#f97316','#8b5cf6','#06b6d4','#84cc16','#e11d48','#0ea5e9'];
-  const colors=values.map((_,i)=>PALETTE[i%PALETTE.length]);
-  const ctx=document.getElementById('myChart');
+  const PAL=['#a855f7','#00c8ff','#ec4899','#f59e0b','#10b981','#3b82f6','#f97316','#8b5cf6','#06b6d4','#84cc16'];
+  const colors=values.map((_,i)=>PAL[i%PAL.length]);
   if(chartInst)chartInst.destroy();
-  Chart.defaults.color='#7a90b0';
-  Chart.defaults.borderColor='rgba(26,16,48,.8)';
-  chartInst=new Chart(ctx,{
-    type,
-    data:{labels,datasets:[{
-      label:headers[yI]||'Value',data:values,
+  Chart.defaults.color='#7a90b0';Chart.defaults.borderColor='rgba(26,16,48,.8)';
+  chartInst=new Chart(document.getElementById('myChart'),{
+    type,data:{labels,datasets:[{label:headers[yI]||'Value',data:values,
       backgroundColor:isPoly?colors.map(c=>c+'bb'):(type==='line'?'rgba(168,85,247,.1)':colors.map(c=>c+'bb')),
       borderColor:isPoly?colors:(type==='line'?'#a855f7':colors),
-      borderWidth:2,tension:.4,
-      pointBackgroundColor:'#a855f7',pointRadius:4,
-      pointBorderColor:'rgba(255,255,255,.6)',pointBorderWidth:1
+      borderWidth:2,tension:.4,pointBackgroundColor:'#a855f7',pointRadius:4,pointBorderColor:'rgba(255,255,255,.6)',pointBorderWidth:1
     }]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{labels:{font:{size:12,family:'Syne'},color:'#7a90b0'}}},
-      scales:isPoly?{}:{
-        x:{ticks:{font:{size:11},color:'#3d5273'},grid:{color:'rgba(26,16,48,.8)'}},
-        y:{ticks:{font:{size:11},color:'#3d5273'},grid:{color:'rgba(26,16,48,.8)'}}
-      }
+      scales:isPoly?{}:{x:{ticks:{font:{size:11},color:'#3d5273'},grid:{color:'rgba(26,16,48,.8)'}},y:{ticks:{font:{size:11},color:'#3d5273'},grid:{color:'rgba(26,16,48,.8)'}}}
     }
   });
 }
+
+/* ════ STATS + PIVOT ════ */
 function renderStats(){
   const nc=headers.map((h,i)=>{const v=rawData.map(r=>parseFloat(r[i])).filter(x=>!isNaN(x));return v.length?{name:h,vals:v}:null;}).filter(Boolean);
-  const SC=[
-    {g:'linear-gradient(90deg,#a855f7,#c084fc)',c:'#a855f7'},
-    {g:'linear-gradient(90deg,#00c8ff,#38bdf8)',c:'#00c8ff'},
-    {g:'linear-gradient(90deg,#ec4899,#f472b6)',c:'#ec4899'},
-    {g:'linear-gradient(90deg,#f59e0b,#fbbf24)',c:'#f59e0b'},
-  ];
+  const SC=[{g:'linear-gradient(90deg,#a855f7,#c084fc)',c:'#a855f7'},{g:'linear-gradient(90deg,#00c8ff,#38bdf8)',c:'#00c8ff'},{g:'linear-gradient(90deg,#ec4899,#f472b6)',c:'#ec4899'},{g:'linear-gradient(90deg,#f59e0b,#fbbf24)',c:'#f59e0b'}];
   document.getElementById('statsGrid').innerHTML=[
-    {l:'Total Rows',v:rawData.length},{l:'Columns',v:headers.length},
-    {l:'Numeric Cols',v:nc.length},{l:'Files Stored',v:Object.keys(fileStore).length}
-  ].map((s,i)=>`<div class="sc" style="--sc-grad:${SC[i].g};--sc-col:${SC[i].c}"><div class="sl">${s.l}</div><div class="sv">${s.v}</div></div>`).join('');
+    {l:'Total Rows',v:rawData.length},{l:'Columns',v:headers.length},{l:'Numeric Cols',v:nc.length},{l:'Dashboards',v:Object.keys(fileStore).length+' / ∞'}
+  ].map((s,i)=>`<div class="sc" style="--sc-grad:${SC[i].g};--sc-col:${SC[i].c}"><div class="sl">${s.l}</div><div class="sv" style="font-size:${i===3?'18px':'26px'}">${s.v}</div></div>`).join('');
+
+  const gSel=document.getElementById('pivotGroupCol'),aSel=document.getElementById('pivotAggCol');
+  gSel.innerHTML='<option value="">— Select Column —</option>'+headers.map((h,i)=>`<option value="${i}">${h||'Col '+(i+1)}</option>`).join('');
+  const numCols=headers.map((h,i)=>{const vals=rawData.map(r=>parseFloat(r[i])).filter(x=>!isNaN(x));return vals.length?{h,i}:null;}).filter(Boolean);
+  aSel.innerHTML='<option value="">— Select Value Column —</option>'+numCols.map(({h,i})=>`<option value="${i}">${h||'Col '+(i+1)}</option>`).join('');
+  const textColIdx=headers.findIndex((_,i)=>rawData.every(r=>isNaN(parseFloat(r[i]))));
+  if(textColIdx>=0)gSel.value=textColIdx;
+  if(numCols.length)aSel.value=numCols[0].i;
+  renderPivot();
+
   if(!nc.length){document.getElementById('colStats').innerHTML='';return;}
   const CP=['#a855f7','#00c8ff','#ec4899','#f59e0b','#10b981','#3b82f6'];
-  let html='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px;margin-top:12px">';
+  let html='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px">';
   nc.forEach(({name,vals},idx)=>{
-    const sum=vals.reduce((a,b)=>a+b,0),avg=sum/vals.length,mn=Math.min(...vals),mx=Math.max(...vals);
-    const col=CP[idx%CP.length];
-    html+=`<div class="sc" style="--sc-grad:${col};--sc-col:${col}">
-      <div class="sl" style="color:${col};margin-bottom:9px;font-size:11px">${name}</div>
-      <table style="width:100%;font-size:11px;font-family:'JetBrains Mono',monospace">
-        <tr><td style="color:#3d5273;padding:3px 0">SUM</td><td style="text-align:right;color:#e8f0fe">${sum.toFixed(2)}</td></tr>
-        <tr><td style="color:#3d5273;padding:3px 0">AVG</td><td style="text-align:right;color:#e8f0fe">${avg.toFixed(2)}</td></tr>
-        <tr><td style="color:#3d5273;padding:3px 0">MIN</td><td style="text-align:right;color:#10b981">${mn.toFixed(2)}</td></tr>
-        <tr><td style="color:#3d5273;padding:3px 0">MAX</td><td style="text-align:right;color:#f59e0b">${mx.toFixed(2)}</td></tr>
-        <tr><td style="color:#3d5273;padding:3px 0">COUNT</td><td style="text-align:right;color:#e8f0fe">${vals.length}</td></tr>
-      </table>
-    </div>`;
+    const sum=vals.reduce((a,b)=>a+b,0),avg=sum/vals.length,mn=Math.min(...vals),mx=Math.max(...vals);const col=CP[idx%CP.length];
+    html+=`<div class="sc" style="--sc-grad:${col};--sc-col:${col}"><div class="sl" style="color:${col};margin-bottom:9px;font-size:11px">${name}</div>
+    <table style="width:100%;font-size:11px;font-family:'JetBrains Mono',monospace">
+      <tr><td style="color:#3d5273;padding:3px 0">SUM</td><td style="text-align:right;color:#e8f0fe">${sum.toFixed(2)}</td></tr>
+      <tr><td style="color:#3d5273;padding:3px 0">AVG</td><td style="text-align:right;color:#e8f0fe">${avg.toFixed(2)}</td></tr>
+      <tr><td style="color:#3d5273;padding:3px 0">MIN</td><td style="text-align:right;color:#10b981">${mn.toFixed(2)}</td></tr>
+      <tr><td style="color:#3d5273;padding:3px 0">MAX</td><td style="text-align:right;color:#f59e0b">${mx.toFixed(2)}</td></tr>
+      <tr><td style="color:#3d5273;padding:3px 0">COUNT</td><td style="text-align:right;color:#e8f0fe">${vals.length}</td></tr>
+    </table></div>`;
   });
   html+='</div>';document.getElementById('colStats').innerHTML=html;
 }
+function renderPivot(){
+  const gI=document.getElementById('pivotGroupCol').value,aI=document.getElementById('pivotAggCol').value;
+  const func=document.getElementById('pivotFunc').value,out=document.getElementById('pivotResult');
+  if(gI===''||aI===''){out.innerHTML='<div class="empty-msg" style="padding:1.5rem">Group By + Value column choose pannu</div>';return;}
+  const gIdx=parseInt(gI),aIdx=parseInt(aI);
+  const gName=headers[gIdx]||'Col '+(gIdx+1),aName=headers[aIdx]||'Col '+(aIdx+1);
+  const groups={};
+  rawData.forEach(row=>{
+    const key=String(row[gIdx]||'(blank)');const val=parseFloat(row[aIdx]);
+    if(!groups[key])groups[key]=[];if(!isNaN(val))groups[key].push(val);
+  });
+  const keys=Object.keys(groups).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
+  function agg(vals){if(!vals.length)return 0;switch(func){case 'sum':return vals.reduce((a,b)=>a+b,0);case 'count':return vals.length;case 'avg':return vals.reduce((a,b)=>a+b,0)/vals.length;case 'min':return Math.min(...vals);case 'max':return Math.max(...vals);}}
+  const PAL=['#a855f7','#00c8ff','#ec4899','#f59e0b','#10b981','#3b82f6','#f97316','#8b5cf6'];
+  const fL={sum:'SUM',count:'COUNT',avg:'AVG',min:'MIN',max:'MAX'}[func];
+  const results=keys.map(k=>({key:k,val:agg(groups[k]),count:groups[k].length}));
+  const maxVal=Math.max(...results.map(r=>Math.abs(r.val)),1);
+  let html=`<div class="pivot-section-title">Pivot: ${gName} → ${fL}(${aName})</div>
+  <div class="pivot-table-wrap"><table><thead><tr><th>${gName}</th><th style="text-align:right">${fL}(${aName})</th><th style="text-align:right">Count</th><th style="min-width:120px">Chart</th></tr></thead><tbody>`;
+  results.forEach((r,i)=>{
+    const col=PAL[i%PAL.length],pct=Math.round((Math.abs(r.val)/maxVal)*100);
+    html+=`<tr><td class="pkey" style="color:${col}">${r.key}</td><td class="pval">${func==='count'?r.val:r.val.toFixed(2)}</td><td class="pval" style="color:#3d5273">${r.count}</td>
+    <td><div style="height:10px;border-radius:5px;background:${col}22;position:relative;overflow:hidden"><div style="position:absolute;left:0;top:0;height:100%;width:${pct}%;background:${col};border-radius:5px"></div></div></td></tr>`;
+  });
+  html+=`</tbody></table></div>`;out.innerHTML=html;
+}
+
 function switchTab(name){
   ['data','formulas','graph','summary'].forEach((n,i)=>{
     document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
     document.getElementById('panel-'+n).classList.toggle('active',n===name);
   });
   if(name==='graph'){buildChartGallery();setTimeout(renderChart,60);}
-}
-function showAdmin(){
-  document.getElementById('adminView').classList.add('show');
-  document.getElementById('analyzerView').classList.remove('show');
-  document.getElementById('btnAdmin').classList.add('active');
-  document.getElementById('btnAnalyzer').classList.remove('active');
-}
-function showAnalyzer(){
-  document.getElementById('analyzerView').classList.add('show');
-  document.getElementById('adminView').classList.remove('show');
-  document.getElementById('btnAnalyzer').classList.add('active');
-  document.getElementById('btnAdmin').classList.remove('active');
+  if(name==='summary')renderStats();
 }
 function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2600);
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);
 }
+
+// Init — show home page
+showPage('homePage');
 </script>
 </body>
 </html>
