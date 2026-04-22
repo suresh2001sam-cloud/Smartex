@@ -25,7 +25,7 @@ html,body{height:100%;font-family:'Syne',sans-serif;background:#000;color:#fff;o
 #fadeCover{position:fixed;inset:0;background:#050510;z-index:9998;opacity:0;pointer-events:none;transition:opacity .4s}
 #fadeCover.show{opacity:1;pointer-events:all}
 
-/* ══ HOME ══ */
+/* HOME */
 #homePage{min-height:100vh;background:#050510;position:relative;overflow-x:hidden;display:flex;flex-direction:column}
 .home-nav{display:flex;align-items:center;padding:0 1.5rem;height:60px;border-bottom:1px solid rgba(255,255,255,.05);position:sticky;top:0;z-index:50;background:rgba(5,5,16,.9);backdrop-filter:blur(14px)}
 .home-logo{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:800}
@@ -47,10 +47,10 @@ html,body{height:100%;font-family:'Syne',sans-serif;background:#000;color:#fff;o
 .hbp1:hover{transform:scale(1.05) translateY(-2px);box-shadow:0 8px 40px rgba(168,85,247,.5)}
 .hbp2{padding:14px 30px;font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;background:transparent;color:#7a90b0;border:1.5px solid rgba(255,255,255,.12);border-radius:50px;transition:all .2s;font-family:'Syne',sans-serif}
 .hbp2:hover{color:#e8f0fe;border-color:rgba(255,255,255,.3)}
-.hero-stats{display:flex;gap:0;border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.02);flex-wrap:wrap;max-width:660px;width:100%}
-.hstat{flex:1;min-width:120px;padding:16px;text-align:center;border-right:1px solid rgba(255,255,255,.06)}
+.hero-stats{display:flex;gap:0;border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.02);flex-wrap:wrap;max-width:700px;width:100%}
+.hstat{flex:1;min-width:100px;padding:16px;text-align:center;border-right:1px solid rgba(255,255,255,.06)}
 .hstat:last-child{border-right:none}
-.hstat-v{font-size:24px;font-weight:800;background:linear-gradient(135deg,#a855f7,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'JetBrains Mono',monospace;margin-bottom:3px}
+.hstat-v{font-size:22px;font-weight:800;background:linear-gradient(135deg,#a855f7,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'JetBrains Mono',monospace;margin-bottom:3px}
 .hstat-l{font-size:9px;color:#3d5273;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
 .home-features{padding:2.5rem 1.5rem 3.5rem;max-width:1080px;margin:0 auto;width:100%;position:relative;z-index:2}
 .feat-label{text-align:center;font-size:10px;letter-spacing:3px;color:#3d5273;text-transform:uppercase;font-weight:700;margin-bottom:10px}
@@ -65,7 +65,7 @@ html,body{height:100%;font-family:'Syne',sans-serif;background:#000;color:#fff;o
 .home-footer{padding:1.25rem 1.5rem;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .home-footer span{font-size:11px;color:#3d5273}
 
-/* ══ LOGIN ══ */
+/* LOGIN */
 #loginScreen{min-height:100vh;background:#050510;display:none;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .login-back{position:absolute;top:16px;left:16px;z-index:10;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#3d5273;letter-spacing:.5px;cursor:pointer;padding:8px 14px;border:1px solid #1a1030;border-radius:50px;background:rgba(255,255,255,.03);transition:all .2s;text-transform:uppercase;min-height:44px}
 .login-back:hover{color:#a855f7;border-color:rgba(168,85,247,.35)}
@@ -112,7 +112,7 @@ html,body{height:100%;font-family:'Syne',sans-serif;background:#000;color:#fff;o
 .particle.burst{animation:pBurst .95s ease-out forwards}
 @keyframes pBurst{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(calc(-50% + var(--px)),calc(-50% + var(--py))) scale(0)}}
 
-/* ══ MAIN APP ══ */
+/* MAIN APP */
 #mainApp{display:none;min-height:100vh;background:#07090f;padding-bottom:0}
 .topnav{background:linear-gradient(90deg,#0a0518,#050f1a);border-bottom:1px solid rgba(168,85,247,.18);padding:0 1rem;display:flex;align-items:center;gap:8px;height:54px;position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;gap:7px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;flex-shrink:0}
@@ -126,20 +126,17 @@ html,body{height:100%;font-family:'Syne',sans-serif;background:#000;color:#fff;o
 .nav-sep{width:1px;height:20px;background:rgba(255,255,255,.08);margin:0 1px}
 .admin-lock-badge{font-size:10px;background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.3);color:#ec4899;border-radius:5px;padding:2px 5px;margin-left:3px;transition:all .3s}
 
-/* Split screen layout */
 .split-layout{display:flex;flex:1;min-height:calc(100vh - 54px)}
 .split-left{width:320px;min-width:280px;flex-shrink:0;border-right:1px solid rgba(168,85,247,.12);background:#08060f;overflow-y:auto;position:sticky;top:54px;height:calc(100vh - 54px)}
 .split-right{flex:1;min-width:0;overflow-y:auto;height:calc(100vh - 54px)}
 .split-divider{width:4px;background:rgba(168,85,247,.08);cursor:col-resize;transition:background .2s;flex-shrink:0}
 .split-divider:hover,.split-divider.dragging{background:rgba(168,85,247,.4)}
-.split-toggle-btn{display:none}
 
 .content{padding:1.25rem;max-width:100%}
 .toast{position:fixed;bottom:5rem;right:1rem;background:rgba(168,85,247,.14);border:1px solid rgba(168,85,247,.35);color:#c084fc;padding:9px 16px;border-radius:9px;font-size:12px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;font-family:'Syne',sans-serif;max-width:calc(100vw - 2rem)}
 .toast.show{opacity:1}
 @media(max-width:768px){.toast{bottom:5.5rem}}
 
-/* Page header */
 .page-header{margin-bottom:1.2rem;padding:.9rem 1.1rem;background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(0,200,255,.04));border:1px solid rgba(168,85,247,.14);border-radius:12px;display:flex;align-items:center;gap:10px}
 .page-header-icon{font-size:20px}
 .page-header-text h2{font-size:14px;font-weight:800;background:linear-gradient(135deg,#a855f7,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1px}
@@ -248,8 +245,34 @@ tr:hover .del-row-btn{opacity:1}
 .pivot-table-wrap td.pval{text-align:right;color:#7dd3fc;font-family:'JetBrains Mono',monospace}
 .pivot-table-wrap td.pkey{color:#c084fc;font-weight:600}
 .pivot-section-title{font-size:10px;font-weight:700;letter-spacing:1.5px;color:#3d5273;text-transform:uppercase;margin-bottom:10px;margin-top:18px}
-.export-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:.8rem;padding:10px 12px;background:#0c0915;border:1px solid rgba(168,85,247,.12);border-radius:9px;align-items:center}
+
+/* === EXPORT ROW - PDF SETTINGS INTEGRATED === */
+.export-section{margin-bottom:.8rem;background:#0c0915;border:1px solid rgba(168,85,247,.14);border-radius:12px;overflow:hidden}
+.export-section-header{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid rgba(168,85,247,.1)}
+.export-section-title{font-size:10px;font-weight:700;letter-spacing:1.5px;color:#3d5273;text-transform:uppercase;flex:1}
+.export-row{display:flex;gap:7px;flex-wrap:wrap;padding:10px 12px;align-items:center}
 .export-row-label{font-size:10px;color:#3d5273;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-right:4px}
+
+/* PDF Settings Panel */
+.pdf-settings-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:8px 14px;border-top:1px solid rgba(168,85,247,.1);background:rgba(168,85,247,.03)}
+.pdf-set-label{font-size:9px;font-weight:700;letter-spacing:1px;color:#3d5273;text-transform:uppercase;white-space:nowrap}
+.pdf-set-select{padding:5px 8px;border-radius:6px;border:1px solid rgba(168,85,247,.22);background:#07090f;color:#e8f0fe;font-size:10px;font-family:'Syne',sans-serif;outline:none;cursor:pointer;min-height:28px}
+.pdf-set-select:focus{border-color:#a855f7}
+.pdf-toggle{display:flex;align-items:center;gap:5px;cursor:pointer;padding:4px 8px;border-radius:6px;border:1px solid rgba(168,85,247,.15);background:rgba(168,85,247,.05);transition:all .15s}
+.pdf-toggle:hover{border-color:rgba(168,85,247,.35);background:rgba(168,85,247,.1)}
+.pdf-toggle input[type=checkbox]{accent-color:#a855f7;cursor:pointer;width:12px;height:12px}
+.pdf-toggle-label{font-size:9px;font-weight:700;color:#7a90b0;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap}
+.pdf-toggle.active-toggle{border-color:rgba(16,185,129,.35);background:rgba(16,185,129,.08)}
+.pdf-toggle.active-toggle .pdf-toggle-label{color:#10b981}
+
+/* Color picker for PDF */
+.pdf-color-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.pdf-color-swatch{width:22px;height:22px;border-radius:5px;border:2px solid transparent;cursor:pointer;transition:all .15s;flex-shrink:0}
+.pdf-color-swatch:hover,.pdf-color-swatch.sel-swatch{border-color:#fff;transform:scale(1.15)}
+.pdf-color-swatch.sel-swatch{box-shadow:0 0 0 2px rgba(168,85,247,.8)}
+.pdf-custom-color{width:22px;height:22px;border-radius:5px;border:1px solid rgba(168,85,247,.3);cursor:pointer;padding:0;background:none;overflow:hidden}
+.pdf-custom-color input[type=color]{width:32px;height:32px;border:none;background:none;cursor:pointer;margin:-4px -5px;padding:0}
+
 .col-mgmt{padding:10px 12px;background:#0c0915;border:1px solid rgba(168,85,247,.12);border-radius:9px;margin-bottom:.8rem}
 .col-mgmt-title{font-size:10px;color:#3d5273;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
 .col-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
@@ -278,7 +301,7 @@ tr:hover .del-row-btn{opacity:1}
 .drawer-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#7a90b0;border-radius:7px;padding:6px 11px;font-size:11px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700}
 .drawer-close:hover{color:#fff}
 
-/* Home confirm modal */
+/* Home confirm */
 #homeConfirm{position:fixed;inset:0;z-index:6000;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:1rem}
 #homeConfirm.show{display:flex}
 .hc-box{background:linear-gradient(160deg,#0a0518,#050f1a);border:1px solid rgba(168,85,247,.3);border-radius:16px;padding:1.75rem;max-width:360px;width:100%;text-align:center}
@@ -287,14 +310,43 @@ tr:hover .del-row-btn{opacity:1}
 .hc-sub{font-size:12px;color:#3d5273;margin-bottom:16px;line-height:1.6}
 .hc-btns{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
 
-/* PDF loading overlay */
+/* PDF loading */
 #pdfLoading{position:fixed;inset:0;z-index:7000;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px}
 #pdfLoading.show{display:flex}
 .pdf-spin{width:40px;height:40px;border:3px solid rgba(239,68,68,.2);border-top-color:#ef4444;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .pdf-spin-txt{font-size:13px;color:#ef4444;font-weight:700;letter-spacing:1px}
 
-/* Column add modal */
+/* PDF Preview Modal */
+#pdfPreviewModal{position:fixed;inset:0;z-index:7500;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
+#pdfPreviewModal.show{display:flex}
+.ppm-box{background:linear-gradient(160deg,#0a0518,#050f1a);border:1px solid rgba(168,85,247,.3);border-radius:18px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:14px}
+.ppm-title{font-size:16px;font-weight:800;background:linear-gradient(135deg,#ef4444,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ppm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ppm-field{display:flex;flex-direction:column;gap:5px}
+.ppm-label{font-size:9px;font-weight:700;letter-spacing:1.2px;color:#3d5273;text-transform:uppercase}
+.ppm-select{padding:8px 11px;border-radius:8px;border:1px solid rgba(168,85,247,.22);background:#07090f;color:#e8f0fe;font-size:12px;font-family:'Syne',sans-serif;outline:none;cursor:pointer;min-height:36px;width:100%}
+.ppm-select:focus{border-color:#a855f7}
+.ppm-check-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid rgba(168,85,247,.15);background:rgba(168,85,247,.04);cursor:pointer}
+.ppm-check-row:hover{border-color:rgba(168,85,247,.35);background:rgba(168,85,247,.08)}
+.ppm-check-row input{accent-color:#a855f7;cursor:pointer;width:14px;height:14px}
+.ppm-check-label{font-size:11px;font-weight:700;color:#c084fc;letter-spacing:.3px}
+.ppm-color-section{display:flex;flex-direction:column;gap:8px}
+.ppm-color-label{font-size:9px;font-weight:700;letter-spacing:1.2px;color:#3d5273;text-transform:uppercase}
+.ppm-swatches{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.swatch-opt{width:26px;height:26px;border-radius:6px;border:2px solid transparent;cursor:pointer;transition:all .15s;flex-shrink:0}
+.swatch-opt:hover{transform:scale(1.12)}
+.swatch-opt.active{border-color:#fff;box-shadow:0 0 0 2px rgba(168,85,247,.8)}
+.swatch-custom-wrap{position:relative;width:26px;height:26px}
+.swatch-custom-wrap input[type=color]{position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:6px;cursor:pointer;padding:0;opacity:0}
+.swatch-custom-btn{width:26px;height:26px;border-radius:6px;border:1.5px dashed rgba(168,85,247,.4);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;background:#0c0915;pointer-events:none}
+.preview-table-box{border:1px solid rgba(168,85,247,.15);border-radius:8px;overflow:hidden;margin-top:4px}
+.preview-table-box table{width:100%;border-collapse:collapse;font-size:11px;font-family:'JetBrains Mono',monospace}
+.preview-table-box thead th{padding:6px 9px;text-align:left;font-family:'Syne',sans-serif;font-size:9px;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.preview-table-box tbody td{padding:5px 9px;border-top:1px solid rgba(255,255,255,.06)}
+.ppm-btns{display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap;margin-top:4px}
+
+/* Col add modal */
 #colModal{position:fixed;inset:0;z-index:6500;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;padding:1rem}
 #colModal.show{display:flex}
 .cm-box{background:linear-gradient(160deg,#0a0518,#050f1a);border:1px solid rgba(168,85,247,.3);border-radius:16px;padding:1.75rem;max-width:380px;width:100%}
@@ -311,7 +363,16 @@ tr:hover .del-row-btn{opacity:1}
 .bnav-icon{font-size:18px;line-height:1}
 .bnav-label{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
 
-/* Mobile responsive */
+/* Print styles - CRITICAL: white background, proper table for print */
+@media print{
+  body,html{background:#fff!important;color:#000!important}
+  #mainApp,#homePage,#loginScreen{display:none!important}
+  #printArea{display:block!important}
+  .no-print{display:none!important}
+  @page{margin:10mm 12mm}
+}
+#printArea{display:none}
+
 @media(max-width:768px){
   .split-layout{flex-direction:column}
   .split-left{width:100%;min-width:unset;position:static;height:auto;border-right:none;border-bottom:1px solid rgba(168,85,247,.12)}
@@ -325,6 +386,7 @@ tr:hover .del-row-btn{opacity:1}
   .chart-type-gallery{grid-template-columns:repeat(3,1fr)}
   .table-wrap{max-height:55vw}
   .del-row-btn{opacity:1}
+  .ppm-grid{grid-template-columns:1fr}
 }
 @media(max-width:480px){
   .fr-grid{grid-template-columns:repeat(2,1fr)}
@@ -342,6 +404,108 @@ tr:hover .del-row-btn{opacity:1}
 
 <!-- PDF Loading -->
 <div id="pdfLoading"><div class="pdf-spin"></div><div class="pdf-spin-txt">PDF Generating...</div></div>
+
+<!-- Print Area (hidden, shown only on print) -->
+<div id="printArea"></div>
+
+<!-- PDF Preview / Settings Modal -->
+<div id="pdfPreviewModal">
+  <div class="ppm-box">
+    <div class="ppm-title">📄 PDF Export Settings</div>
+
+    <div class="ppm-grid">
+      <div class="ppm-field">
+        <div class="ppm-label">Paper Size</div>
+        <select class="ppm-select" id="pdfPaperSize">
+          <option value="a4">A4 (210 × 297 mm)</option>
+          <option value="a3">A3 (297 × 420 mm)</option>
+          <option value="letter">Letter (8.5 × 11 in)</option>
+          <option value="legal">Legal (8.5 × 14 in)</option>
+          <option value="a5">A5 (148 × 210 mm)</option>
+        </select>
+      </div>
+      <div class="ppm-field">
+        <div class="ppm-label">Orientation</div>
+        <select class="ppm-select" id="pdfOrientation">
+          <option value="auto">Auto (by columns)</option>
+          <option value="portrait">Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+      </div>
+      <div class="ppm-field">
+        <div class="ppm-label">Font Size</div>
+        <select class="ppm-select" id="pdfFontSize">
+          <option value="7">Small (7pt)</option>
+          <option value="9" selected>Normal (9pt)</option>
+          <option value="11">Large (11pt)</option>
+          <option value="13">Extra Large (13pt)</option>
+        </select>
+      </div>
+      <div class="ppm-field">
+        <div class="ppm-label">Scope</div>
+        <select class="ppm-select" id="pdfScope">
+          <option value="current">Current Sheet</option>
+          <option value="all">All Sheets</option>
+        </select>
+      </div>
+    </div>
+
+    <label class="ppm-check-row">
+      <input type="checkbox" id="pdfRepeatHeading" checked>
+      <span class="ppm-check-label">🔁 Repeat Heading on Every Page</span>
+    </label>
+
+    <label class="ppm-check-row">
+      <input type="checkbox" id="pdfShowRowNum" checked>
+      <span class="ppm-check-label"># Show Row Numbers</span>
+    </label>
+
+    <label class="ppm-check-row">
+      <input type="checkbox" id="pdfShowTitle" checked>
+      <span class="ppm-check-label">📋 Show Title & Metadata</span>
+    </label>
+
+    <!-- Header Color Picker -->
+    <div class="ppm-color-section">
+      <div class="ppm-color-label">Header Color (Table Heading Background)</div>
+      <div class="ppm-swatches" id="headerSwatches">
+        <!-- Swatches built by JS -->
+      </div>
+    </div>
+
+    <!-- Header Text Color -->
+    <div class="ppm-color-section">
+      <div class="ppm-color-label">Header Text Color</div>
+      <div class="ppm-swatches" id="headerTextSwatches"></div>
+    </div>
+
+    <!-- Row Color -->
+    <div class="ppm-color-section">
+      <div class="ppm-color-label">Data Row Color</div>
+      <div class="ppm-swatches" id="rowSwatches"></div>
+    </div>
+
+    <!-- Alternate Row Color -->
+    <div class="ppm-color-section">
+      <div class="ppm-color-label">Alternate Row Color</div>
+      <div class="ppm-swatches" id="altRowSwatches"></div>
+    </div>
+
+    <!-- Live Preview -->
+    <div>
+      <div class="ppm-label" style="margin-bottom:6px">Preview</div>
+      <div class="preview-table-box" id="previewTableBox">
+        <!-- built by JS -->
+      </div>
+    </div>
+
+    <div class="ppm-btns">
+      <button class="btn sm" onclick="closePdfModal()">Cancel</button>
+      <button class="btn pdf sm" onclick="doExportPDF(false)">📄 Download PDF</button>
+      <button class="btn amber sm" onclick="doPrintDirect()">🖨 Print</button>
+    </div>
+  </div>
+</div>
 
 <!-- Column Add Modal -->
 <div id="colModal">
@@ -393,12 +557,12 @@ tr:hover .del-row-btn{opacity:1}
       <span class="hl1">Excel</span><span class="hl2">OS</span>
     </div>
     <div class="home-nav-r">
-      <div class="hn-v">v4.0</div>
+      <div class="hn-v">v4.1</div>
       <button class="hn-btn" onclick="goToLogin()">Launch App →</button>
     </div>
   </nav>
   <div class="home-hero">
-    <div class="hero-badge"><div class="hbd"></div>PDF Export · Split Screen · Mobile Ready</div>
+    <div class="hero-badge"><div class="hbd"></div>PDF Export · Print · Paper Size · Color Picker</div>
     <div class="hero-title">ExcelOS</div>
     <div class="hero-sub">Excel & CSV files-a upload panni — instant charts, pivot tables, statistics, PDF export. Browser-layee. No server. No limit. No login.</div>
     <div class="hero-btns">
@@ -408,61 +572,61 @@ tr:hover .del-row-btn{opacity:1}
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-v">∞</div><div class="hstat-l">Dashboards</div></div>
       <div class="hstat"><div class="hstat-v">6</div><div class="hstat-l">Chart Types</div></div>
-      <div class="hstat"><div class="hstat-v">100%</div><div class="hstat-l">Private</div></div>
-      <div class="hstat"><div class="hstat-v">PDF</div><div class="hstat-l">Export</div></div>
+      <div class="hstat"><div class="hstat-v">5</div><div class="hstat-l">Paper Sizes</div></div>
+      <div class="hstat"><div class="hstat-v">PDF</div><div class="hstat-l">+ Print</div></div>
       <div class="hstat"><div class="hstat-v">0₹</div><div class="hstat-l">Forever</div></div>
     </div>
   </div>
   <div class="home-features" id="featSec">
-    <div class="feat-label">v4.0 — New Features</div>
-    <div class="feat-title">Powerful. Mobile. Split-Screen.</div>
+    <div class="feat-label">v4.1 — PDF System Upgrade</div>
+    <div class="feat-title">Proper PDF. Paper Size. Print.</div>
     <div class="feat-grid">
       <div class="feat-card" style="--fcc:rgba(239,68,68,.4);--fcb:rgba(239,68,68,.12);--fcbr:rgba(239,68,68,.2);--fct:#ef4444">
-        <div class="feat-iw">📄</div><div class="feat-n">PDF Export</div>
-        <div class="feat-d">Current sheet-a oru click-la PDF-aa export pannu. Table formatting-oda beautiful PDF generate aagum.</div>
-        <span class="feat-tag">NEW v4</span>
+        <div class="feat-iw">📄</div><div class="feat-n">Paper Size Select</div>
+        <div class="feat-d">A4, A3, A5, Letter, Legal — yethuku venum athuku PDF generate pannalam. Portrait or Landscape.</div>
+        <span class="feat-tag">NEW v4.1</span>
       </div>
       <div class="feat-card" style="--fcc:rgba(168,85,247,.4);--fcb:rgba(168,85,247,.12);--fcbr:rgba(168,85,247,.2);--fct:#a855f7">
-        <div class="feat-iw">⬛</div><div class="feat-n">Split Screen</div>
-        <div class="feat-d">Desktop-la Admin + Analyzer rendu panel side-by-side. Drag divider-a resize pannalam. Mobile-la switch pannalam.</div>
-        <span class="feat-tag">NEW v4</span>
+        <div class="feat-iw">🖨</div><div class="feat-n">Direct Print</div>
+        <div class="feat-d">PDF modal-la "Print" button click panna browser print dialog open aagum. Proper white background-oda.</div>
+        <span class="feat-tag">NEW v4.1</span>
       </div>
       <div class="feat-card" style="--fcc:rgba(16,185,129,.4);--fcb:rgba(16,185,129,.12);--fcbr:rgba(16,185,129,.2);--fct:#10b981">
-        <div class="feat-iw">📱</div><div class="feat-n">Mobile Friendly</div>
-        <div class="feat-d">Bottom navigation, touch-friendly buttons, responsive tables — phone-la full use pannalam.</div>
-        <span class="feat-tag">NEW v4</span>
+        <div class="feat-iw">🔁</div><div class="feat-n">Heading Repeat</div>
+        <div class="feat-d">Every page-la column heading repeat aagum. Long tables-ku super useful.</div>
+        <span class="feat-tag">NEW v4.1</span>
       </div>
       <div class="feat-card" style="--fcc:rgba(0,200,255,.4);--fcb:rgba(0,200,255,.12);--fcbr:rgba(0,200,255,.2);--fct:#00c8ff">
-        <div class="feat-iw">➕</div><div class="feat-n">Column & Row Management</div>
-        <div class="feat-d">Columns add/delete pannalam. Rows add/delete pannalam. Live editing with instant save.</div>
-        <span class="feat-tag">NEW v4</span>
+        <div class="feat-iw">🎨</div><div class="feat-n">Color Picker</div>
+        <div class="feat-d">Header color, header text color, row color, alternate row color — all custom. White PDF default.</div>
+        <span class="feat-tag">NEW v4.1</span>
       </div>
       <div class="feat-card" style="--fcc:rgba(245,158,11,.4);--fcb:rgba(245,158,11,.12);--fcbr:rgba(245,158,11,.2);--fct:#f59e0b">
-        <div class="feat-iw">∑</div><div class="feat-n">Formula + Pivot + Charts</div>
-        <div class="feat-d">Excel formulas, 6 chart types, pivot tables — all in one place.</div>
-        <span class="feat-tag">Core</span>
+        <div class="feat-iw">👁</div><div class="feat-n">Live Preview</div>
+        <div class="feat-d">Color select panna PDF-la epdi theriyum nu live preview kaatum. Export pannu munnaale check pannalam.</div>
+        <span class="feat-tag">NEW v4.1</span>
       </div>
       <div class="feat-card" style="--fcc:rgba(192,132,252,.4);--fcb:rgba(192,132,252,.12);--fcbr:rgba(192,132,252,.2);--fct:#c084fc">
-        <div class="feat-iw">🔐</div><div class="feat-n">Admin Protected</div>
-        <div class="feat-d">Password-protected admin panel. Regular users data see pannalaam — edit pannamaatan.</div>
-        <span class="feat-tag">Secure</span>
+        <div class="feat-iw">⬛</div><div class="feat-n">Split Screen</div>
+        <div class="feat-d">Admin + Analyzer side-by-side. Mobile-la bottom nav-oda switch pannalam.</div>
+        <span class="feat-tag">Core</span>
       </div>
     </div>
   </div>
   <div class="home-footer">
-    <span>© 2025 ExcelOS v4 · Built with ❤️</span>
+    <span>© 2025 ExcelOS v4.1 · Built with ❤️</span>
     <span>All data stored locally · 100% Private · No server</span>
   </div>
 </div>
 
-<!-- ════ LOGIN PAGE ════ -->
+<!-- ════ LOGIN ════ -->
 <div id="loginScreen">
   <div id="starsContainer" style="position:absolute;inset:0;overflow:hidden"></div>
   <div class="login-back" onclick="backToHome()">← Back</div>
   <div class="blob" style="width:400px;height:400px;background:#a855f7;top:-120px;left:-120px"></div>
   <div class="blob" style="width:320px;height:320px;background:#00c8ff;bottom:-80px;right:-80px;animation-delay:2.5s"></div>
   <div class="login-inner">
-    <div class="brand-tag">Data Intelligence Platform v4</div>
+    <div class="brand-tag">Data Intelligence Platform v4.1</div>
     <div class="login-title">ExcelOS</div>
     <div class="login-sub">Click the door — no password needed</div>
     <div class="chart-previews">
@@ -496,8 +660,8 @@ tr:hover .del-row-btn{opacity:1}
       <span class="fhint f1">📊 6 Charts</span>
       <span class="fhint f2">📈 Pivot</span>
       <span class="fhint f3">∑ Formulas</span>
-      <span class="fhint f4">📄 PDF Export</span>
-      <span class="fhint f5">⬛ Split Screen</span>
+      <span class="fhint f4">🖨 Print</span>
+      <span class="fhint f5">🎨 Color PDF</span>
       <span class="fhint f6">📱 Mobile</span>
     </div>
   </div>
@@ -509,7 +673,7 @@ tr:hover .del-row-btn{opacity:1}
     <div class="logo" onclick="askGoHome()" title="Home">
       <div class="logo-dot"></div><span>Excel</span><span style="color:#e8f0fe">OS</span>
     </div>
-    <div class="nav-ver">v4.0</div>
+    <div class="nav-ver">v4.1</div>
     <div class="nav-pills">
       <button class="npill" onclick="askGoHome()">🏠</button>
       <div class="nav-sep"></div>
@@ -560,7 +724,7 @@ tr:hover .del-row-btn{opacity:1}
     <!-- Divider -->
     <div class="split-divider" id="splitDivider" title="Drag to resize"></div>
 
-    <!-- RIGHT: Analyzer Panel -->
+    <!-- RIGHT: Analyzer -->
     <div class="split-right" id="splitRight">
       <div class="content" style="padding:1rem">
         <div class="toast" id="toast"></div>
@@ -574,12 +738,17 @@ tr:hover .del-row-btn{opacity:1}
               </div>
             </div>
 
-            <!-- Export row -->
-            <div class="export-row">
-              <span class="export-row-label">Export:</span>
-              <button class="btn green sm" onclick="exportCSV()">💾 CSV</button>
-              <button class="btn pdf sm" onclick="exportPDF()">📄 PDF</button>
-              <button class="btn amber sm" onclick="exportAllSheetsPDF()">📑 PDF (All Sheets)</button>
+            <!-- Export Section -->
+            <div class="export-section">
+              <div class="export-section-header">
+                <span class="export-section-title">📤 Export & Print</span>
+              </div>
+              <div class="export-row">
+                <button class="btn green sm" onclick="exportCSV()">💾 CSV</button>
+                <button class="btn pdf sm" onclick="openPdfModal(false)">📄 PDF Export</button>
+                <button class="btn amber sm" onclick="openPdfModal(true)">📑 All Sheets PDF</button>
+                <button class="btn accent sm" onclick="doPrintDirect()">🖨 Quick Print</button>
+              </div>
             </div>
 
             <!-- Column Management -->
@@ -604,7 +773,7 @@ tr:hover .del-row-btn{opacity:1}
               <div class="toolbar">
                 <input class="di" type="text" id="searchBox" placeholder="Search..." oninput="filterTable()">
                 <button class="btn sm" onclick="addRow()">+ Row</button>
-                <button class="btn sm" onclick="toggleColMgmt()">⚙ Columns</button>
+                <button class="btn sm" onclick="toggleColMgmt()">⚙ Cols</button>
                 <button class="btn sm" onclick="toggleFml()">⇌ Fml</button>
               </div>
               <div class="table-outer">
@@ -650,7 +819,7 @@ tr:hover .del-row-btn{opacity:1}
     <button class="bnav-btn active" id="bnavAdmin" onclick="mobileShowAdmin()"><span class="bnav-icon">🗂</span><span class="bnav-label">Admin</span></button>
     <button class="bnav-btn" id="bnavAnalyzer" onclick="mobileShowAnalyzer()"><span class="bnav-icon">📊</span><span class="bnav-label">Analyze</span></button>
     <button class="bnav-btn" onclick="mobileShowAnalyzer();switchTab('graph')"><span class="bnav-icon">📈</span><span class="bnav-label">Charts</span></button>
-    <button class="bnav-btn" id="bnavExport" onclick="exportPDF()"><span class="bnav-icon">📄</span><span class="bnav-label">PDF</span></button>
+    <button class="bnav-btn" onclick="openPdfModal(false)"><span class="bnav-icon">📄</span><span class="bnav-label">PDF</span></button>
   </div>
 </div>
 
@@ -678,6 +847,133 @@ function buildChartGallery(){
 }
 function selectChartType(t){selectedChartType=t;buildChartGallery();renderChart();}
 
+/* ══ PDF Color System ══ */
+const SWATCH_COLORS={
+  header:[
+    {hex:'#1e3a5f',label:'Navy'},
+    {hex:'#1a1a2e',label:'Dark'},
+    {hex:'#2d6a4f',label:'Forest'},
+    {hex:'#7b2d00',label:'Brown'},
+    {hex:'#4a1580',label:'Purple'},
+    {hex:'#0d3b6e',label:'Blue'},
+    {hex:'#374151',label:'Slate'},
+    {hex:'#ffffff',label:'White'},
+  ],
+  headerText:[
+    {hex:'#ffffff',label:'White'},
+    {hex:'#000000',label:'Black'},
+    {hex:'#fbbf24',label:'Gold'},
+    {hex:'#a5f3fc',label:'Sky'},
+    {hex:'#86efac',label:'Green'},
+    {hex:'#f9a8d4',label:'Pink'},
+  ],
+  row:[
+    {hex:'#ffffff',label:'White'},
+    {hex:'#f9fafb',label:'Gray-50'},
+    {hex:'#eff6ff',label:'Blue-50'},
+    {hex:'#f0fdf4',label:'Green-50'},
+    {hex:'#fefce8',label:'Yellow-50'},
+    {hex:'#fdf4ff',label:'Purple-50'},
+  ],
+  altRow:[
+    {hex:'#f3f4f6',label:'Gray-100'},
+    {hex:'#e0f2fe',label:'Blue-100'},
+    {hex:'#dcfce7',label:'Green-100'},
+    {hex:'#fef9c3',label:'Yellow-100'},
+    {hex:'#f3e8ff',label:'Purple-100'},
+    {hex:'#ffffff',label:'White'},
+  ],
+};
+
+let pdfColors={
+  header:'#1e3a5f',
+  headerText:'#ffffff',
+  row:'#ffffff',
+  altRow:'#f3f4f6',
+};
+let pdfAllSheets=false;
+
+function hexToRgb(hex){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return[r,g,b];
+}
+
+function buildSwatchRow(containerId,colorKey,colors){
+  const container=document.getElementById(containerId);
+  let html='';
+  colors.forEach(c=>{
+    const isSel=pdfColors[colorKey]===c.hex;
+    html+=`<div class="swatch-opt${isSel?' active':''}" style="background:${c.hex};border:2px solid ${c.hex==='#ffffff'?'#ccc':'transparent'}"
+      title="${c.label}" onclick="selectSwatch('${colorKey}','${c.hex}',this)"></div>`;
+  });
+  // Custom color picker
+  html+=`<div class="swatch-custom-wrap" title="Custom color">
+    <div class="swatch-custom-btn" style="background:${pdfColors[colorKey]}">+</div>
+    <input type="color" value="${pdfColors[colorKey]}" onchange="selectSwatch('${colorKey}',this.value,this.parentElement.querySelector('.swatch-custom-btn'),true)">
+  </div>`;
+  container.innerHTML=html;
+}
+
+function selectSwatch(colorKey,hex,el,isCustom){
+  pdfColors[colorKey]=hex;
+  // Update active state
+  const containerId={'header':'headerSwatches','headerText':'headerTextSwatches','row':'rowSwatches','altRow':'altRowSwatches'}[colorKey];
+  const container=document.getElementById(containerId);
+  container.querySelectorAll('.swatch-opt').forEach(s=>s.classList.remove('active'));
+  if(!isCustom&&el)el.classList.add('active');
+  // Update custom btn color
+  const customBtn=container.querySelector('.swatch-custom-btn');
+  if(customBtn)customBtn.style.background=hex;
+  buildPreviewTable();
+}
+
+function buildPreviewTable(){
+  const hBg=pdfColors.header,hTxt=pdfColors.headerText,rBg=pdfColors.row,arBg=pdfColors.altRow;
+  const previewHeaders=headers.slice(0,5);
+  const previewRows=rawData.slice(0,4);
+  let html=`<table><thead><tr>`;
+  if(document.getElementById('pdfShowRowNum')?.checked)html+=`<th style="background:${hBg};color:${hTxt};padding:5px 8px;font-size:9px">#</th>`;
+  previewHeaders.forEach(h=>{html+=`<th style="background:${hBg};color:${hTxt};padding:5px 8px;font-size:9px;font-family:sans-serif;font-weight:700">${h||'—'}</th>`;});
+  if(headers.length>5)html+=`<th style="background:${hBg};color:${hTxt};padding:5px 8px;font-size:9px">...</th>`;
+  html+=`</tr></thead><tbody>`;
+  previewRows.forEach((row,ri)=>{
+    const bg=ri%2===0?rBg:arBg;
+    html+=`<tr>`;
+    if(document.getElementById('pdfShowRowNum')?.checked)html+=`<td style="background:${bg};color:#666;padding:4px 8px;font-size:9px;font-family:monospace;text-align:center">${ri+1}</td>`;
+    previewHeaders.forEach((_,ci)=>{
+      const val=row[ci]!==undefined?String(row[ci]):'';
+      const isNum=!isNaN(parseFloat(val))&&val.trim()!=='';
+      html+=`<td style="background:${bg};color:#111;padding:4px 8px;font-size:9px;font-family:monospace;text-align:${isNum?'right':'left'}">${val||''}</td>`;
+    });
+    if(headers.length>5)html+=`<td style="background:${bg};color:#999;font-size:9px">…</td>`;
+    html+=`</tr>`;
+  });
+  if(!previewRows.length)html+=`<tr><td colspan="99" style="background:${rBg};color:#999;padding:8px;text-align:center;font-size:10px">No data</td></tr>`;
+  html+=`</tbody></table>`;
+  document.getElementById('previewTableBox').innerHTML=html;
+}
+
+function openPdfModal(allSheets){
+  if(!activeKey||!headers.length){showToast('File open pannu!');return;}
+  pdfAllSheets=allSheets;
+  document.getElementById('pdfScope').value=allSheets?'all':'current';
+  // Build swatches
+  buildSwatchRow('headerSwatches','header',SWATCH_COLORS.header);
+  buildSwatchRow('headerTextSwatches','headerText',SWATCH_COLORS.headerText);
+  buildSwatchRow('rowSwatches','row',SWATCH_COLORS.row);
+  buildSwatchRow('altRowSwatches','altRow',SWATCH_COLORS.altRow);
+  buildPreviewTable();
+  document.getElementById('pdfPreviewModal').classList.add('show');
+  // update preview when checkboxes change
+  ['pdfShowRowNum','pdfShowTitle','pdfRepeatHeading'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.onchange=buildPreviewTable;
+  });
+}
+function closePdfModal(){
+  document.getElementById('pdfPreviewModal').classList.remove('show');
+}
+
 /* ══ Page navigation ══ */
 function showPage(id){
   document.getElementById('homePage').style.display=id==='homePage'?'flex':'none';
@@ -685,8 +981,7 @@ function showPage(id){
   document.getElementById('mainApp').style.display=id==='mainApp'?'block':'none';
 }
 function fade(fn){
-  const f=document.getElementById('fadeCover');
-  f.classList.add('show');
+  const f=document.getElementById('fadeCover');f.classList.add('show');
   setTimeout(()=>{fn();setTimeout(()=>f.classList.remove('show'),50);},350);
 }
 function goToLogin(){fade(()=>showPage('loginScreen'));}
@@ -717,12 +1012,12 @@ function doLogin(){
     const feats=[
       {icon:'📋',name:'Data Table',desc:'Edit, search, manage',col:'#a855f7',d:'0.05s'},
       {icon:'📊',name:'6 Charts',desc:'Bar, Line, Pie & more',col:'#00c8ff',d:'0.10s'},
-      {icon:'∑',name:'Formulas',desc:'Excel formula reader',col:'#ec4899',d:'0.15s'},
-      {icon:'📄',name:'PDF Export',desc:'Beautiful PDF tables',col:'#ef4444',d:'0.20s'},
-      {icon:'⬛',name:'Split Screen',desc:'Admin + Analyzer',col:'#10b981',d:'0.25s'},
-      {icon:'📱',name:'Mobile UI',desc:'Bottom nav, touch',col:'#f59e0b',d:'0.30s'},
+      {icon:'🎨',name:'Color PDF',desc:'Custom heading colors',col:'#ec4899',d:'0.15s'},
+      {icon:'🖨',name:'Print',desc:'Direct browser print',col:'#ef4444',d:'0.20s'},
+      {icon:'📐',name:'Paper Size',desc:'A4 A3 Letter Legal',col:'#10b981',d:'0.25s'},
+      {icon:'🔁',name:'Heading Repeat',desc:'Every page',col:'#f59e0b',d:'0.30s'},
     ];
-    frev.innerHTML=`<div style="text-align:center;padding:0 1rem"><div class="fr-title">🚀 ExcelOS v4 — Varaverpu!</div><div class="fr-sub">New features:</div></div>
+    frev.innerHTML=`<div style="text-align:center;padding:0 1rem"><div class="fr-title">🚀 ExcelOS v4.1 — PDF System!</div><div class="fr-sub">New features:</div></div>
     <div class="fr-grid">${feats.map(f=>`<div class="fr-card" style="animation-delay:${f.d};border-color:${f.col}33"><div class="fr-icon">${f.icon}</div><div class="fr-name" style="color:${f.col}">${f.name}</div><div class="fr-desc">${f.desc}</div></div>`).join('')}</div>`;
     frev.classList.add('show');
     setTimeout(()=>{
@@ -801,7 +1096,6 @@ function showAdmin(){
 }
 function mobileShowAdmin(){
   if(!adminAuth){showAdminDrawer();return;}
-  // On mobile, hide right, show left
   if(window.innerWidth<=768){
     document.getElementById('splitLeft').style.display='block';
     document.getElementById('splitRight').style.display='none';
@@ -876,10 +1170,7 @@ function renderFileGrid(){
       </div></div>`;
   }).join('');
 }
-function openAndSwitch(key){
-  openFile(key);
-  if(window.innerWidth<=768)mobileShowAnalyzer();
-}
+function openAndSwitch(key){openFile(key);if(window.innerWidth<=768)mobileShowAnalyzer();}
 function openFile(key){
   activeKey=key;const f=fileStore[key];
   document.getElementById('analyzerTitle').textContent=f.name;
@@ -911,8 +1202,7 @@ function loadSheetData(name,btn){
   const sd=fileStore[activeKey].sheets[name];
   if(!sd.data.length){document.getElementById('tableWrap').innerHTML='<div class="empty-msg">No data</div>';return;}
   headers=[...sd.data[0]];rawData=sd.data.slice(1).map(r=>[...r]);showFml=false;
-  renderTable(rawData);renderFormulasPanel(sd.formulas);populateChartCols();renderStats();
-  renderColMgmt();
+  renderTable(rawData);renderFormulasPanel(sd.formulas);populateChartCols();renderStats();renderColMgmt();
 }
 function renderTable(data){
   let html='<table><thead><tr><th class="rn">#</th>';
@@ -1002,7 +1292,7 @@ function renderChart(){
   });
 }
 
-/* ══ Export ══ */
+/* ══ CSV Export ══ */
 function exportCSV(){
   function esc(val){const s=String(val==null?'':val);if(/[,"\n\r]/.test(s)||s!==s.trim())return'"'+s.replace(/"/g,'""')+'"';return s;}
   const csv=[headers,...rawData].map(r=>r.map(esc).join(',')).join('\r\n');
@@ -1011,80 +1301,242 @@ function exportCSV(){
   showToast('CSV exported ✓');
 }
 
-function exportPDF(){
-  if(!activeKey||!headers.length){showToast('Data illai — file open pannu');return;}
+/* ══ PDF CORE FUNCTION ══ */
+function getPdfConfig(){
+  const paperSize=document.getElementById('pdfPaperSize').value||'a4';
+  const orientPref=document.getElementById('pdfOrientation').value||'auto';
+  const fontSize=parseInt(document.getElementById('pdfFontSize').value)||9;
+  const repeatHeading=document.getElementById('pdfRepeatHeading').checked;
+  const showRowNum=document.getElementById('pdfShowRowNum').checked;
+  const showTitle=document.getElementById('pdfShowTitle').checked;
+  const scope=document.getElementById('pdfScope').value||'current';
+
+  // Paper dimensions (mm)
+  const paperDims={
+    a4:[210,297],a3:[297,420],letter:[215.9,279.4],legal:[215.9,355.6],a5:[148,210]
+  };
+  const dims=paperDims[paperSize]||paperDims.a4;
+
+  // Determine orientation
+  let orientation=orientPref;
+  if(orientation==='auto')orientation=headers.length>7?'landscape':'portrait';
+
+  return{paperSize,dims,orientation,fontSize,repeatHeading,showRowNum,showTitle,scope};
+}
+
+function buildPdfDoc(cfg,sheetName,hdr,rows,fname){
+  const{jsPDF}=window.jspdf;
+  const[pw,ph]=cfg.orientation==='landscape'?[cfg.dims[1],cfg.dims[0]]:cfg.dims;
+  const doc=new jsPDF({orientation:cfg.orientation,unit:'mm',format:cfg.dims});
+
+  const hBgRgb=hexToRgb(pdfColors.header);
+  const hTxtRgb=hexToRgb(pdfColors.headerText);
+  const rowRgb=hexToRgb(pdfColors.row);
+  const altRgb=hexToRgb(pdfColors.altRow);
+
+  const startY=cfg.showTitle?22:10;
+
+  if(cfg.showTitle){
+    // Title bar - white background
+    doc.setFillColor(245,245,250);
+    doc.rect(0,0,pw,20,'F');
+    // Accent line at top
+    doc.setFillColor(...hBgRgb);
+    doc.rect(0,0,pw,3,'F');
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(11);
+    doc.setTextColor(30,30,50);
+    doc.text(fname+(sheetName?' — '+sheetName:''),10,11);
+    doc.setFontSize(7);
+    doc.setTextColor(120,120,140);
+    doc.text('Rows: '+rows.length+' | Cols: '+hdr.length+' | '+new Date().toLocaleString(),10,17);
+    // Light border
+    doc.setDrawColor(200,200,220);
+    doc.setLineWidth(0.3);
+    doc.line(0,20,pw,20);
+  }
+
+  const showRN=cfg.showRowNum;
+  const tableHeaders=showRN?['#',...hdr.map(h=>h||'—')]:hdr.map(h=>h||'—');
+  const tableBody=rows.map((row,ri)=>{
+    const vals=hdr.map((_,ci)=>String(row[ci]!=null?row[ci]:''));
+    return showRN?[String(ri+1),...vals]:vals;
+  });
+
+  doc.autoTable({
+    head:[tableHeaders],
+    body:tableBody,
+    startY,
+    repeatHeaders:cfg.repeatHeading, // HEADING REPEAT ON EVERY PAGE
+    styles:{
+      fontSize:cfg.fontSize,
+      cellPadding:2.5,
+      textColor:[20,20,40],
+      fillColor:rowRgb,
+      lineColor:[200,200,215],
+      lineWidth:0.25,
+      overflow:'ellipsize',
+      font:'helvetica',
+    },
+    headStyles:{
+      fillColor:hBgRgb,
+      textColor:hTxtRgb,
+      fontStyle:'bold',
+      halign:'center',
+      fontSize:cfg.fontSize,
+    },
+    alternateRowStyles:{
+      fillColor:altRgb,
+    },
+    columnStyles:showRN?{0:{halign:'center',cellWidth:8,textColor:[140,140,160]}}:{},
+    margin:{left:8,right:8,top:showTitle?24:8,bottom:10},
+    didParseCell:(data)=>{
+      // Right-align numeric cells
+      if(data.section==='body'){
+        const val=data.cell.raw;
+        if(!isNaN(parseFloat(String(val)))&&String(val).trim()!==''){
+          data.cell.styles.halign='right';
+          data.cell.styles.textColor=[30,80,160];
+        }
+      }
+    },
+    didDrawPage:(data)=>{
+      // Footer on each page
+      const pg=doc.internal.getCurrentPageInfo().pageNumber;
+      const totalPages=doc.internal.getNumberOfPages();
+      doc.setFontSize(7);
+      doc.setTextColor(160,160,180);
+      doc.text(fname,10,ph-4);
+      doc.text('Page '+pg+(totalPages>1?' / '+totalPages:''),pw-25,ph-4);
+      // Footer line
+      doc.setDrawColor(210,210,230);
+      doc.setLineWidth(0.2);
+      doc.line(8,ph-7,pw-8,ph-7);
+    }
+  });
+
+  return doc;
+}
+
+function doExportPDF(forPrint){
+  if(!activeKey||!headers.length){showToast('File open pannu!');return;}
+  closePdfModal();
   const pdfL=document.getElementById('pdfLoading');pdfL.classList.add('show');
   setTimeout(()=>{
     try{
-      const {jsPDF}=window.jspdf;
-      const isLandscape=headers.length>6;
-      const doc=new jsPDF({orientation:isLandscape?'landscape':'portrait',unit:'mm',format:'a4'});
+      const cfg=getPdfConfig();
       const fname=fileStore[activeKey]?.name||'Export';
-      const sheetName=currentSheet||'Sheet';
-      // Title
-      doc.setFillColor(15,7,35);doc.rect(0,0,doc.internal.pageSize.getWidth(),22,'F');
-      doc.setFont('helvetica','bold');doc.setFontSize(14);doc.setTextColor(168,85,247);
-      doc.text('ExcelOS — '+fname,10,10);
-      doc.setFontSize(8);doc.setTextColor(100,120,160);
-      doc.text('Sheet: '+sheetName+' | Rows: '+rawData.length+' | Exported: '+new Date().toLocaleString(),10,16);
-      // Table
-      const body=rawData.map(r=>headers.map((_,i)=>String(r[i]||'')));
-      doc.autoTable({
-        head:[headers.map(h=>h||'—')],body,startY:24,
-        styles:{fontSize:8,cellPadding:3,textColor:[220,220,235],fillColor:[12,9,21],lineColor:[40,20,70],lineWidth:.3,overflow:'ellipsize'},
-        headStyles:{fillColor:[30,16,56],textColor:[168,85,247],fontStyle:'bold',halign:'center'},
-        alternateRowStyles:{fillColor:[16,12,28]},
-        columnStyles:{},
-        margin:{left:8,right:8},
-        didDrawPage:(data)=>{
-          const pg=doc.internal.getCurrentPageInfo().pageNumber;
-          doc.setFontSize(7);doc.setTextColor(60,80,100);
-          doc.text('Page '+pg,doc.internal.pageSize.getWidth()-15,doc.internal.pageSize.getHeight()-5);
-        }
-      });
-      doc.save(fname+' — '+sheetName+'.pdf');
-      showToast('📄 PDF exported ✓');
-    }catch(e){showToast('PDF error: '+e.message);}
+      const scope=cfg.scope;
+      const{jsPDF}=window.jspdf;
+
+      if(scope==='all'){
+        // Multi-sheet PDF
+        const f=fileStore[activeKey];
+        const sheetNames=Object.keys(f.sheets);
+        let doc=null;
+        sheetNames.forEach((sName,si)=>{
+          const sd=f.sheets[sName];
+          if(!sd.data||sd.data.length<1)return;
+          const hdr=sd.data[0];
+          const rows=sd.data.slice(1);
+          if(!hdr.length)return;
+          if(si===0){
+            doc=buildPdfDoc(cfg,sName,hdr,rows,fname);
+          } else {
+            doc.addPage(cfg.dims,cfg.orientation);
+            // Re-render table on new page
+            const hBgRgb=hexToRgb(pdfColors.header);
+            const hTxtRgb=hexToRgb(pdfColors.headerText);
+            const rowRgb=hexToRgb(pdfColors.row);
+            const altRgb=hexToRgb(pdfColors.altRow);
+            const[pw,ph]=cfg.orientation==='landscape'?[cfg.dims[1],cfg.dims[0]]:cfg.dims;
+            let sy=10;
+            if(cfg.showTitle){
+              doc.setFillColor(245,245,250);doc.rect(0,0,pw,20,'F');
+              doc.setFillColor(...hBgRgb);doc.rect(0,0,pw,3,'F');
+              doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(30,30,50);
+              doc.text(fname+' — '+sName,10,11);
+              doc.setFontSize(7);doc.setTextColor(120,120,140);
+              doc.text('Rows: '+rows.length+' | '+new Date().toLocaleString(),10,17);
+              doc.setDrawColor(200,200,220);doc.setLineWidth(0.3);doc.line(0,20,pw,20);
+              sy=22;
+            }
+            const showRN=cfg.showRowNum;
+            const tH=showRN?['#',...hdr.map(h=>h||'—')]:hdr.map(h=>h||'—');
+            const tB=rows.map((row,ri)=>{const v=hdr.map((_,ci)=>String(row[ci]!=null?row[ci]:''));return showRN?[String(ri+1),...v]:v;});
+            doc.autoTable({
+              head:[tH],body:tB,startY:sy,repeatHeaders:cfg.repeatHeading,
+              styles:{fontSize:cfg.fontSize,cellPadding:2.5,textColor:[20,20,40],fillColor:rowRgb,lineColor:[200,200,215],lineWidth:0.25,overflow:'ellipsize'},
+              headStyles:{fillColor:hBgRgb,textColor:hTxtRgb,fontStyle:'bold',halign:'center',fontSize:cfg.fontSize},
+              alternateRowStyles:{fillColor:altRgb},
+              columnStyles:showRN?{0:{halign:'center',cellWidth:8,textColor:[140,140,160]}}:{},
+              margin:{left:8,right:8,top:sy,bottom:10},
+              didParseCell:(data)=>{if(data.section==='body'){const val=data.cell.raw;if(!isNaN(parseFloat(String(val)))&&String(val).trim()!==''){data.cell.styles.halign='right';data.cell.styles.textColor=[30,80,160];}}},
+              didDrawPage:()=>{
+                const pg=doc.internal.getCurrentPageInfo().pageNumber;
+                doc.setFontSize(7);doc.setTextColor(160,160,180);
+                doc.text(fname+' — '+sName,10,ph-4);
+                doc.text('Page '+pg,pw-20,ph-4);
+                doc.setDrawColor(210,210,230);doc.setLineWidth(0.2);doc.line(8,ph-7,pw-8,ph-7);
+              }
+            });
+          }
+        });
+        if(!doc){showToast('No data to export');pdfL.classList.remove('show');return;}
+        if(forPrint){triggerPrintFromDoc(doc,fname+' — All Sheets');}
+        else{doc.save(fname+' — All Sheets.pdf');}
+      } else {
+        // Current sheet
+        const doc=buildPdfDoc(cfg,currentSheet,headers,rawData,fname);
+        if(forPrint){triggerPrintFromDoc(doc,fname);}
+        else{doc.save(fname+(currentSheet?' — '+currentSheet:'')+'.pdf');}
+      }
+      showToast(forPrint?'🖨 Sending to printer...':'📄 PDF exported ✓');
+    }catch(e){showToast('PDF error: '+e.message);console.error(e);}
     pdfL.classList.remove('show');
   },150);
 }
 
-function exportAllSheetsPDF(){
-  if(!activeKey){showToast('File open pannu');return;}
+/* ══ Print via PDF blob → window ══ */
+function triggerPrintFromDoc(doc,fname){
+  try{
+    const blob=doc.output('blob');
+    const url=URL.createObjectURL(blob);
+    const printWin=window.open(url,'_blank');
+    if(printWin){
+      printWin.onload=()=>{
+        setTimeout(()=>{printWin.print();},600);
+      };
+    } else {
+      // Fallback: download PDF
+      doc.save(fname+'.pdf');
+      showToast('Popup blocked — PDF downloaded instead');
+    }
+  }catch(e){
+    doc.save(fname+'.pdf');
+    showToast('Print fallback: PDF downloaded');
+  }
+}
+
+/* Quick print without opening modal */
+function doPrintDirect(){
+  if(!activeKey||!headers.length){showToast('File open pannu!');return;}
+  // Use current modal settings if modal was previously opened, else defaults
   const pdfL=document.getElementById('pdfLoading');pdfL.classList.add('show');
   setTimeout(()=>{
     try{
-      const {jsPDF}=window.jspdf;
-      const f=fileStore[activeKey];
-      const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
-      const sheets=Object.keys(f.sheets);
-      sheets.forEach((sName,si)=>{
-        const sd=f.sheets[sName];if(!sd.data.length)return;
-        const hd=sd.data[0];const bd=sd.data.slice(1).map(r=>hd.map((_,i)=>String(r[i]||'')));
-        if(si>0)doc.addPage();
-        doc.setFillColor(15,7,35);doc.rect(0,0,297,20,'F');
-        doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(168,85,247);
-        doc.text('ExcelOS — '+f.name,10,10);
-        doc.setFontSize(8);doc.setTextColor(100,120,160);
-        doc.text('Sheet: '+sName+' ('+si+1+'/'+sheets.length+') | '+new Date().toLocaleString(),10,16);
-        doc.autoTable({
-          head:[hd.map(h=>h||'—')],body:bd,startY:22,
-          styles:{fontSize:7,cellPadding:2.5,textColor:[220,220,235],fillColor:[12,9,21],lineColor:[40,20,70],lineWidth:.2,overflow:'ellipsize'},
-          headStyles:{fillColor:[30,16,56],textColor:[168,85,247],fontStyle:'bold',halign:'center'},
-          alternateRowStyles:{fillColor:[16,12,28]},
-          margin:{left:7,right:7},
-          didDrawPage:(data)=>{
-            const pg=doc.internal.getCurrentPageInfo().pageNumber;
-            doc.setFontSize(7);doc.setTextColor(60,80,100);
-            doc.text('Page '+pg,285,doc.internal.pageSize.getHeight()-4);
-          }
-        });
-      });
-      doc.save(f.name+' — All Sheets.pdf');
-      showToast('📑 All sheets PDF exported ✓');
-    }catch(e){showToast('PDF error: '+e.message);}
+      const cfg={
+        dims:[210,297],orientation:headers.length>7?'landscape':'portrait',
+        fontSize:9,repeatHeading:true,showRowNum:true,showTitle:true,scope:'current',
+        paperSize:'a4'
+      };
+      const fname=fileStore[activeKey]?.name||'Export';
+      const doc=buildPdfDoc(cfg,currentSheet,headers,rawData,fname);
+      triggerPrintFromDoc(doc,fname);
+      showToast('🖨 Opening print dialog...');
+    }catch(e){showToast('Print error: '+e.message);}
     pdfL.classList.remove('show');
-  },150);
+  },100);
 }
 
 /* ══ Formula panel ══ */
@@ -1146,6 +1598,7 @@ function renderPivot(){
   });
   html+=`</tbody></table></div>`;out.innerHTML=html;
 }
+
 function switchTab(name){
   ['data','formulas','graph','summary'].forEach((n,i)=>{
     document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
