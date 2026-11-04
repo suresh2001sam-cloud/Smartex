@@ -143,11 +143,11 @@ const at=(ms,f)=>tm.push(setTimeout(f,ms));
 function cap(h){const c=$('cap');c.innerHTML=`<div class="l">${h}</div>`;requestAnimationFrame(()=>requestAnimationFrame(()=>c.firstChild&&c.firstChild.classList.add('on')))}
 function capOff(){const l=$('cap').firstChild;l&&l.classList.remove('on')}
 function pop(px,py,c){rocket(px,py,()=>{boom();burst(px,py,90,c);burst(px,py,30,'#fff',3)},c)}
-function open_(d){cur=d;const L=LANG[d.l]||LANG.en;size();$('show').classList.add('on');$('maker').style.display='none';$('back').style.display=isPrev?'block':'none';
+function open_(d){cur=d;const L=LANG[d.l]||LANG.en;size();$('show').classList.add('on');const mk=$('maker');if(mk)mk.style.display='none';$('back').style.display=isPrev?'block':'none';
 $('sh2').textContent=`${d.n}, ${L.s}`;$('sp').textContent=`${L.w}, ${d.f} 🪔`;$('start').style.display='flex';$('end').classList.remove('on');$('cap').innerHTML=''}
 function begin(){ac();AC&&AC.state==='suspended'&&AC.resume();$('start').style.display='none';play(cur)}
 function clear(){tm.forEach(clearTimeout);tm=[];cancelAnimationFrame(raf);alive=0;P=[];R=[];TP=[];E=[];D=[];x.clearRect(0,0,W,H);$('cap').innerHTML=''}
-function stop(){clear();$('show').classList.remove('on');$('maker').style.display='flex';isPrev=false}
+function stop(){clear();$('show').classList.remove('on');const mk=$('maker');if(mk)mk.style.display='flex';isPrev=false}
 function play(d){clear();size();cur=d;const L=LANG[d.l]||LANG.en;alive=1;t0=performance.now();$('end').classList.remove('on');raf=requestAnimationFrame(loop);
 const sz=Math.min(W*(W<600?.2:.13),150),ys=W<600?[.28,.46]:[.3,.52];
 at(300,()=>cap(esc(L.g(d.n))));
